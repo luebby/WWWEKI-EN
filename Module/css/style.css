@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;400&display=swap');
+
+/* (Text-)Farben definieren */
+p grey {
+  color: #5E6974;
+}
+p green {
+  color: #0F710B;
+}
+p red {
+  color: #F34213;
+}
+p blue {
+  color: #0000FF;
+}
+p orange {
+  color: #FF8811;
+}
+p violet {
+  color: #DA70D6;
+}
+p purple {
+  color: #7A378B;
+}
+p olive {
+  color: #808000;
+}
+p ft {
+  font-size: 10px;
+  opacity: 0.8;
+}
+p ftnum {
+  vertical-align:super;
+  font-size: 8px;
+  color: blue;
+}
+
+/* Body  */
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Links */
+a { 
+  color: #1AA469 !important;
+}
+
+/* Überschriften */
+h2 {
+  color: #1AA469;
+  margin-top: 10px;
+  font-weight: bold; 
+}
+
+/* KIcampus-Farbe: aubergine - #3A2A78, blau10% - #EAF4F8, grün - #1AA469 */
+
+/* Menü-Layout definieren */
+.panel, pre {
+  border-radius: 0;
+  border: solid 1px #400080;
+}
+/*.band{
+  margin-top: 8px;
+  padding: 0;
+  background-image: url("KIcampusLogo.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+  background-size: 10%;
+  background-color: #fff;
+}*/
+.band .tutorialTitle {
+  display: block;
+  color: #fff;
+  background-color: #3A2A78;
+  border: 0;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+}
+
+.topics .tutorialTitle {
+  display: none;
+}
+.topics {
+  margin-top: 20px;
+  padding-right: 80px;
+  overflow-x: auto;
+  padding-bottom: 600px;
+}
+.topicsList {
+  float: left;
+  position: relative;
+  width: 23%;
+  min-width: 270px;
+  overflow: auto;
+  scroll-behavior: smooth;
+  transform: translateZ(0); /* force repaint to work on older browser used in the IDE */
+  background-color: #3A2A78;
+  left: 2px;
+  margin: 0;
+  padding: 10px;
+  padding-left: 8px;
+  margin-left: 2px;
+  border: 0;
+}
+.topicsList .topic {
+  line-height: 1.5 !important;
+  height: auto;
+  padding: 4px;
+  padding-left: 10px;
+  font-size: 16px;
+  border: 0 !important;
+  margin: 0 !important;
+  color: #fff;
+  background-color: #3A2A78;
+  background-image: none !important;
+  /*background-size: 0.2px 80px;*/
+}
+.topicsList .topic:hover {
+  color: rgb(174, 130, 185) !important;
+  background-color: #3A2A78 !important;
+  font-weight: bold !important;
+}
+.topicsList .topic.current {
+  /*color: #3A2A78 !important;
+  background-color: rgb(174, 130, 185) !important;*/
+  color: rgb(174, 130, 185) !important;
+  background-color: #3A2A78 !important;
+  font-weight: bold !important;
+}
+.topicsFooter {
+  padding-top: 2px;
+  padding-bottom: 2px;
+  margin-top: 6px;
+  color: #e6ccff; /*#dbf0ee;*/
+  background-color: #3A2A78; /*#301a87;*/
+  font-size: 18px;
+}
+
+.btn-default {
+  background-color: #e0e0e0 !important;
+  background-image: none;
+  border: none; }
+.btn-default:hover {
+  background-color: #c8c8c8 !important; 
+  color: #fff; }
+.btn-default:focus {
+  background-color: #e0e0e0 !important; }
+
+.btn-primary, .btn-success, .btn-info {
+  background-color: #1AA469 !important;
+  opacity: 0.8;
+  color: #fff !important;
+  background-image: none;
+  border: none; 
+}
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary:focus:active, .btn-success:hover, .btn-success:focus, .btn-success:active, .btn-success:focus:active, .btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info:focus:active {
+    background-color: #3A2A78 !important; } 
+.btn-primary:focus:hover, .btn-primary:active:hover, .btn-primary:focus:active:hover, .btn-success:focus:hover, .btn-success:active:hover, .btn-success:focus:active:hover, .btn-info:focus:hover, .btn-info:active:hover, .btn-info:focus:active:hover {
+    background-color: #3A2A78 !important; }
+.btn-primary.disabled, .btn-primary:disabled, .btn-primary.disabled:hover, .btn-primary:disabled:hover, .btn-success.disabled, .btn-success:disabled, .btn-success.disabled:hover, .btn-success:disabled:hover, .btn-info.disabled, .btn-info:disabled, .btn-info.disabled:hover, .btn-info:disabled:hover {
+    background-color: #1AA469 !important; }
+
+.tutorial-exercise-input .btn-tutorial-solution {
+  color: #ababab !important;
+  opacity: 0.8;
+  width: 80px;
+  height: 20px;
+}
+.btn-tutorial-solution:hover {
+  opacity: 0.8;
+  color: #3A2A78 !important;
+}
+    
+div.box {
+  background-color: #f2f2f2;;
+  border: solid 2px #301a87;
+  opacity: 0.7;
+  padding-top: 10px;
+  padding-left: 10px;
+  margin-bottom: 10px;
+}

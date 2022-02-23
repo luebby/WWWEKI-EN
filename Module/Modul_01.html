@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+
+<meta name="progressive" content="true" />
+<meta name="allow-skip" content="false" />
+
+<title>Modul 01: An der Weggabelung: Einen Weg gehen – und einen nicht</title>
+
+
+<!-- highlightjs -->
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+<!-- taken from https://github.com/rstudio/rmarkdown/blob/67b7f5fc779e4cfdfd0f021d3d7745b6b6e17149/inst/rmd/h/default.html#L296-L362 -->
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+<!-- end tabsets -->
+
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+<div class="pageContent band">
+<div class="bandContent page">
+
+<div class="topics">
+
+<p><a href="https://ki-campus.org/">
+<img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right">
+</a></p>
+<div id="section-lernziele" class="section level2">
+<h2>Lernziele</h2>
+<p>In diesem Modul lernen Sie:</p>
+<ul>
+<li><p>was ein <strong>potenzielles Ergebnis (Potential
+Outcome)</strong> ist;</p></li>
+<li><p>was ein <strong>Counterfactual</strong> ist;</p></li>
+<li><p>wie <strong>kausale Effekte</strong> definiert werden
+können;</p></li>
+<li><p>warum die Bestimmung von kausalen Effekten so herausfordernd
+ist.</p></li>
+</ul>
+</div>
+<div id="section-individueller-kausaler-effekt" class="section level2">
+<h2>Individueller kausaler Effekt</h2>
+<p>Stellen Sie sich folgende Situation vor: Am Ende Ihrer
+Ausbildungszeit wird Ihnen die Teilnahme an einer freiwilligen Schulung
+zum Thema Gehaltsverhandlungen angeboten.</p>
+<p>Würden Sie teilnehmen?</p>
+<p>Für Ihre Entscheidung ist vermutlich relevant, ob Sie davon ausgehen,
+dass die Teilnahme Ihr zukünftiges Gehalt tatsächlich verbessern
+wird.</p>
+<p>Wie würden Sie für sich diesen <strong>individuellen kausalen
+Effekt</strong> der Teilnahme an der Schulung auf Ihr Gehalt definieren,
+d. h., was <em>bringt</em> Ihnen die Schulung finanziell?</p>
+<p><em>Denken Sie bitte kurz darüber nach und klicken Sie erst dann auf
+<code>Weiter</code></em></p>
+</div>
+<div id="section-section" class="section level2">
+<h2></h2>
+<p>Eine mögliche Idee wäre es, einfach die Differenz des Gehaltes vor
+und nach der Schulung zu bilden: <em>Gehalt nach der Schulung minus
+Gehalt vor der Schulung</em>. Hier ergibt sich aber ein Problem, denn es
+ist natürlich gut möglich, dass unabhängig von der Schulung Ihr Gehalt
+mit der Zeit angestiegen wäre.</p>
+<p>(Eine ganz ähnliche Situation ergibt sich, wenn man zum Beispiel
+rausfinden möchte, ob ein bestimmtes Medikament gegen eine Krankheit
+hilft: Einige Erkrankungen werden von alleine mit der Zeit besser und es
+wäre ein Fehler, diese Verbesserung spezifischen Maßnahmen
+zuzuschreiben. Daher spielen Kontrollgruppen in klinischen Studien eine
+so zentrale Rolle.)</p>
+<p>Eine andere Möglichkeit ist es, diesen Effekt als</p>
+<p><span class="math display">\[\text{Gehalt mit Schulung} -
+\text{Gehalt ohne Schulung} \]</span></p>
+<p>zu definieren.</p>
+<p>Wenn Sie vor der Entscheidung stehen: <em>Nehme ich an der Schulung
+teil?</em> gibt es für Ihr Gehalt zwei <strong>potenzielle Ergebnisse
+(englisch: Potential Outcomes)</strong>:</p>
+<ul>
+<li><p><blue> Gehalt </blue> ohne <green> Schulung </green>: <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=0}}\)</span></p></li>
+<li><p><blue> Gehalt </blue> mit <green> Schulung </green>: <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=1}}\)</span></p></li>
+</ul>
+<p><span class="math inline">\(\color{blue}{Y}\)</span> ist die
+<em>Wirkung</em>, das Ergebnis, also hier das <blue> Gehalt </blue>. Das
+hochgestellte <span class="math inline">\(\color{green}{X}\)</span> soll
+symbolisieren für welche Wert der <em>Ursache</em> das Ergebnis
+betrachtet wird. Ohne <green> Schulung </green> nimmt <span
+class="math inline">\(\color{green}{X}\)</span> den Wert 0 an, mit
+<green> Schulung </green> den Wert 1.</p>
+<p><img src="images/Weggabel.png" style="width:65.0%" /></p>
+</div>
+<div id="section-section-1" class="section level2">
+<h2></h2>
+<p>Der <strong>individuelle kausale Effekt</strong> <span
+class="math inline">\(\color{orange}{\Delta}_i\)</span> (griechisch:
+Delta) der Schulung ergibt sich dann als die Differenz zwischen diesen
+beiden potenziellen Ergebnissen:</p>
+<p><span class="math display">\[\color{orange}{\Delta}_i =
+\color{blue}{Y}^{\color{green}{X=1}}_i -
+\color{blue}{Y}^{\color{green}{X=0}}_i\]</span></p>
+<p>Wobei</p>
+<ul>
+<li><p><span class="math inline">\(i\)</span> für die einzelne
+Beobachtung, hier die einzelne Person, steht;</p></li>
+<li><p><span class="math inline">\(\color{blue}{Y}_i\)</span> für das
+<blue> Gehalt </blue> von <span
+class="math inline">\(i\)</span>;</p></li>
+<li><p><span class="math inline">\(\color{green}{X}\)</span> für die
+Teilnahme an der <green> Schulung</green>; dabei ist <span
+class="math inline">\(\color{green}{X_i=1}\)</span> wenn <span
+class="math inline">\(i\)</span> teilnimmt und <span
+class="math inline">\(\color{green}{X_i=0}\)</span> wenn <span
+class="math inline">\(i\)</span> nicht teilnimmt.</p></li>
+</ul>
+</div>
+<div id="section-ein-fiktives-beispiel" class="section level2">
+<h2>Ein fiktives Beispiel</h2>
+<p>Schauen wir uns einmal eine fiktive Gehaltstabelle mit potenziellen
+Ergebnissen an:</p>
+<ul>
+<li><p><code>i</code>: Nummer der Person;</p></li>
+<li><p><code>gehalt1</code>: <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=1}}\)</span>,
+Gehalt mit Schulung;</p></li>
+<li><p><code>gehalt0</code>: <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=0}}\)</span>,
+Gehalt ohne Schulung.</p></li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th align="right">i</th>
+<th align="right">gehalt1</th>
+<th align="right">gehalt0</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">2300</td>
+<td align="right">2200</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2200</td>
+<td align="right">2000</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">2100</td>
+<td align="right">2000</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">2500</td>
+<td align="right">2100</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">2500</td>
+<td align="right">2100</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">2100</td>
+<td align="right">2100</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">2200</td>
+<td align="right">2100</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">2000</td>
+<td align="right">2100</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">2000</td>
+<td align="right">2000</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">2100</td>
+<td align="right">2100</td>
+</tr>
+</tbody>
+</table>
+<p>Der individuelle kausale Effekt <span
+class="math inline">\(\color{orange}{\Delta}_i\)</span> lässt sich dann
+innerhalb der Datentabelle <code>Schulung</code> berechnen als
+<code>gehalt1 - gehalt0</code> (hier in <code>R</code>):</p>
+<hr />
+<p><em>Anmerkung:</em> <code>R</code> ist eine freie Software für die
+Datenanalyse. Sie kann von der Seite <a
+href="https://cran.r-project.org/">https://cran.r-project.org/</a> für
+gängige Betriebssysteme heruntergeladen werden. Ergänzend ist die
+Nutzung des <code>RStudio Desktop</code> empfehlenswert (<a
+href="https://www.rstudio.com/products/rstudio/download/">https://www.rstudio.com/products/rstudio/download/</a>).
+Im Rahmen dieser Module wird außerdem u.a. das Paket <code>mosaic</code>
+(<a
+href="https://cran.r-project.org/package=mosaic">https://cran.r-project.org/package=mosaic)</a>)
+verwendet.</p>
+<hr />
+<pre class="r"><code># Paket laden
+library(mosaic)
+# Datentabelle Schulung um neue Variable &quot;effekt&quot; ergänzen
+Schulung &lt;- Schulung %&gt;%
+  mutate(effekt = gehalt1 - gehalt0)</code></pre>
+<p>Und damit:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">i</th>
+<th align="right">gehalt1</th>
+<th align="right">gehalt0</th>
+<th align="right">effekt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="right">2300</td>
+<td align="right">2200</td>
+<td align="right">100</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="right">2200</td>
+<td align="right">2000</td>
+<td align="right">200</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="right">2100</td>
+<td align="right">2000</td>
+<td align="right">100</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="right">2500</td>
+<td align="right">2100</td>
+<td align="right">400</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="right">2500</td>
+<td align="right">2100</td>
+<td align="right">400</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="right">2100</td>
+<td align="right">2100</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="right">2200</td>
+<td align="right">2100</td>
+<td align="right">100</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="right">2000</td>
+<td align="right">2100</td>
+<td align="right">-100</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="right">2000</td>
+<td align="right">2000</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">2100</td>
+<td align="right">2100</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<p><img src="Modul_01_files/figure-html/visualisierung-1.png" width="624" /></p>
+<div class="panel panel-default">
+<div data-label="ike" class="tutorial-question panel-body">
+<div id="ike-answer_container" class="shiny-html-output"></div>
+<div id="ike-message_container" class="shiny-html-output"></div>
+<div id="ike-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
+<p>Sie sehen: häufig sind die individuellen kausalen Effekte positiv –
+sie können aber auch neutral oder sogar negativ sein.</p>
+</div>
+<div id="section-das-fundamentale-problem-der-kausalen-inferenz"
+class="section level2">
+<h2>Das fundamentale Problem der kausalen Inferenz</h2>
+<p>Das fundamentale Problem der kausalen Inferenz ist, dass wir den
+individuellen kausalen Effekt <span
+class="math inline">\(\color{orange}{\Delta}_i =
+\color{blue}{Y}^{\color{green}{X=1}}_i -
+\color{blue}{Y}^{\color{green}{X=0}}_i\)</span> <strong>nicht</strong>
+beobachten können. Es liegt je Beobachtung <span
+class="math inline">\(i\)</span> immer nur eines der beiden Potential
+Outcomes vor: Entweder <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=1}}\)</span>
+(<blue>Gehalt</blue> mit <green>Schulung</green>) <strong>oder</strong>
+<span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=0}}\)</span>
+(<blue>Gehalt</blue> ohne <green>Schulung</green>).</p>
+<ul>
+<li><p>Wenn Person <span class="math inline">\(i\)</span> an der
+Schulung teilnimmt, liegt uns das Gehalt mit Schulung vor, <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=1}}_i\)</span>,
+und nicht <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=0}}_i\)</span></p></li>
+<li><p>Wenn Person <span class="math inline">\(i\)</span> nicht an der
+Schulung teilnimmt, liegt uns das Gehalt ohne Schulung vor, <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=0}}_i\)</span>,
+und nicht <span
+class="math inline">\(\color{blue}{Y}^{\color{green}{X=1}}_i\)</span></p></li>
+</ul>
+<p>Der Wert, der nicht beobachtet wird, wird jeweils als
+<strong>Counterfactual</strong> bezeichnet; er ist kontrafaktisch in dem
+Sinne, dass er in der Realität nicht vorliegt.</p>
+<p>Für jemanden, der nicht an der Schulung teilgenommen hat, ist das
+Counterfactual die Antwort auf die Frage: <em>Wie hoch wäre mein Gehalt,
+wenn ich an der Schulung teilgenommen hätte?</em> Für jemanden der
+teilgenommen hat, ist das Counterfactual die Antwort auf die Frage:
+<em>Wie hoch wäre mein Gehalt, wenn ich nicht an der Schulung
+teilgenommen hätte?</em></p>
+<div class="panel panel-default">
+<div data-label="cf" class="tutorial-question panel-body">
+<div id="cf-answer_container" class="shiny-html-output"></div>
+<div id="cf-message_container" class="shiny-html-output"></div>
+<div id="cf-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
+<div class="panel panel-default">
+<div data-label="cfi" class="tutorial-question panel-body">
+<div id="cfi-answer_container" class="shiny-html-output"></div>
+<div id="cfi-message_container" class="shiny-html-output"></div>
+<div id="cfi-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
+</div>
+<div id="section-durchschnittlicher-kausaler-effekt"
+class="section level2">
+<h2>Durchschnittlicher kausaler Effekt</h2>
+<p>Mal angenommen, wir würden die individuellen kausalen Effekte <span
+class="math inline">\(\color{orange}{\Delta}_i\)</span> aber doch kennen
+(Variable <code>effekt</code> in unserem <code>R</code>-Beispiel). Dann
+könnten wir aus ihnen weitere Größen ableiten, beispielsweise den
+<em>durchschnittlichen</em> kausalen Effekt <span
+class="math inline">\(\bar{\color{orange}{\Delta}}\)</span>, indem wir
+alle <span class="math inline">\(i\)</span> individuellen kausalen
+Effekte addieren und diese Summe (<span
+class="math inline">\(\sum\)</span>) durch die Anzahl der Beobachtungen
+(<span class="math inline">\(n\)</span>) dividieren:</p>
+<p><span
+class="math display">\[\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n
+\color{orange}{\Delta}_i}{n}=\frac{\sum_{i=1}^n(\color{blue}{Y}^{\color{green}{X=1}}_i
+- \color{blue}{Y}^{\color{green}{X=0}}_i)}{n}
+=\frac{\sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=1}}_i -
+\sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=0}}_i}{n}=\overline{\color{blue}{Y}}^{\color{green}{X=1}}-\overline{\color{blue}{Y}}^{\color{green}{X=0}}.\]</span></p>
+<p>Die <code>R</code>-Funktion, die diesen arithmetischen Mittelwert
+berechnet, lautet <code>mean()</code>.</p>
+<p>Klicken Sie auf <code>Ausführen</code>, um den durchschnittlichen
+kausalen Effekt in unserem fiktiven Beispiel zu berechnen, in dem beide
+Potential Outcomes vorliegen.</p>
+<div class="tutorial-exercise" data-label="ate" data-completion="1"
+data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>mean( ~ effekt, data = Schulung)</code></pre>
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<hr />
+<p><em>Anmerkung:</em> In <code>mosaic</code> ist die <code>R</code>
+Syntax vereinheitlicht:</p>
+<pre class="r"><code>analyse(y ~ x, data = Daten)</code></pre>
+<p>Analysiere die Variable <code>y</code> in Abhängigkeit der Variable
+<code>x</code> aus der Datentabelle <code>Daten</code>. Welche Funktion
+<code>analyse()</code> zur Anwendung kommt, hängt vom Ziel unser Analyse
+ab.</p>
+<p>Sollte es, wie im vorliegenden Fall, nur eine Variable geben, die
+zusammengefasst werden soll, kann auch kurz geschrieben werden:</p>
+<pre class="r"><code>analyse( ~ y, data = Daten)</code></pre>
+<hr />
+<p>Beachten Sie: Der durchschnittliche kausale Effekt ist positiv, auf
+Individualebene kann er aber auch negativ sein. <span
+class="math inline">\(\bar{\color{orange}{\Delta}}\)</span> ist eine
+aggegierte Datenzusammenfassung.</p>
+</div>
+<div id="section-section-2" class="section level2">
+<h2></h2>
+<p>Das fundamentale Problem der kausalen Inferenz ist, dass nur eines
+der Potential Outcomes vorliegt und das nicht vorliegende ein
+Counterfactual ist. Daher kennen wir in der Praxis weder den
+individuellen noch den durchschnittlichen kausalen Effekt. Letzterer
+liegt in unserem Beispiel bei</p>
+<p><span
+class="math display">\[\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n
+\color{orange}{\Delta}_i}{n}=120.\]</span></p>
+</div>
+<div id="section-fehlende-werte" class="section level2">
+<h2>Fehlende Werte</h2>
+<p>In der Praxis kennen wir zwar nicht beide Potential Outcomes, aber
+wir wissen innerhalb einer Beobachtungsgruppe, wer an der Schulung
+teilgenommen hat und wer nicht. Daraus ergibt sich, welches der beiden
+Potential Outcomes beobachtet ist und welches uns fehlt (das
+Counterfactual).</p>
+<p>In der Praxis sähe unsere fiktive Gehaltstabelle also anders aus –
+fehlende Werte werden in <code>R</code> als <code>NA</code> (engl.: not
+available, nicht verfügbar) dargestellt.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">i</th>
+<th align="left">teilnahme</th>
+<th align="right">gehalt0</th>
+<th align="right">gehalt1</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Ja</td>
+<td align="right">NA</td>
+<td align="right">2300</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Ja</td>
+<td align="right">NA</td>
+<td align="right">2200</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Ja</td>
+<td align="right">NA</td>
+<td align="right">2100</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Nein</td>
+<td align="right">2100</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Ja</td>
+<td align="right">NA</td>
+<td align="right">2500</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Ja</td>
+<td align="right">NA</td>
+<td align="right">2100</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">Ja</td>
+<td align="right">NA</td>
+<td align="right">2200</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Nein</td>
+<td align="right">2100</td>
+<td align="right">NA</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Nein</td>
+<td align="right">2000</td>
+<td align="right">NA</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">Nein</td>
+<td align="right">2100</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+<p>In der Regel strukturiert man die Daten so, dass nur eine
+Gehaltsvariable – das beobachtete <code>gehalt</code> – sowie eine
+Variable zur <code>teilnahme</code> existiert.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="right">i</th>
+<th align="left">teilnahme</th>
+<th align="right">gehalt</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">1</td>
+<td align="left">Ja</td>
+<td align="right">2300</td>
+</tr>
+<tr class="even">
+<td align="right">2</td>
+<td align="left">Ja</td>
+<td align="right">2200</td>
+</tr>
+<tr class="odd">
+<td align="right">3</td>
+<td align="left">Ja</td>
+<td align="right">2100</td>
+</tr>
+<tr class="even">
+<td align="right">4</td>
+<td align="left">Nein</td>
+<td align="right">2100</td>
+</tr>
+<tr class="odd">
+<td align="right">5</td>
+<td align="left">Ja</td>
+<td align="right">2500</td>
+</tr>
+<tr class="even">
+<td align="right">6</td>
+<td align="left">Ja</td>
+<td align="right">2100</td>
+</tr>
+<tr class="odd">
+<td align="right">7</td>
+<td align="left">Ja</td>
+<td align="right">2200</td>
+</tr>
+<tr class="even">
+<td align="right">8</td>
+<td align="left">Nein</td>
+<td align="right">2100</td>
+</tr>
+<tr class="odd">
+<td align="right">9</td>
+<td align="left">Nein</td>
+<td align="right">2000</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="left">Nein</td>
+<td align="right">2100</td>
+</tr>
+</tbody>
+</table>
+<div class="panel panel-default">
+<div data-label="bias" class="tutorial-question panel-body">
+<div id="bias-answer_container" class="shiny-html-output"></div>
+<div id="bias-message_container" class="shiny-html-output"></div>
+<div id="bias-action_button_container" class="shiny-html-output"></div>
+<script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
+</div>
+</div>
+</div>
+<div id="section-schätzung-des-kausalen-effektes"
+class="section level2">
+<h2>Schätzung des kausalen Effektes</h2>
+<p>Anhand der tatsächlich beobachteten Daten können wir zwei
+Durchschnittsgehälter berechnen: Das Durchschnittsgehalt derjenigen, die
+teilgenommen haben, und das Durchschnittsgehalt derjenigen, die nicht
+teilgenommen haben.</p>
+<pre class="r"><code>mean(gehalt ~ teilnahme, data = Schulung)</code></pre>
+<pre><code>##       Ja     Nein 
+## 2233.333 2075.000</code></pre>
+<ul>
+<li><p><span
+class="math inline">\(\bar{\color{blue}{y}}^{\color{green}{x=1}} =
+2233.33\)</span></p></li>
+<li><p><span
+class="math inline">\(\bar{\color{blue}{y}}^{\color{green}{x=0}} =
+2075\)</span></p></li>
+</ul>
+<hr />
+<p><em>Anmerkung</em>:</p>
+<pre class="r"><code>mean(gehalt ~ teilnahme, data = Schulung)</code></pre>
+<p>Bedeutet aus <code>R mosaic</code> <em>übersetzt</em>:</p>
+<p>Berechne den arithmetischen Mittelwert (Funktion <code>mean()</code>)
+der Variable <code>gehalt</code> (<span
+class="math inline">\(y\)</span>) in Abhängigkeit der Variable
+<code>teilnahme</code> (<span class="math inline">\(x\)</span>). Die
+dazugehörigen Daten sind in der Datentabelle <code>Schulung</code>.</p>
+<hr />
+<p>Nun könnte man versuchen, den durchschnittlichen kausalen Effekt
+mithilfe dieser beobachteten Werte zu schätzen:</p>
+<p><span
+class="math display">\[\bar{\color{blue}{y}}^{\color{green}{x=1}} -
+\bar{\color{blue}{y}}^{\color{green}{x=0}} = 2233.33 - 2075 =
+158.33\]</span></p>
+<p>Dieser Wert weicht aber substanziell vom wahren durchschnittlichen
+kausalen Effekt ab, den wir zuvor mithilfe der Potential Outcomes
+berechnet hatten: <span
+class="math inline">\(\bar{\color{orange}{\Delta}} =120\)</span>. Bei
+dieser Abweichung handelt es sich um eine systematische Verzerrung, die
+auch als <strong>Bias</strong> bezeichnet wird.</p>
+<p>Der naive Vergleich der Mittelwerte überschätzt hier den wahren
+durchschnittlichen Effekt. In unserem fiktiven Beispiel liegt das daran,
+dass Personen mit einem höherem Gehaltsinteresse eher an der Schulung
+teilgenommen haben als die mit einem niedrigeren Interesse.</p>
+<p>Erstere hätten aber so oder so, also unabhängig von der Schulung, ein
+höheres Gehalt erhalten. Hier sind unterschiedliche inhaltliche
+Erklärungen denkbar (z.B. ein höheres Interesse am Gehalt und damit auch
+ein anderes Auftreten in Gehaltsverhandlungen).</p>
+<p>Kontrollieren Sie diese Aussage, indem Sie den Code so abändern, dass
+Sie die Mittelwerte der Potential Outcomes berechnen. Diese befinden
+sich im gleichen Datensatz und tragen die Namen <code>gehalt0</code> und
+<code>gehalt1</code>:</p>
+<p><em>Tipp</em>: Einen Lösungshinweis erhalten Sie über den
+<code>Hinweise</code>-Button über dem R Code. Anschließend
+<code>Nächster Tipp</code> und Sie sehen die Lösung.</p>
+<div class="tutorial-exercise" data-label="po" data-completion="1"
+data-diagnostics="1" data-startover="1" data-lines="0">
+<pre class="text"><code>mean(gehalt ~ teilnahme, data = Schulung)</code></pre>
+<script type="application/json" data-ui-opts="1">{"engine":"r","has_checker":false,"caption":"<span data-i18n=\"text.enginecap\" data-i18n-opts=\"{&quot;engine&quot;:&quot;R&quot;}\">R Code<\/span>"}</script>
+</div>
+<div class="tutorial-exercise-support" data-label="po-solution"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
+<pre class="text"><code>cat(&quot;Potential Outcomes: Durchschnittliches Gehalt ohne Teilnahme:\n&quot;)
+cat(&quot;Für die, die teilnehmen (&#39;Ja&#39;) das Counterfactual.\n&quot;)
+mean(gehalt0 ~ teilnahme, data = Schulung)
+cat(&quot;Potential Outcomes: Durchschnittliches Gehalt mit Teilnahme:\n&quot;)
+cat(&quot;Für die, die nicht teilnehmen (&#39;Nein&#39;) das Counterfactual.\n&quot;)
+mean(gehalt1 ~ teilnahme, data = Schulung)</code></pre>
+</div>
+<div class="tutorial-exercise-support" data-label="po-hint"
+data-completion="1" data-diagnostics="1" data-startover="1"
+data-lines="0">
+<pre class="text"><code>&quot;gehalt0 bzw. gehalt1 sind die Variablennamen. Ändern Sie die Variable gehalt entsprechend.&quot;</code></pre>
+</div>
+</div>
+<div id="section-section-3" class="section level2">
+<h2></h2>
+<p>Das fundamentale Problem der kausalen Inferenz ist universell. In
+vielen Situationen kann es dazu führen, dass die Daten uns in die Irre
+führen: Vielleicht vermuten wir einen kausalen Effekt wo es nicht
+wirklich einen gibt, oder wir erkennen real existierende Effekte
+nicht.</p>
+<p>Die Gefahr solcher Fehlschlüsse verringert sich aber, wenn wir uns
+darüber Gedanken machen, wie unsere Daten überhaupt entstanden sind. In
+unserem fiktiven Beispiel kann man die zusätzliche Information
+heranziehen, dass Personen sich frei auswählen konnten, ob sie
+teilnehmen oder nicht. Dann erkennt man schnell, dass der naive
+Mittelwertvergleich kein angemessener Weg ist, den durchschnittlichen
+kausalen Effekt zu schätzen.</p>
+<p>In den folgenden Modulen werden Sie verschiedene datengenerierende
+Mechanismen kennenlernen und erfahren, wie diese kausale Schlüsse
+beeinflussen.</p>
+</div>
+<div id="section-hinweis" class="section level2">
+<h2>Hinweis</h2>
+<p><red> <strong>Dieser Kurs ist aktuell noch in der
+Entwicklung!</strong> </red></p>
+<p>Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge <a
+href="https://github.com/luebby/WWWEKI/issues">hier</a>.</p>
+<p>Das Vorhaben <em>Was, wie, warum? Einstiegskurs Kausale Inferenz
+(WWWEKI)</em> wird mit Mitteln des Bundesministeriums für Bildung und
+Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.</p>
+<p><img src="images/csm_Logo-BMBF.jpg" /></p>
+
+<script type="application/shiny-prerendered" data-context="server-start">
+library(learnr)
+library(mosaic)
+library(tidyr)
+library(knitr)
+library(ggthemes)
+
+theme.fom <- theme_classic(22*1.04)
+theme.fom <- theme.fom
+theme_set(
+  theme.fom  
+)
+
+# deutsche Version von random_praise
+source("random-praise_de/translation_random-praise_de.R")
+
+
+# Daten simulieren
+set.seed(1896)
+n <- 10
+
+Schulung <- tibble(finteresse = rnorm(n)) %>%
+  rowwise() %>%
+  mutate(pteilnahme = pnorm((finteresse+rnorm(1)))) %>%
+  mutate(teilnahme = sample(c("Ja", "Nein"), 
+                            size = 1, prob = c(pteilnahme, 1-pteilnahme))) %>%
+  mutate(gehalt0 = 2000 * (1 + pnorm((finteresse + rnorm(1)))/10)) %>%
+  mutate(gehalt1 = gehalt0 * (0.95 + rbeta(1,1,10))) %>%
+  mutate(across(where(is.numeric), ~ round(.x, -2))) %>%
+  mutate(effekt = gehalt1 - gehalt0) %>%
+  mutate(gehalt = case_when(teilnahme == "Ja" ~ gehalt1,
+                            teilnahme == "Nein" ~ gehalt0)) %>%
+  ungroup() %>%
+  mutate(i=row_number()) %>%
+  select(i, teilnahme, gehalt0, gehalt1, effekt, gehalt)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::register_http_handlers(session, metadata = NULL)
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::clear_tutorial_cache()
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::i18n_observe_tutorial_language(input, session)
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+session$onSessionEnded(function() {
+        learnr:::event_trigger(session, "session_stop")
+      })
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(mosaic)", "library(tidyr)", "library(knitr)", 
+"library(ggthemes)", "", "theme.fom <- theme_classic(22*1.04)", 
+"theme.fom <- theme.fom", "theme_set(", "  theme.fom  ", ")", 
+"", "# deutsche Version von random_praise", "source(\"random-praise_de/translation_random-praise_de.R\")", 
+"", "", "# Daten simulieren", "set.seed(1896)", "n <- 10", "", 
+"Schulung <- tibble(finteresse = rnorm(n)) %>%", "  rowwise() %>%", 
+"  mutate(pteilnahme = pnorm((finteresse+rnorm(1)))) %>%", "  mutate(teilnahme = sample(c(\"Ja\", \"Nein\"), ", 
+"                            size = 1, prob = c(pteilnahme, 1-pteilnahme))) %>%", 
+"  mutate(gehalt0 = 2000 * (1 + pnorm((finteresse + rnorm(1)))/10)) %>%", 
+"  mutate(gehalt1 = gehalt0 * (0.95 + rbeta(1,1,10))) %>%", "  mutate(across(where(is.numeric), ~ round(.x, -2))) %>%", 
+"  mutate(effekt = gehalt1 - gehalt0) %>%", "  mutate(gehalt = case_when(teilnahme == \"Ja\" ~ gehalt1,", 
+"                            teilnahme == \"Nein\" ~ gehalt0)) %>%", 
+"  ungroup() %>%", "  mutate(i=row_number()) %>%", "  select(i, teilnahme, gehalt0, gehalt1, effekt, gehalt)"
+), overwrite = FALSE)
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(mosaic)", "library(tidyr)", "library(knitr)", 
+"library(ggthemes)", "", "theme.fom <- theme_classic(22*1.04)", 
+"theme.fom <- theme.fom", "theme_set(", "  theme.fom  ", ")", 
+"", "# deutsche Version von random_praise", "source(\"random-praise_de/translation_random-praise_de.R\")", 
+"", "", "# Daten simulieren", "set.seed(1896)", "n <- 10", "", 
+"Schulung <- tibble(finteresse = rnorm(n)) %>%", "  rowwise() %>%", 
+"  mutate(pteilnahme = pnorm((finteresse+rnorm(1)))) %>%", "  mutate(teilnahme = sample(c(\"Ja\", \"Nein\"), ", 
+"                            size = 1, prob = c(pteilnahme, 1-pteilnahme))) %>%", 
+"  mutate(gehalt0 = 2000 * (1 + pnorm((finteresse + rnorm(1)))/10)) %>%", 
+"  mutate(gehalt1 = gehalt0 * (0.95 + rbeta(1,1,10))) %>%", "  mutate(across(where(is.numeric), ~ round(.x, -2))) %>%", 
+"  mutate(effekt = gehalt1 - gehalt0) %>%", "  mutate(gehalt = case_when(teilnahme == \"Ja\" ~ gehalt1,", 
+"                            teilnahme == \"Nein\" ~ gehalt0)) %>%", 
+"  ungroup() %>%", "  mutate(i=row_number()) %>%", "  select(i, teilnahme, gehalt0, gehalt1, effekt, gehalt)"
+), overwrite = FALSE)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(mosaic)", "library(tidyr)", "library(knitr)", 
+"library(ggthemes)", "", "theme.fom <- theme_classic(22*1.04)", 
+"theme.fom <- theme.fom", "theme_set(", "  theme.fom  ", ")", 
+"", "# deutsche Version von random_praise", "source(\"random-praise_de/translation_random-praise_de.R\")", 
+"", "", "# Daten simulieren", "set.seed(1896)", "n <- 10", "", 
+"Schulung <- tibble(finteresse = rnorm(n)) %>%", "  rowwise() %>%", 
+"  mutate(pteilnahme = pnorm((finteresse+rnorm(1)))) %>%", "  mutate(teilnahme = sample(c(\"Ja\", \"Nein\"), ", 
+"                            size = 1, prob = c(pteilnahme, 1-pteilnahme))) %>%", 
+"  mutate(gehalt0 = 2000 * (1 + pnorm((finteresse + rnorm(1)))/10)) %>%", 
+"  mutate(gehalt1 = gehalt0 * (0.95 + rbeta(1,1,10))) %>%", "  mutate(across(where(is.numeric), ~ round(.x, -2))) %>%", 
+"  mutate(effekt = gehalt1 - gehalt0) %>%", "  mutate(gehalt = case_when(teilnahme == \"Ja\" ~ gehalt1,", 
+"                            teilnahme == \"Nein\" ~ gehalt0)) %>%", 
+"  ungroup() %>%", "  mutate(i=row_number()) %>%", "  select(i, teilnahme, gehalt0, gehalt1, effekt, gehalt)"
+), overwrite = FALSE)
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(mosaic)", "library(tidyr)", "library(knitr)", 
+"library(ggthemes)", "", "theme.fom <- theme_classic(22*1.04)", 
+"theme.fom <- theme.fom", "theme_set(", "  theme.fom  ", ")", 
+"", "# deutsche Version von random_praise", "source(\"random-praise_de/translation_random-praise_de.R\")", 
+"", "", "# Daten simulieren", "set.seed(1896)", "n <- 10", "", 
+"Schulung <- tibble(finteresse = rnorm(n)) %>%", "  rowwise() %>%", 
+"  mutate(pteilnahme = pnorm((finteresse+rnorm(1)))) %>%", "  mutate(teilnahme = sample(c(\"Ja\", \"Nein\"), ", 
+"                            size = 1, prob = c(pteilnahme, 1-pteilnahme))) %>%", 
+"  mutate(gehalt0 = 2000 * (1 + pnorm((finteresse + rnorm(1)))/10)) %>%", 
+"  mutate(gehalt1 = gehalt0 * (0.95 + rbeta(1,1,10))) %>%", "  mutate(across(where(is.numeric), ~ round(.x, -2))) %>%", 
+"  mutate(effekt = gehalt1 - gehalt0) %>%", "  mutate(gehalt = case_when(teilnahme == \"Ja\" ~ gehalt1,", 
+"                            teilnahme == \"Nein\" ~ gehalt0)) %>%", 
+"  ungroup() %>%", "  mutate(i=row_number()) %>%", "  select(i, teilnahme, gehalt0, gehalt1, effekt, gehalt)"
+), overwrite = FALSE)
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "ike", question = structure("Können Sie diese individuellen kausalen Effekte in der Realität beobachten?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_9325ea8", 
+    option = "Ja", value = "Ja", label = structure("Ja", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_b37eb68", 
+    option = "Nein", value = "Nein", label = structure("Nein", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = structure("Für jede Beobachtung \\(i\\) liegt nur ein Gehaltswert vor: der mit Schulung oder der ohne Schulung, aber niemals beide gleichzeitig, da Personen entweder teilnehmen oder nicht. \\(\\Delta_i\\) kann daher nicht beobachtet werden.", html = TRUE, class = c("html", 
+    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
+))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Prima!", html = TRUE, class = c("html", 
+"character")), try_again = structure("Versuchen Sie es noch einmal. Ausdauer ist der Schlüssel zum Erfolg!", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Versuchen Sie es noch einmal. Ausdauer ist der Schlüssel zum Erfolg!", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "ike-answer", question = "ike"), loading = structure("<strong>Loading:<\u002fstrong> \nKönnen Sie diese individuellen kausalen Effekte in der Realität beobachten?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = TRUE, 
+    seed = 1185400573.948, options = list()), class = c("learnr_radio", 
+"tutorial_question")))
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "cf", question = structure("Kann das Counterfactual beobachtet werden?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_81e1221", 
+    option = "Ja", value = "Ja", label = structure("Ja", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = structure("Je Beobachtung \\(i\\) liegt nur ein Wert vor: der mit Schulung oder der ohne Schulung, nicht beide gleichzeitig. Das Counterfactual ist das nicht beobachtete der Potential Outcomes.", html = TRUE, class = c("html", 
+    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
+)), structure(list(id = "lnr_ans_96cc1cf", option = "Nein", value = "Nein", 
+    label = structure("Nein", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = structure("Das Counterfactual ist das nicht Beobachtete der Potential Outcomes.", html = TRUE, class = c("html", 
+    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
+))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Genau", html = TRUE, class = c("html", 
+"character")), try_again = structure("Probieren Sie nochmal. Sie schaffen das!", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Probieren Sie nochmal. Sie schaffen das!", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "cf-answer", question = "cf"), loading = structure("<strong>Loading:<\u002fstrong> \nKann das Counterfactual beobachtet werden?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = TRUE, 
+    seed = 1366180190.86382, options = list()), class = c("learnr_radio", 
+"tutorial_question")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "cfi", question = structure("Person \\(i\\) nimmt an der Schulung teil. Was ist dann das Counterfactual?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_87f1e13", 
+    option = "$\\color{blue}{Y}^{\\color{green}{X=0}}_i$", value = "$\\color{blue}{Y}^{\\color{green}{X=0}}_i$", 
+    label = structure("\\(\\color{blue}{Y}^{\\color{green}{X=0}}_i\\)", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = structure("Teilnahme an der Schulung bedeutet \\(X=1\\), d. h. für das Counterfactual \\(X=0\\).", html = TRUE, class = c("html", 
+    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
+)), structure(list(id = "lnr_ans_c749434", option = "$\\color{blue}{Y}^{\\color{green}{X=1}}_i$", 
+    value = "$\\color{blue}{Y}^{\\color{green}{X=1}}_i$", label = structure("\\(\\color{blue}{Y}^{\\color{green}{X=1}}_i\\)", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Sehr schön", html = TRUE, class = c("html", 
+"character")), try_again = structure("Nicht ganz. Aber kein Ding: Wir lernen mehr aus Fehlern als aus Erfolgen. Lassen Sie es uns noch einmal versuchen!", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Nicht ganz. Aber kein Ding: Wir lernen mehr aus Fehlern als aus Erfolgen. Lassen Sie es uns noch einmal versuchen!", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "cfi-answer", question = "cfi"), loading = structure("<strong>Loading:<\u002fstrong> \nPerson \\(i\\) nimmt an der Schulung teil. Was ist dann das Counterfactual?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = TRUE, 
+    seed = 2056515534.04236, options = list()), class = c("learnr_radio", 
+"tutorial_question")))
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-ate-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-ate-code-editor`)), session)
+output$`tutorial-exercise-ate-output` <- renderUI({
+  `tutorial-exercise-ate-result`()
+})
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache("ate", list(setup = NULL, chunks = list(list(label = "ate", code = "mean( ~ effekt, data = Schulung)", 
+    opts = list(label = "\"ate\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = NULL, 
+    options = list(eval = FALSE, echo = TRUE, results = "markup", 
+        tidy = FALSE, tidy.opts = NULL, collapse = FALSE, prompt = FALSE, 
+        comment = NA, highlight = FALSE, size = "normalsize", 
+        background = "#F7F7F7", strip.white = TRUE, cache = 0, 
+        cache.path = "Modul_01_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "Modul_01_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 6.5, fig.height = 4, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        max.print = 1000, tutorial = TRUE, label = "ate", exercise = TRUE, 
+        code = "mean( ~ effekt, data = Schulung)", out.width.px = 624, 
+        out.height.px = 384, params.src = "ate, exercise=TRUE", 
+        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+    engine = "r"))
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "bias", question = structure("Die Teilnahme an der Schulung war freiwillig. Können Sie davon ausgehen, dass, unabhängig von der Schulung, Teilnehmende und Nichtteilehmende ein ähnliches erstes Gehalt haben würden?", html = TRUE, class = c("html", 
+"character")), answers = list(structure(list(id = "lnr_ans_f3d1428", 
+    option = "Ja", value = "Ja", label = structure("Ja", html = TRUE, class = c("html", 
+    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
+"tutorial_quiz_answer")), structure(list(id = "lnr_ans_949aca5", 
+    option = "Nein", value = "Nein", label = structure("Nein", html = TRUE, class = c("html", 
+    "character")), correct = TRUE, message = structure("Teilnehmende und Nichtteilnehmende könnten sich in vielerlei Hinsicht unterscheiden. Um nur ein Beispiel zu nennen: Personen, denen ihr Gehalt besonders wichtig ist, werden eher an der Schulung teilnehmen. Diese Personen werden aber vielleicht auch ohne Schulung anders in Gehaltsverhandlungen auftreten.", html = TRUE, class = c("html", 
+    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
+))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
+"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
+"character"))), messages = list(correct = structure("Super", html = TRUE, class = c("html", 
+"character")), try_again = structure("Probieren Sie nochmal. Sie schaffen das!", html = TRUE, class = c("html", 
+"character")), incorrect = structure("Probieren Sie nochmal. Sie schaffen das!", html = TRUE, class = c("html", 
+"character")), message = NULL, post_message = NULL), ids = list(
+    answer = "bias-answer", question = "bias"), loading = structure("<strong>Loading:<\u002fstrong> \nDie Teilnahme an der Schulung war freiwillig. Können Sie davon ausgehen, dass, unabhängig von der Schulung, Teilnehmende und Nichtteilehmende ein ähnliches erstes Gehalt haben würden?\n<br/><br/><br/>", html = TRUE, class = c("html", 
+"character")), random_answer_order = FALSE, allow_retry = TRUE, 
+    seed = 589484052.2255, options = list()), class = c("learnr_radio", 
+"tutorial_question")))
+</script>
+ 
+<script type="application/shiny-prerendered" data-context="server">
+`tutorial-exercise-po-result` <- learnr:::setup_exercise_handler(reactive(req(input$`tutorial-exercise-po-code-editor`)), session)
+output$`tutorial-exercise-po-output` <- renderUI({
+  `tutorial-exercise-po-result`()
+})
+</script>
+
+
+<script type="application/shiny-prerendered" data-context="server">
+learnr:::store_exercise_cache("po", list(setup = NULL, chunks = list(list(label = "po", code = "mean(gehalt ~ teilnahme, data = Schulung)", 
+    opts = list(label = "\"po\"", exercise = "TRUE"), engine = "r")), 
+    code_check = NULL, error_check = NULL, check = NULL, solution = structure(c("cat(\"Potential Outcomes: Durchschnittliches Gehalt ohne Teilnahme:\\n\")", 
+    "cat(\"Für die, die teilnehmen ('Ja') das Counterfactual.\\n\")", 
+    "mean(gehalt0 ~ teilnahme, data = Schulung)", "cat(\"Potential Outcomes: Durchschnittliches Gehalt mit Teilnahme:\\n\")", 
+    "cat(\"Für die, die nicht teilnehmen ('Nein') das Counterfactual.\\n\")", 
+    "mean(gehalt1 ~ teilnahme, data = Schulung)"), chunk_opts = list(
+        label = "po-solution")), options = list(eval = FALSE, 
+        echo = TRUE, results = "markup", tidy = FALSE, tidy.opts = NULL, 
+        collapse = FALSE, prompt = FALSE, comment = NA, highlight = FALSE, 
+        size = "normalsize", background = "#F7F7F7", strip.white = TRUE, 
+        cache = 0, cache.path = "Modul_01_cache/html/", cache.vars = NULL, 
+        cache.lazy = TRUE, dependson = NULL, autodep = FALSE, 
+        cache.rebuild = FALSE, fig.keep = "high", fig.show = "asis", 
+        fig.align = "default", fig.path = "Modul_01_files/figure-html/", 
+        dev = "png", dev.args = NULL, dpi = 192, fig.ext = "png", 
+        fig.width = 6.5, fig.height = 4, fig.env = "figure", 
+        fig.cap = NULL, fig.scap = NULL, fig.lp = "fig:", fig.subcap = NULL, 
+        fig.pos = "", out.width = 624, out.height = NULL, out.extra = NULL, 
+        fig.retina = 2, external = TRUE, sanitize = FALSE, interval = 1, 
+        aniopts = "controls,loop", warning = TRUE, error = FALSE, 
+        message = TRUE, render = NULL, ref.label = NULL, child = NULL, 
+        engine = "r", split = FALSE, include = TRUE, purl = TRUE, 
+        max.print = 1000, tutorial = TRUE, label = "po", exercise = TRUE, 
+        code = "mean(gehalt ~ teilnahme, data = Schulung)", out.width.px = 624, 
+        out.height.px = 384, params.src = "po, exercise = TRUE", 
+        fig.num = 0, exercise.df_print = "paged", exercise.checker = "NULL"), 
+    engine = "r"))
+</script>
+ <!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="dependencies">
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.11"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["i18n"]},{"type":"character","attributes":{},"value":["1.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/i18n"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["i18next.min.js","tutorial-i18n-init.js"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["<script id=\"i18n-cstm-trns\" type=\"application/json\">{\"language\":\"de\",\"resources\":{\"en\":{\"translation\":{\"button\":{\"runcode\":\"Run Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Hint\",\"hint_plural\":\"Hints\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Next Hint\",\"hintprev\":\"Previous Hint\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copy to Clipboard\",\"startover\":\"Start Over\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continue\",\"submitanswer\":\"Submit Answer\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Previous Topic\",\"nexttopic\":\"Next Topic\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Try Again\"},\"text\":{\"startover\":\"Start Over\",\"areyousure\":\"Are you sure you want to start over? (all exercise progress will be reset)\",\"youmustcomplete\":\"You must complete the\",\"exercise\":\"exercise\",\"exercise_plural\":\"exercises\",\"inthissection\":\"in this section before continuing.\",\"code\":\"Code\",\"enginecap\":\"{{engine}} $t(text.code)\",\"quiz\":\"Quiz\"}}},\"fr\":{\"translation\":{\"button\":{\"runcode\":\"Lancer le Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Indication\",\"hint_plural\":\"Indications\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Indication Suivante\",\"hintprev\":\"Indication Précédente\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copier dans le Presse-papier\",\"startover\":\"Recommencer\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuer\",\"submitanswer\":\"Soumettre\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Chapitre Précédent\",\"nexttopic\":\"Chapitre Suivant\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Réessayer\"},\"text\":{\"startover\":\"Recommencer\",\"areyousure\":\"Êtes-vous certains de vouloir recommencer? (La progression sera remise à zéro)\",\"youmustcomplete\":\"Vous devez d'abord compléter\",\"exercise\":\"l'exercice\",\"exercise_plural\":\"des exercices\",\"inthissection\":\"de cette section avec de continuer.\",\"code\":\"Code\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\"}}},\"es\":{\"translation\":{\"button\":{\"runcode\":\"Ejecutar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Pista\",\"hint_plural\":\"Pistas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Siguiente pista\",\"hintprev\":\"Pista anterior\",\"solution\":\"Solución\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar al portapapeles\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar respuesta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tema anterior\",\"nexttopic\":\"Tema siguiente\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Volver a intentar\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"¿De verdad quieres empezar de nuevo? (todo el progreso del ejercicio se perderá)\",\"youmustcomplete\":\"Debes completar\",\"exercise\":\"el ejercicio\",\"exercise_plural\":\"los ejercicios\",\"inthissection\":\"en esta sección antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Cuestionario\"}}},\"pt\":{\"translation\":{\"button\":{\"runcode\":\"Executar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Dica\",\"hint_plural\":\"Dicas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Próxima dica\",\"hintprev\":\"Dica anterior\",\"solution\":\"Solução\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar para a área de transferência\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar resposta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tópico anterior\",\"nexttopic\":\"Próximo tópico\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tentar novamente\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"Tem certeza que deseja começar novamente? (todo o progresso feito será perdido)\",\"youmustcomplete\":\"Você deve completar\",\"exercise\":\"o exercício\",\"exercise_plural\":\"os exercícios\",\"inthissection\":\"nesta seção antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\"}}},\"tr\":{\"translation\":{\"button\":{\"runcode\":\"Çalıştırma Kodu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Ipucu\",\"hint_plural\":\"İpuçları\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Sonraki İpucu\",\"hintprev\":\"Önceki İpucu\",\"solution\":\"Çözüm\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Pano'ya Kopyala\",\"startover\":\"Baştan Başlamak\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Devam et\",\"submitanswer\":\"Cevabı onayla\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Önceki Konu\",\"nexttopic\":\"Sonraki Konu\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tekrar Deneyin\"},\"text\":{\"startover\":\"Baştan Başlamak\",\"areyousure\":\"Baştan başlamak istediğinizden emin misiniz? (tüm egzersiz ilerlemesi kaybolacak)\",\"youmustcomplete\":\"Tamamlamalısın\",\"exercise\":\"egzersiz\",\"exercise_plural\":\"egzersizler\",\"inthissection\":\"devam etmeden önce bu bölümde\",\"code\":\"Kod\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Sınav\"}}},\"emo\":{\"translation\":{\"button\":{\"runcode\":\"🏃\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"💡\",\"hint_plural\":\"$t(button.hint)\",\"hinttitle\":\"$t(button.hint)\",\"solution\":\"🎯\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"📋\",\"startover\":\"⏮\",\"startovertitle\":\"Start Over\",\"continue\":\"✅\",\"submitanswer\":\"🆗\",\"submitanswertitle\":\"Submit Answer\",\"previoustopic\":\"⬅\",\"nexttopic\":\"➡\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"🔁\"},\"text\":{\"startover\":\"⏮\",\"areyousure\":\"🤔\",\"youmustcomplete\":\"⚠️ 👉 🧑‍💻\",\"exercise\":\"\",\"exercise_plural\":\"\",\"inthissection\":\"\",\"code\":\"💻\",\"enginecap\":\"$t(text.code) {{engine}}\"}}},\"eu\":{\"translation\":{\"button\":{\"runcode\":\"Kodea egikaritu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Laguntza\",\"hint_plural\":\"Laguntza\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Aurreko laguntza\",\"hintprev\":\"Hurrengo laguntza\",\"solution\":\"Ebazpena\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Arbelean kopiatu\",\"startover\":\"Berrabiarazi\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Jarraitu\",\"submitanswer\":\"Erantzuna bidali\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Aurreko atala\",\"nexttopic\":\"Hurrengo atala\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Berriro saiatu\"},\"text\":{\"startover\":\"Berrabiarazi\",\"areyousure\":\"Berriro hasi nahi duzu? (egindako lana galdu egingo da)\",\"youmustcomplete\":\"Aurrera egin baino lehen atal honetako\",\"exercise\":\"ariketa egin behar duzu.\",\"exercise_plural\":\"ariketak egin behar dituzu.\",\"inthissection\":\"\",\"code\":\"Kodea\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Galdetegia\"}}},\"de\":{\"custom\":{\"button\":{\"runcode\":\"Ausführen\",\"hint\":\"Hinweis\",\"hint_plural\":\"Hinweise\",\"hinttitle\":\"Hinweis\",\"hintnext\":\"Nächster Tipp\",\"hintprev\":\"Vorheriger Tipp\",\"solution\":\"Lösung\",\"solutiontitle\":\"Lösung\",\"copyclipboard\":\"In die Zwischenablage kopieren\",\"startover\":\"Neustart\",\"startovertitle\":\"Neustart\",\"continue\":\"Weiter\",\"submitanswer\":\"Antwort abgeben!\",\"previoustopic\":\"Zurück\",\"nexttopic\":\"Weiter\",\"questiontryagain\":\"Neuer Versuch\"},\"text\":{\"startover\":\"Neustart\",\"areyousure\":\"Wollen Sie wirklich einen Neustart? (Alle Übungen werden dabei zurückgesetzt!)\",\"youmustcomplete\":\"Sie müssen die \",\"exercise\":\"Aufgabe\",\"exercise_plural\":\"Aufgaben\",\"inthissection\":\"in diesen Abschnitt beenden bevor Sie fortfahren können.\"}}}}}<\/script>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["ace"]},{"type":"character","attributes":{},"value":["1.2.6"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/ace"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["ace.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["clipboardjs"]},{"type":"character","attributes":{},"value":["1.5.15"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/clipboardjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["clipboard.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]}]}
+</script>
+<!--/html_preserve-->
+<!--html_preserve-->
+<script type="application/shiny-prerendered" data-context="execution_dependencies">
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","broom","bslib","checkmate","cli","colorspace","compiler","crayon","crosstalk","curl","datasets","DBI","digest","dplyr","ellipsis","evaluate","fansi","farver","fastmap","forcats","generics","ggdendro","ggforce","ggformula","ggplot2","ggrepel","ggridges","ggstance","ggthemes","glue","graphics","grDevices","grid","gridExtra","gtable","haven","highr","hms","htmltools","htmlwidgets","httpuv","jquerylib","jsonlite","knitr","labeling","labelled","later","lattice","leaflet","learnr","lifecycle","magrittr","markdown","MASS","Matrix","methods","mime","mosaic","mosaicCore","mosaicData","munsell","pillar","pkgconfig","plyr","polyclip","promises","purrr","R6","Rcpp","readr","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","splines","stats","stringi","stringr","tibble","tidyr","tidyselect","tools","tweenr","tzdb","utf8","utils","vctrs","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.1.2","0.7.12","0.3.1","2.0.0","3.1.1","2.0-2","4.1.2","1.4.2","1.2.0","4.3.2","4.1.2","1.1.2","0.6.29","1.0.8","0.3.2","0.14","1.0.2","2.1.0","1.1.0","0.5.1","0.1.2","0.1.22","0.3.3","0.10.1","3.3.5","0.9.1","0.5.3","0.3.5","4.2.4","1.6.1","4.1.2","4.1.2","4.1.2","2.3","0.3.0","2.4.3","0.9","1.1.1","0.5.2","1.5.4","1.6.5","0.1.4","1.7.3","1.37","0.4.2","2.9.0","1.3.0","0.20-45","2.0.4.1","0.10.1.9010","1.0.1","2.0.2","1.1","7.3-55","1.4-0","4.1.2","0.12","1.8.3","0.9.0","0.20.2","0.5.0","1.7.0","2.0.3","1.8.6","1.10-0","1.2.0.1","0.3.4","2.5.1","1.0.8","2.1.2","1.0.1","2.11","2.0.2","0.13","0.4.0","1.1.1","1.7.1","4.1.2","4.1.2","1.7.6","1.4.0","3.1.6","1.2.0","1.1.1","4.1.2","1.0.2","0.2.0","1.2.2","4.1.2","0.3.8","2.4.3","0.29","1.8-4","2.2.2"]}]}]}
+</script>
+<!--/html_preserve-->
+</div>
+
+</div> <!-- topics -->
+
+<div class="topicsContainer">
+<div class="topicsPositioner">
+<div class="band">
+<div class="bandContent topicsListContainer">
+
+<!-- begin doc-metadata -->
+<div id="doc-metadata">
+<h2 class="title toc-ignore" style="display:none;">Modul 01: An der
+Weggabelung: Einen Weg gehen – und einen nicht</h2>
+</div>
+<!-- end doc-metadata -->
+
+</div> <!-- bandContent.topicsListContainer -->
+</div> <!-- band -->
+</div> <!-- topicsPositioner -->
+</div> <!-- topicsContainer -->
+
+
+</div> <!-- bandContent page -->
+</div> <!-- pageContent band -->
+
+
+
+<!-- Build Tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("section-TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<script>
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+</script>
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+name: WWWWEKI_Modul_03
+title: WWWWEKI_Modul_03
+username:
+account: fomshinyapps
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 4854501
+bundleId: 5131327
+url: https://fomshinyapps.shinyapps.io/WWWWEKI_Modul_03/
+when: 1634054625.04377
+lastSyncTime: 1634054625.04381
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: Modul_01_files/figure-html/visualisierung-1.png|Modul_01.html|Modul_01.Rmd|Modul_02_files/figure-html/DAG_Str-1.png|Modul_02_files/figure-html/DAG1-1.png|Modul_02_files/figure-html/DAG2-1.png|Modul_02_files/figure-html/pd-1.png|Modul_02.html|Modul_02.Rmd|Modul_03.html|Modul_04_files/figure-html/DAG_Chain-1.png|Modul_04_files/figure-html/lm-1.png|Modul_04_files/figure-html/streu-1.png|Modul_04.html|Modul_04.Rmd
