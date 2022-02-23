@@ -3,7 +3,6 @@ title: "Modul 08: Magie durch Zufall"
 output: 
   learnr::tutorial:
     language: 
-      de: js/tutorial_de.json
     progressive: true
     css: "css/style.css"
 runtime: shiny_prerendered
@@ -28,9 +27,6 @@ theme.fom <- theme.fom
 theme_set(
   theme.fom  
 )
-
-# deutsche Version von random_praise
-source("random-praise_de/translation_random-praise_de.R")
 
 # DAGs
 co <- data.frame(x=c(0,1,2), y=c(0,1,0), name=c("X", "Z", "Y"))
