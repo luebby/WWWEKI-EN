@@ -1,5 +1,5 @@
 ---
-title: "Modul 02: Ein Pfeil zeigt die Richtung"
+title: "Module 02: An arrow shows the way"
 output: 
   learnr::tutorial:
     progressive: true
@@ -37,24 +37,24 @@ DAG1 <- dagify(Y~ X,
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Tablette\nY - Schmerzrückgang", 
+  geom_text(label = "X - pill\nY - pain reduction", 
             hjust = 1, vjust = 2,
             x = 1, y = 0, size = 7, color = "darkgrey") 
 
 # Beispiel rutschige Straße
 co <- data.frame(x = c(0,1,1,2,4), y = c(0.5,0,1,0.5,0.5), name = c("JZ", "RE", "WS","NA","RU")) 
-DAG_Str <- dagify(WS ~ JZ,
-                  RE ~ JZ,
-                  NA ~ RE,
-                  NA ~ WS,
-                  RU ~ NA,
+DAG_Str <- dagify(SP ~ SE,
+                  RA ~ SE,
+                  NA ~ RA,
+                  NA ~ SP,
+                  SL ~ NA,
                   coords = co) %>%
     ggdag() + 
    geom_dag_point(colour = "#301a87") +
   geom_dag_text(size = 5) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "JZ - Jahreszeit\nRE - Regen\nWS - Wassersprenger\nNA - Nass\nRU - Rutschig", 
+  geom_text(label = "SE - season\nRA - rain\nSP - sprinkler\nWE - wet\nSL - slippery", 
             hjust = 1, vjust = 1,
             x = 4, y = 1, size = 5, color = "darkgrey") 
 
@@ -69,19 +69,19 @@ DAG2 <- dagify(Y~ X,
   geom_dag_text(size = 7, label =  c(expression(U[X]), expression(U[Y]), "X", "Y"), parse = TRUE) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Tablette\nY - Schmerzrückgang", 
+  geom_text(label = "X - pill\nY - pain reduction", 
             hjust = 1, vjust = 2,
             x = 1, y = 0, size = 7, color = "darkgrey")
 
 # Funktionen für Beispiel
 
-U_X <- function() sample(c("Ja", "Nein"),1)
-f_Y <- function(x) ifelse(x == "Ja", sample(c("Ja", "Nein"), 1, prob = c(0.8,0.2)), sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6)))
+U_X <- function() sample(c("Yes", "No"),1)
+f_Y <- function(x) ifelse(x == "Yes", sample(c("Yes", "No"), 1, prob = c(0.8,0.2)), sample(c("Yes", "No"), 1, prob = c(0.4,0.6)))
 
 # Verteilung Beispiel
 d <- crossing(x = 1:10,
               y = 1:10) %>%
-  mutate(tablette = c(rep("Ja",50), rep("Nein", 50)),
+  mutate(tablette = c(rep("Yes",50), rep("No", 50)),
          heilung = c(rep(fontawesome('fa-check'), 50 * 0.8),
                      rep(fontawesome('fa-close'), 50 * 0.2),
                      rep(fontawesome('fa-check'), 50 * 0.4),
@@ -95,63 +95,66 @@ pd <- ggplot(d, aes(x = x, y = y, color = tablette)) +
                      name = "") +
   scale_fill_manual( values = c("#0F710B", "grey80")) +
   theme(legend.position = "none") +
-  labs(title = "Schmerzrückgang") +
+  labs(title = "Pain reduction") +
   guides(guide = "none") +
-  annotate(geom="text", x=3, y=5.5, label="Tablette genommen",
+  annotate(geom="text", x=3, y=5.5, label="Took pill",
              color="black", size = 10) +
-  annotate(geom="text", x=8, y=5.5, label="Tablette nicht genommen",
+  annotate(geom="text", x=8, y=5.5, label="Didn't take pill",
            color="black", size = 10)
 
 ```
 
-## Lernziele
+## Learning objectives
 
-In diesem Modul lernen Sie:
+In this module, you will learn:
 
-- was unter Ursache und Wirkung verstanden werden kann;
+- what cause and effect are;
 
-- die Grundlagen von kausalen Graphen: was ein Pfeil aussagt;
+- the basic of causal graphs: the meaning of an arrow;
 
-- was Eltern und Kinder sind;
+- parents and children;
 
-- was unter einem Kausalen Modell verstanden werden kann;
+- what a causal model is;
 
-- den Unterschied zwischen Beobachten und Handeln im Kontext kausaler Inferenz.
+- the difference between observing and doing in the context of causal inference. 
 
 
-## Ursache und Wirkung
+## Cause and effect
 
-Seit Urzeiten machen Menschen sich Gedanken über Ursache und Wirkung. Nicht nur in der Philosophie, sondern auch ganz praktisch, im täglichen Leben:
+Humans have always been thinking about cause and effect -- not just within philosophy, but also in everyday life:
 
-- Wenn ich die Tablette nehme, gehen die Schmerzen dann weg?
+- If I take a pill, will the pain go away?
 
-- Führt Werbung zu mehr Umsatz?
+- Does advertising increase sales?
 
-- Lohnt es sich finanziell, an einer Fortbildung teilzunehmen?
+- Does it pay off to participate in a course?
 
-Dabei können wir entweder die Tablette nehmen &ndash; oder nicht; die Schmerzen können weggehen, oder nicht. Unternehmen können den Werbeetat erhöhen oder verringern; der Umsatz kann um beliebige Beträge steigen oder sinken. Sie nehmen an der Fortbildung teil oder nicht; Ihr Gehalt kann steigen &ndash; oder (leider) nicht.
+We can either decide to take a pill, or decide against it -- the pain will go away, or it won't.
+Companies can invest more money into advertising, or less -- sales will increase, or they will go down.
+You participate in the course or you don't -- your salary will increase, or it (unfortunately) won't.
 
-Hier können also unterschiedliche Werte vorliegen, beispielsweise Ja oder Nein (z.B. Einnahme von Tabletten, Schmerzrückgang) oder $0$ &euro; oder $1000$ &euro; (z.B. Umsatzänderung, Gehaltsanstieg). 
 
-Diese Werte können mit unterschiedlichen *Wahrscheinlichkeiten* auftreten, welche mit $Pr$ abgekürzt werden (englisch für probability, Wahrscheinlichkeit). $Pr(\text{Tablette})$ bezeichnet also die Wahrscheinlichkeit, dass von einer Person eine Tablette genommen wird, $Pr(\text{Schmerzrückgang})$ die Wahrscheinlichkeit, dass die Schmerzen zurückgehen.
+Thus, can observe all sorts of different values, such as "Yes" and "No" (taking the pill, pain reduction); $0$ &dollar; or $1000$ &dollar; (change in sales, in salary). 
+
+These values will occur with different *probabilities*, which we abbreviate to $Pr$. $Pr(\text{Pill})$ thus is the probability, that somebody takes a pill;  $Pr(\text{pain reduction})$ is the probability, that the pain disappears.
 
 
 ```{r ursache, echo=FALSE}
-question("Angenommen durch die Einnahme einer Tablette gehen die Schmerzen weg. Wie würden Sie hier Ursache und Wirkung zuordnen?",
-         answer("Die Einnahme der Tablette ist die Ursache, der Schmerzrückgang die Wirkung.", correct = TRUE, message = "Die Tablette wurde zuerst eingenommen, danach folgte der Schmerzrückgang."),
-         answer("Der Schmerzrückgang ist die Ursache, die Einnahme der Tablette die Wirkung."),
+question("Let's assume that if you take the pill, the pain will go away. What is cause and what is effect?",
+         answer("Taking the pill is the cause, pain reduction is the effect.", correct = TRUE),
+         answer("Pain reduction is the cause, the pill is the effect."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
 
-## Tablette und Schmerzrückgang
+## Pills and pain
 
 <!-- Quelle: https://github.com/TabeaG/Uebungsheft-Apps/blob/master/EinfuehrungWkeitInferenz/02_EinfuehrungWkeitInferenz.Rmd -->
 
 <span style="font-size: 13px; font-weight: bold; margin-top: 20px;">
-Schauen wir mal, ob die Tablette hilft!
+Let's see whether taking the pill helps!
 </span>
 
 <img src="images/Pillen.jpg" alt="Pillenpackung" width="50%" height="50%">
@@ -161,21 +164,21 @@ Quelle: [https://pixabay.com/illustrations/jar-pills-medicine-bottle-2338584/](h
 </span>
 
 <span style="font-size: 13px; font-weight: bold; margin-top: 20px;">
-Nehmen Sie die Tablette? <br> </span>
+Do you want to take the pill? <br> </span>
 <span style="font-size: 13px; ">
-Klicken Sie einen der Buttons. Versuchen Sie es ruhig mehrmals!
+Choose one of the buttons. You can try multiple times to see what happens.
 </span> 
 
 ```{r, context="render", echo=FALSE}
-actionButton("Tablette", "Tablette nehmen", class="btn action-button", style="color: #FFF; background-color: #301a87; border-color: #301a87; order-radius: 10px; border-width: 2px")
+actionButton("Pill", "Take pill", class="btn action-button", style="color: #FFF; background-color: #301a87; border-color: #301a87; order-radius: 10px; border-width: 2px")
 ```
 ```{r, context="render", echo=FALSE}
-actionButton("kTablette", "Tablette nicht nehmen", class="btn action-button", style="color: #FFF; background-color: #301a87; border-color: #301a87; order-radius: 10px; border-width: 2px")
+actionButton("nPill", "Don't take pill", class="btn action-button", style="color: #FFF; background-color: #301a87; border-color: #301a87; order-radius: 10px; border-width: 2px")
 ```
 
 
 ```{r, context="render", echo=FALSE}
-htmlOutput("ergebnis")
+htmlOutput("result")
 ```
 
 ```{r, context="server"}
@@ -183,20 +186,20 @@ values <- reactiveValues()
 values$text <- ""
 values$versuch <- 0
 
-p.tablette <- observeEvent(input$Tablette, {
+p.tablette <- observeEvent(input$Pill, {
   values$versuch <- values$versuch + 1
-  heilung <- sample(c("Ja", "Nein"), 1, prob = c(0.8,0.2))
-  ergebnis <- ifelse(heilung == "Ja", paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> Sie haben die Tablette genommen und die Schmerzen sind zurückgegangen!"), paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> Sie haben die Tablette genommen und die Schmerzen sind leider nicht zurückgegangen!"))
+  heilung <- sample(c("Yes", "No"), 1, prob = c(0.8,0.2))
+  ergebnis <- ifelse(heilung == "Yes", paste0("<span style='color: green'>", values$versuch, ". attempt: </span> You took the pill and the pain went away."), paste0("<span style='color: green'>", values$versuch, ". attempt: </span> You took the pill but the pain did not go away."))
   
 output$ergebnis <- renderText({
           ergebnis
         })
   
 })
-p.ktablette <- observeEvent(input$kTablette, {
+p.ktablette <- observeEvent(input$nPill, {
   values$versuch <- values$versuch + 1
-  heilung <- sample(c("Ja", "Nein"), 1, prob = c(0.4,0.6))
-  ergebnis <- ifelse(heilung == "Ja", paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> Sie haben die Tablette nicht genommen und die Schmerzen sind trotzdem zurückgegangen!"), paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> Sie haben die Tablette nicht genommen und die Schmerzen sind leider auch nicht zurückgegangen!"))
+  heilung <- sample(c("Yes", "No"), 1, prob = c(0.4,0.6))
+  ergebnis <- ifelse(heilung == "Yes", paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> You did not take the pill, yet the pain went away."), paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> You did not take the pill and the pain did not go away."))
   
 output$ergebnis <- renderText({
           ergebnis
@@ -210,50 +213,58 @@ output$ergebnis <- renderText({
 
 ##
 
-Auf einer abstrakteren Ebene können die untersuchten Eigenschaften von oben als *Variablen* aufgefasst werden, also z. B.
+The properties we considered are, on an abstract level, variables. For example: 
 
-- $X$: Tabletteneinnahme Ja oder Nein.
+- $X$: Taking a pill, Yes or No.
 
-- $Y$: Schmerzrückgang Ja oder Nein.
+- $Y$: Pain reduction, Yes or No.
 
-Die sogenannte *Verteilung* der Variablen beschreibt die Wahrscheinlichkeit, mit der die jeweiligen Werte auftreten. 
+The so-called distribution of a variables describes the probabilities, with which different values occur.
 
-Eine Variable $X$ heißt hier **Ursache** von $Y$, wenn der Wert der **Wirkung** $Y$ von $X$ verändert wird, also wenn $Y$ von $X$ abhängt.
+A variable $X$ is called a **cause** of $Y$, when the value of the **effect** $Y$ is changed by $X$, in other words $Y$ depends on $X$.
 
-Wenn Sie eben mehrfach die Tablette genommen haben &ndash; oder nicht genommen haben &ndash; dann konnten Sie beobachten, dass die Tablette häufig zu einer Schmerzreduktion führte, aber nicht immer. Und manchmal sind die Schmerzen zurückgegangen, obwohl Sie keine Tablette genommen haben. Die (hinterlegten) Wahrscheinlichkeiten dabei waren:
+If you have tried both taking the pill and not taking it multiple times, you could observe that the pill often leads to a pain reduction, but not always.
+Furthermore, sometimes the pain went away even without pill.
 
-- $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.8=80\%$<br>
-  und damit:
-  $Pr(\text{Kein Schmerzrückgang, wenn Tablette eingenommen})=1-0.8=0.2=20\%$
+Here are the underlying probabilities:
 
-- $Pr(\text{Schmerzrückgang, wenn keine Tablette eingenommen})=0.4=40\%$ <br>
-  und damit:
-  $Pr(\text{Kein Schmerzrückgang, wenn keine Tablette eingenommen})=1-0.4=0.6=60\%$
+- $Pr(\text{Pain reduction when pill was taken})=0.8=80\%$<br>
+  and thus:
+  $Pr(\text{No pain reduction when pill was taken})=1-0.8=0.2=20\%$
 
-Als Wahrscheinlichkeitsbaum dargestellt, wobei wir annehmen, dass die Hälfte der Personen eine Tablette nimmt:
+- $Pr(\text{Pain reduction when no pill was taken})=0.4=40\%$ <br>
+  an thus:
+  $Pr(\text{No pain reduction when no pill was taken})=1-0.4=0.6=60\%$
+
+We can also depict this in a probability tree diagram, here assuming that half of the people do take the pill:
 
 ```{r baum1, echo=FALSE, fig.align='center', out.width='80%'}
-treeDiag(c("Tabletteneinnahme?","Schmerzrückgang?"), 
+treeDiag(c("Pill?","Pain reduction?"), 
          c(0.5,0.5),
          list(c(0.8,0.2), 
               c(0.4,0.6)),
-         c("Ja", "Nein"),
-         c("Ja","Nein"), 
+         c("Yes", "No"),
+         c("Yes","No"), 
          showSol = FALSE)
 ```
 
 
-## Kausales Diagramm
+## Causal graphs
 
-Man könnte auch sagen, dass die Verteilung von $Y$ (Schmerzrückgang) auf $X$ (Tabletteneinnahme) *hört*. Dieser Umstand lässt sich auch graphisch darstellen:
+Alternatively, we could say that the distribution of $Y$ (pain reduction) *listens to* $X$ (taking the pill).
+We can visualize this in a very simple graph:
+
 
 ```{r DAG1, echo=FALSE, fig.align='center', out.width='60%'}
 plot(DAG1)
 ```
 
-In einem solchen **Graphen** sind die Variablen <green> Tabletteneinnahme </green> und <blue> Schmerzrückgang </blue> die sog. **Knoten**. Der **Pfeil** $\rightarrow$ zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ist eine sogenannte gerichtete **Kante** und stellt die kausale Abhängigkeit dar.
+In such a **graph**, the variables <green>Pill</green> und <blue>Pain reduction</blue> are so-called **nodes**. 
+The **arrow** $\rightarrow$ between $\color{green}{X}$ and $\color{blue}{Y}$ is a so-called directed **edge** and indicates a causal dependence.
 
-$\color{green}{X} \rightarrow \color{blue}{Y}$ bedeutet aber auch, dass der Wert von $\color{green}{X}$ nicht kausal vom Wert von $\color{blue}{Y}$ abhängt. Ein möglicher <blue> Schmerzrückgang </blue> ändert nicht rückwirkend die <green> Tabletteneinnahme </green>: $$\color{green}{\text{Tabletteneinnahme}} \not\leftarrow \color{blue}{\text{Schmerzrückgang}}.$$
+
+$\color{green}{X} \rightarrow \color{blue}{Y}$ also means that the value of $\color{green}{X}$ is not causally affected by $\color{blue}{Y}$. 
+Thus, <blue>pain reduction</blue> does not retroactively change <green> pill</green>: $$\color{green}{\text{Taking a pill}} \not\leftarrow \color{blue}{\text{Pain reduction}}.$$
 
 <br>
 
@@ -264,22 +275,32 @@ Quelle: [https://pixabay.com/illustrations/switch-lightbulb-idea-inspiration-453
 </span>
 
 ```{r modell, echo=FALSE}
-question("Welches kausale Diagramm beschreibt den Zusammenhang zwischen Lichtschalter und Glühlampe?",
-         answer("$\\text{Glühlampe} \\rightarrow \\text{Lichtschalter}$"),
-         answer("$\\text{Lichtschalter} \\rightarrow \\text{Glühlampe}$", correct = TRUE, message = "Lichtschalter an oder aus ist die Ursache für die Wirkung, ob die Glühlampe an oder aus ist. Bei kaputter Leitung oder Lampe ist diese nicht an, obwohl der Schalter an ist. Aber ohne Rückkopplung geht der Schalter nicht aus, wenn die Lampe aufgrund eines Schadens nicht an ist."),
+question("Which causal graph describes the relationship between light switch and light bulb?",
+         answer("$\\text{Light bulb} \\rightarrow \\text{Light switch}$"),
+         answer("$\\text{Light switch} \\rightarrow \\text{Light bulb}$", correct = TRUE, message = "Light switch on or off is the cause of the effect, light bulb on or off. If something breaks, the light bulb would remain switched off even if the switch is on. But without backcoupling, the switch doesn't turn off just because the light bulb stopped working."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
 
-## Kinder und Eltern
+## Children and parents
 
-Manche glauben ja, dass Kinder auf Ihre Eltern hören. Das schöne an abstrakten, gedanklichen Welten ist, dass das dort realisiert werden kann. 
+Some people believe that children listen to their parents.
+The nice thing about the abstract world of causal graphs is that here this is indeed the case.
 
-Variablen (Knoten), auf die eine Pfeilspitze zeigt, werden **Kinder** derjenigen Variablen genannt, von welchen die Pfeile ausgehen. Diese Variablen werden entsprechend **Eltern** genannt: $\text{Eltern} \rightarrow \text{Kinder}$. Im Beispiel von oben ist <blue> Schmerzrückgang </blue> ein Kind von <green> Tabletteneinnahme </green> &ndash; und dementsprechend <green> Tabletteneinnahme </green> Eltern von <blue> Schmerzrückgang</blue>. In kausalen Graphen höre Kinder also auf ihre Eltern.
 
-Ein Beispiel für ein kausales Diagramm welches beschreibt, wie eine Straße rutschig werden kann. Die Wahrscheinlichkeit von Regen hängt ab von der Jahreszeit. Die Jahreszeit beeinflusst aber auch, ob ein Wassersprenger zum Einsatz kommt. Sowohl Regen als auch Wassersprenger führen dazu, dass die Straße nass wird. Ist die Straße nass, kann es rutschig werden:
+Variables (nodes), into which an arrow points, are called **children** of those variables, from which the arrows exist.
+Those variables are in turn called **parents**: $\text{Parent} \rightarrow \text{Child}$. 
+Above, <blue>pain reduction</blue> is a child of <green>pill</green> &ndash; conversely <green>pill</green> is parent of <blue>pain reduction</blue>.
+So in causal graphs, children do listen to their parents.
+
+Here is another example: a causal graph that describes, how a road might end up slippery.
+The probability of rain depends on the season.
+The season also determines whether the sprinkler is switched on.
+Both rain and season can make the street wet.
+Once the street is wet, it may turn slippery:
+
 
 ```{r DAG_Str, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Str)
@@ -288,11 +309,11 @@ plot(DAG_Str)
 Quelle: [Mohan und Pearl (2012)](https://ftp.cs.ucla.edu/pub/stat_ser/uai12-mohan-pearl.pdf)
 
 ```{r eltern, echo=FALSE}
-question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (NA)?",
-         answer("Keine."),
-         answer("Jahreszeit (JZ)."),
-         answer("Wassersprenger (WS) und Regen (RE).", correct = TRUE,  message = "Nass hängt ab von Wassersprenger und Regen."),
-         answer("Rutschig (RU)."),
+question("Which variable(s) are the parents of *wet* (WE)?",
+         answer("There are none."),
+         answer("Season (SE)."),
+         answer("Sprinkler (SP) and rain (RA).", correct = TRUE,  message = "Wet depends on sprinkler and rain."),
+         answer("Slippery (SL)."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -300,105 +321,114 @@ question("Welche Variable ist bzw. welche Variablen sind Eltern von *Nass* (NA)?
 ```
 
 ```{r kinder, echo=FALSE}
-question("Welche Variable ist bzw. welche Variablen sind Kinder von *Nass* (NA)?",
-         answer("Keine."),
-         answer("Jahreszeit (JZ)."),
-         answer("Wassersprenger (WS) und Regen (RE)."),
-         answer("Rutschig (RU).", correct = TRUE , message = "Rutschig hängt ab von Nass."),
+question("And which variable(s) are the children of wet?",
+         answer("There are none."),
+         answer("Season (SE)"),
+         answer("Sprinkler (SP) and rain (RA)."),
+         answer("Slippery (SL).", correct = TRUE , message = "Slippery depends on wet."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
 
-## Kausale Modelle
+## Causal models
 
-Das **kausale Modell** des simplen Graphen $\color{green}{X} \rightarrow \color{blue}{Y}$ besteht aus zwei Zuweisungen:
+The **causal model** underlying the simple graph $\color{green}{X} \rightarrow \color{blue}{Y}$ consists of two assignments:
 
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
 
-Dabei sind $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unbekannte Ursachen (in der Statistik häufig auch Rest genannt, engl.: error) von $\color{green}{X}$ und $\color{blue}{Y}$, und $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ die Funktion, der Mechanismus, durch den $\color{blue}{Y}$ auf Basis von $\color{green}{X},U_{\color{blue}{Y}}$ zu seinem Wert kommt. 
+Where $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ are unknown causes (in statistics often called error) of $\color{green}{X}$ and $\color{blue}{Y}$, and $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ are the functions, the mechanism, through which $\color{blue}{Y}$ is assigned a value based on $\color{green}{X},U_{\color{blue}{Y}}$. 
 
-Im Beispiel
-$$\color{green}{\text{Tabletteneinnahme}} \rightarrow \color{blue}{\text{Schmerzrückgang}}$$ 
-beinhaltet $U_{\color{green}{\text{Tabletteneinnahme}}}$ die unbekannten, vielleicht zufälligen Gründe, die zur Entscheidung führen, ob bei Schmerzen eine Tablette genommen wird oder nicht, und $U_{\color{blue}{\text{Schmerzrückgang}}}$ die unbekannten, vielleicht zufälligen Gründe, die den Schmerzrückgang mit oder ohne Tabletteneinahme zusätzlich beschreiben. 
+In the example
+$$\color{green}{\text{Pill}} \rightarrow \color{blue}{\text{Pain reduction}}$$ 
+$U_{\color{green}{\text{Pill}}}$ contains the unknown (potentially random) reasons that lead somebody to take the pill (or not), and $U_{\color{blue}{\text{Pain reduction}}}$ contains any unknown (potentially random) additional reasons why the pain may go away, with or without taking the pill.
 
-Wir gehen an dieser Stelle davon aus, dass $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ unabhängig voneinander sind. 
 
-Diese sogenannten Fehler könnten in den Graphen mit aufgenommen werden, werden aber häufig aus Gründen der Übersichtlichkeit weggelassen. 
+Here, we will assume that $U_{\color{green}{X}}$ and $U_{\color{blue}{Y}}$ are completely independent of each other.
+
+These so-called errors can be added to the graph, but they are often omitted to avoid crowding of the graph. 
+
 
 ```{r DAG2, echo=FALSE, fig.align='center', out.width='60%', warning=FALSE}
 plot(DAG2)
 ```
 
 
-Angenommen, Sie werfen eine Münze (`ux()`), ob Sie die Tablette nehmen oder nicht, und es gilt für den Schmerzrückgang (`fy()`):
+Let us assume you flip a coin (`ux()`) to determine whether you will take the pill or not, and the following applies to pain reduction (`fy()`):
 
-- $Pr(\text{Schmerzrückgang, wenn Tablette eingenommen})=0.8$ 
+- $Pr(\text{Pain reduction, if pill was taken})=0.8$ 
 
-- $Pr(\text{Kein Schmerzrückgang, wenn Tablette eingenommen})=1-0.8=0.2$
+- $Pr(\text{No pain reduction, if pill was taken})=1-0.8=0.2$
 
-- $Pr(\text{Schmerzrückgang, wenn keine Tablette eingenommen})=0.4$ 
+- $Pr(\text{Pain reduction, if no pill was taken})=0.4$ 
 
-- $Pr(\text{Kein Schmerzrückgang, wenn keine Tablette eingenommen})=1-0.4=0.6$
+- $Pr(\text{No pain reduction, if no pill was taken})=1-0.4=0.6$
 
-Simulieren Sie diesen Fall mehrfach über `Ausführen` und beobachten Sie, welche Werte die beiden Variablen annehmen:
+Let us simulate this situation multiple times by pressing `Run Code` and observe which value the variables take on:
+
 
 ```{r sim, exercise=TRUE}
 x <- U_X()
-cat("Tabletteneinnahme? ", x, "\n")
+cat("Pill? ", x, "\n")
 y <- f_Y(x)
-cat("Schmerzrückgang? ", y, "\n")
+cat("Pain reduction? ", y, "\n")
 ```
 
 ```{r sim-hint}
-# Hier der R Code der zugrundeliegenden Funktionen:
-U_X <- function() sample(c("Ja", "Nein"),1)
+# Here is the R code of the underlying functions:
+U_X <- function() sample(c("Yes", "No"),1)
 
-f_Y <- function(x) ifelse(x == "Ja", 
-                          sample(c("Ja", "Nein"), 1, prob = c(0.8, 0.2)), 
-                          sample(c("Ja", "Nein"), 1, prob = c(0.4, 0.6)))
+f_Y <- function(x) ifelse(x == "Yes", 
+                          sample(c("Yes", "No"), 1, prob = c(0.8, 0.2)), 
+                          sample(c("Yes", "No"), 1, prob = c(0.4, 0.6)))
 ```
 
 
-## Beobachtung
+## Observation
 
-Wenn $100$ Menschen eine Münze werfen, ob sie die Tablette einnehmen oder nicht, erwarten wir im Mittelwert, dass $50$ von Ihnen die Tablette nehmen (grün hinterlegt) und von diesen $50 \times 0.8 = 40$ eine Schmerzreduktion erfahren (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-40=10$ nicht (<i class="fa fa-close" aria-hidden="true"></i>). Von den $50$ ohne Tabletteneinnahme (grau hinterlegt) erfahren $50 \times 0.4 = 20$ eine Schmerzreduktion (<i class="fa fa-check" aria-hidden="true"></i>) und die anderen $50-20=30$ nicht (<i class="fa fa-close" aria-hidden="true"></i>):
+If $100$ people flip a coin to determine whether they will take the pill or not, we expect on average that $50$ will take the pill (green) and of these,  $50 \times 0.8 = 40$ will experience a pain reduction (<i class="fa fa-check" aria-hidden="true"></i>). The other $50-40=10$ won't (<i class="fa fa-close" aria-hidden="true"></i>). 
+Of the $50$ who do not take the pill (grey), $50 \times 0.4 = 20$ will experience a pain reduction (<i class="fa fa-check" aria-hidden="true"></i>) and the remaining $50-20=30$ won't (<i class="fa fa-close" aria-hidden="true"></i>):
 
 ```{r pd, echo=FALSE, fig.align='center', out.width='85%'}
 plot(pd)
 ```
 
-Insgesamt erwarten wir im Mittelwert, dass bei $40 + 20 = 60$ von $100$ Personen eine Verbesserung eintrifft, wenn $U_{\color{green}{\text{Tabletteneinnahme}}}$ zufällig Ja oder Nein ist und $Pr(\color{green}{\text{Tabletteneinnahme}})=0.5$ ist. Wir **beobachten** nur, welchen Wert unsere Ursache $\color{green}{X}$ annimmt. 
+All in all, we expect that on average $40 + 20 = 60$ of $100$ people experience a pain reduction, as long as $U_{\color{green}{\text{Pill}}}$ is randomly Yes or No with $Pr(\color{green}{\text{Pill}})=0.5$ ist. 
+
+We only **observe** which value the cause $\color{green}{X}$ takes on. 
 
 ```{r handeln, echo=FALSE}
-question("Was passiert, wenn wir **intervenieren**, d. h., die Tabletteneinnahme ist nicht zufällig, sondern wir legen fest, dass alle die Tablette einnehmen müssen?",
-         answer("Die Anzahl der Menschen mit Schmerzreduktion ändert sich nicht."),
-         answer("Die Anzahl der Menschen mit Schmerzreduktion erhöht sich.", correct = TRUE, message = "Durch die Intervention gilt nicht mehr $Pr(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ sondern $Pr(\\color{green}{\\text{Tabletteneinnahme}})=1$. Und da die Tablette in $80\\%$ der Fälle hilft, erwarten wir im Mittelwert eine Verbesserung bei $100 \\times 0.8 = 80$ von $100$ Personen."),
-         answer("Die Anzahl der Menschen mit Schmerzreduktion reduziert sich."),
+question("What happens if we intervene so that taking the pill is no longer random -- but instead we determine that everybody has to take the pill?",
+         answer("The same number of people will experience a pain reduction."),
+         answer("More people will experience a pain reduction.", correct = TRUE, message = "Thanks to the intervention, it is no longer $Pr(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ but $Pr(\\color{green}{\\text{Tabletteneinnahme}})=1$. Since the pill helps in $80\\%$ of the cases, we can expect on average a pain reduction for $100 \\times 0.8 = 80$ out of $100$ people."),
+         answer("Fewer people will experience a pain reduction."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
 
-## Interventionen
+## Interventions
 
-Bei einer **Intervention** handeln wir und greifen ein. Im kausalen Modell gilt nicht mehr:
+During an **intervention**, we act and actually do something.
+The causal model no longer says:
+
 
 $$\color{green}{X} = U_{\color{green}{X}}$$
-sondern zum Beispiel, wenn wir dafür sorgen, dass alle die Tablette nehmen:
+but instead, for example -- if we force everyone to take the pill:
 
 $$\color{green}{X} = 1$$
 
-mit $\color{green}{X} = \cases{1: \quad \text{Tablette wird eingenommen} \\ 0: \quad \text{Tablette wird nicht eingeommen}}$.
+with $\color{green}{X} = \cases{1: \quad \text{Pill} \\ 0: \quad \text{No pill}}$.
 
-Um den Unterschied zwischen Beobachtung und Intervention auch formal darzustellen, wird für eine Intervention ein eigener Operator verwendet: $do(\cdot)$ (englisch: to do sth., etwas machen). Wenn wir die Tabletteneinnahme *erzwingen*, kann dies durch $do(\color{green}{X} = 1)$ dargestellt werden.
+To formalize the difference between observation and intervention, there is a distinct operator to indicate on operation: $do(\cdot)$ (englisch: to do sth., etwas machen).
+For example, to say that we *force* everybody to take the pill, we can write  $do(\color{green}{X} = 1)$.
 
 ```{r do0, echo=FALSE}
-question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass keine Tablette genommen wird?",
-         answer("$do(\\color{green}{X} = 0)$", correct = TRUE,  message = "$do(\\cdot)$ zeigt die Handlung, $\\color{green}{X} = 0$ symbolisiert keine Tabletteneinnahme."),         
+question("How can we describe an intervention that leads to nobody taking the pill?",
+         answer("$do(\\color{green}{X} = 0)$", correct = TRUE,  message = "$do(\\cdot)$ indicates an action, $\\color{green}{X} = 0$ indicates that nobody takes the pill."),         
          answer("$do(\\color{green}{X} = 1)$"),
          allow_retry = TRUE,
          correct = random_praise(),
@@ -406,27 +436,30 @@ question("Welche Darstellung beschreibt die Intervention, die dazu führt, dass 
          )
 ```
 
-## Umgedrehte Kausalität
+## Reverse causality
 
-Wenn die angenommene Ursache in Wirklichkeit die Wirkung ist, und umgekehrt die Wirkung in Wirklichkeit die Ursache, haben wir das Problem der **Umgedrehten Kausalität**. Wir vermuten $A \rightarrow B$, aber in Wirklichkeit gilt $B \rightarrow A$.
+If the suspected cause is in reality the effect, and conversely if the suspected effect is in reality the cause, we encounter the problem of **reverse causality**. We assume $A \rightarrow B$, but in reality $B \rightarrow A$.
 
-Die Unterscheidung zwischen Ursache und Wirkung erfolgt hier aus inhaltlichen, theoretischen Überlegungen. Dabei können z.B. zeitliche Überlegungen helfen (die Ursache erfolgt vor der Wirkung), aber insbesondere auch Experimente (siehe Modul 8). Beides ist auch Bestandteil der [Bradford-Hill-Kriterien](https://journals.sagepub.com/doi/pdf/10.1177/003591576505800503) für Kausalität:
+We differentiate between cause and effect on the basis of substantive, theoretical considerations.
+Time can help to determine what is going on (cause precedes effect), and so can experiments (Module 8).
+Both are part of the [Bradford-Hill-criteria](https://journals.sagepub.com/doi/pdf/10.1177/003591576505800503) for causality:
 
-- Stärke: Eine Beziehung ist eher kausal, wenn der Zusammenhang groß (z. B. hohe Korrelation) und statistisch signifikant ist. 
-- Konsistenz: Eine Beziehung ist eher kausal, wenn sie wiederholt bestätigt werden kann. 
-- Spezifität: Eine Beziehung ist eher kausal, wenn es keine andere Erklärung gibt. 
-- Zeitlichkeit: Eine Beziehung ist eher kausal, wenn die Wirkung  nach der Ursache auftritt. 
-- Gradient: Eine Beziehung ist eher kausal, wenn ein größerer Wert in der Ursache zu einem größeren Wert in der Wirkung führt. 
-- Plausibilität: Eine Beziehung ist eher kausal, wenn es einen inhaltlich plausiblen Mechanismus zwischen Ursache und Wirkung gibt.
-- Kohärenz: Eine Beziehung ist eher kausal, wenn sie mit bekannten Fakten und Theorien vereinbar ist. 
-- Experiment: Eine Beziehung ist eher kausal, wenn sie experimentell verifiziert werden kann. 
-- Analogie: Eine Beziehung ist eher kausal, wenn es nachgewiesene Beziehungen zwischen ähnlichen Ursachen und Wirkungen gibt.
+- Strength: causality is more plausible if the association is strong (e.g., high correlation coefficient) and statistically significant.
+- Consistency: causality is more plausible when the association is found repeatedly.
+- Specificity: causality is more plausible if there are no alternative explanations.
+- Temporality: causality is more plausible if the effect comes after the cause. 
+- Gradient: causality is more plausible, when a larger value of the cause is associated with a larger value of the effect.
+- Plausibility: causality is more plausible, when there is a substantively plausible mechanism connecting cause and effect.
+- Coherence: causality is more plausible, if it is aligned with known facts and theories.
+- Experiment: causality is more plausible if there is experimental evidence.
+- Analogy: causality is more plausible, if there are known similar pairs of cause and effect.
 
-## Ausblick
 
-Kausale Inferenz hilft die Unterschiede in den Verteilungen der Wirkung $\color{blue}{Y}$ zu untersuchen, je nachdem ob $\color{green}{X}$ beobachtet wurde &ndash; oder der Wert durch eine Handlung festgelegt wird ($do(\color{green}{X})$).
+## Outlook
 
-Diese *Kausale Leiter* ist Teil des folgenden Moduls 3.
+Causal inference helps us to investigate differences in the distribution of the effect $\color{blue}{Y}$, depending on whether $\color{green}{X}$ was simply observed or actually determined by an intervention ($do(\color{green}{X})$).
+
+This *causal ladder* is part of the next module.
 
 <img src="images/Leiter.png" alt="Lichtschalter" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
@@ -434,13 +467,10 @@ Diese *Kausale Leiter* ist Teil des folgenden Moduls 3.
 Quelle: [https://pixabay.com/vectors/good-girls-cloud-star-ladder-2204244/](Quelle: https://pixabay.com/vectors/good-girls-cloud-star-ladder-2204244/)
 </span>
 
-## Hinweis
+## Note
 
-<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
 
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
-
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
 
 
 ![](images/csm_Logo-BMBF.jpg)
