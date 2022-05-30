@@ -1,5 +1,5 @@
 ---
-title: "Modul 04: Es steht was zwischen uns"
+title: "Module 04: There is something between us"
 output: 
   learnr::tutorial:
     progressive: true
@@ -36,7 +36,7 @@ DAG_Chain <- dagify(Z ~ X,
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Lernen\nZ - Wissen\nY - Verstehen", 
+  geom_text(label = "X - Learning\nZ - Knowledge\nY - Understanding", 
             hjust = 1, vjust = 2,
             x = 2, y = 0, size = 7, color = "darkgrey") 
 
@@ -55,42 +55,42 @@ SimData <- tibble(x = U_X(n)) %>%
   mutate(y = f_Y(z))
 
 # Ergebnisse
-ModellA <- lm(y ~ x, data = SimData)
+ModelA <- lm(y ~ x, data = SimData)
 ```
 
-## Lernziele
+## Learning objectives
 
-In diesem Modul lernen Sie:
+In this module you will learn:
 
-- was eine kausale Kette ist;
+- what a causal chain is;
 
-- was ein Mediator ist;
+- what a mediator is;
 
-- dass es manchmal besser ist, bestimmte Variablen in der Analyse nicht zu berücksichtigen.
+- that sometimes it is better not to consider certain variables in the analysis.
 
-## Eins führt zum anderen
+## One thing leads to another
 
-Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Eines davon ist die sog. **Kette** (engl.: chain). 
+Even complex causal graphs consist of simple basic elements. One of them is the so-called **chain**. 
 
-Zur Erinnerung: Der kausale Fluss folgt den Pfeilen. $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*. Im Modul zwei: Wenn es regenet, ($A$), wird die Straße nass ($B$). 
+As a reminder, causality flows along with the arrows. $$A \rightarrow B$$ states that $B$ *listens* to $A$. For example, if it rains, ($A$), the road gets wet ($B$). 
 
-Bei einer Kette kommt einfach eine dritte Variable dazu: $$A \rightarrow B \rightarrow C.$$ 
-Zum Beispiel: wenn es regenet, ($A$) wird die Straße nass ($B$) und es wird rutschig ($C$).
+In a chain, we simply add a third variable: $$A \rightarrow B \rightarrow C.$$ 
+For example: if it rains, ($A$) the road gets wet ($B$) and thus it gets slippery ($C$).
 
 
-## Lernen und Verstehen
+## Learning and understanding
 
-Das folgende Beispiel ist fiktiv &ndash; und eine sehr starke Vereinfachung. Außerdem wird die wichtige Frage, wie die Variablen jeweils gemessen werden, nicht behandelt.
-
-***
-
-*Anmerkung*: Siehe hierzu z. B. "Welche Information steckt in Daten?" aus dem KI-Campus Kurs [Stadt | Land | DatenFluss](https://ki-campus.org/datenfluss).
+The following example is fictitious &ndash; and a very strong simplification. Moreover, the important question of how the variables are measured in each case will be ignored.
 
 ***
 
-Angenommen, <green>Lernen</green> ($\color{green}{X}$) führt zu <violet>Wissen</violet> ($\color{violet}{Z}$), d. h., durch Lernen erwerben Sie Wissen. Außerdem führt <violet>Wissen</violet> ($\color{violet}{Z}$) zu <blue>Verstehen</blue> ($\color{blue}{Y}$), d. h., über Ihr Wissen kommen Sie zum Verstehen.
+*Note*: The AI Campus course [Stadt | Land | DatenFluss](https://ki-campus.org/datenfluss) has a section on this topic,  "Welche Information steckt in Daten?"
 
-Wenn dieses stark vereinfachte Modell stimmt, dann lässt sich diese Annahme in einem kausalen Diagramm darstellen:
+***
+
+Suppose <green>learning</green> ($\color{green}{X}$) leads to <violet>knowledge</violet> ($\color{violet}{Z}$), that is, by learning you acquire knowledge. Furthermore, <violet>knowledge</violet> ($\color{violet}{Z}$) leads to <blue>understanding</blue> ($\color{blue}{Y}$), i.e., through your knowledge you come to an understanding.
+
+If this highly simplified model is correct, then the assumption can be represented in a causal graph:
 
 ```{r DAG_Chain, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Chain)
@@ -98,7 +98,7 @@ plot(DAG_Chain)
 
 ##
 
-Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
+The structural causal model consists of the following assignments:
 
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}\\
@@ -106,50 +106,56 @@ Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
 \color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
 \end{eqnarray*}
 
-Der Wert von <green>Lernen</green> ($\color{green}{X}$) kommt außerhalb des Modells zu Stande ($U_{\color{green}{X}}$). Der Wert von <violet>Wissen</violet> ($\color{violet}{Z}$) hängt ab vom Wert von <green>Lernen</green> ($\color{green}{X}$) &ndash; und weiteren Faktoren ($U_{\color{violet}{Z}}$). Letzlich hängt <blue>Verstehen</blue> ($\color{blue}{Y}$) von <violet>Wissen</violet> ($\color{violet}{Z}$) ab &ndash; und $U_{\color{blue}{Y}}$. Hier machen wir wieder die (zugegebenermaßen unrealistische) Annahme, dass die zufälligen Einflüsse $U_{\color{green}{X}}, U_{\color{violet}{Z}}, U_{\color{blue}{Y}}$ voneinander unabhängig sind.
+The value of <green>learning</green> ($\color{green}{X}$) is determined outside of the model ($U_{\color{green}{X}$). 
+The value of <violet>knowledge</violet> ($\color{violet}{Z}$) depends on the value of <green>learning</green> ($\color{green}{X}$) &ndash; and other factors ($U_{\color{violet}{Z}$).
+Ultimately, <blue>understanding</blue> ($\color{blue}{Y}$) depends on <violet>knowledge</violet> ($\color{violet}{Z}$) &ndash; and $U_{\color{blue}{Y}}$. 
+We again make the (admittedly unrealistic) assumption that the random influences $U_{\color{green}{X}}, U_{\color{violet}{Z}}, U_{\color{blue}{Y}}$ are independent of each other.
+
 
 ```{r kind, echo=FALSE}
-question("In der Sprache der Diagramme: Ist Verstehen ($Y$) ein Kind von Lernen ($X$)?",
-         answer("Ja"),
-         answer("Nein", correct = TRUE, message = "Verstehen ist ein Kind von Wissen ($Z$). Wissen ist wiederum ein Kind von Lernen. Damit ist Verstehen kein Kind von Lernen, aber ein Nachkomme. Verstehen *hört* unmittelbar nur auf Wissen, d. h., der Wert von Verstehen hängt direkt nur von Wissen ab."),
+question("In the language of causal graphs: Is understanding ($Y$) a child of learning ($X$)?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = "Understanding is a child of knowledge ($Z$). Knowledge is in turn a child of learning. Thus, understanding is not a child of learning, but it is a descendant. Understanding *listens* directly only to knowledge, i.e., the value of understanding depends directly only on knowledge."),
          allow_retry = TRUE,
-         correct = "Prima, Richtig!",
-         incorrect = "Leider falsch. Vielleicht schauen Sie noch einmal im Modul 2 nach."
-         )
+         correct = "Great, Correct!",
+         incorrect = "Unfortunately, this was wrong. Maybe take another look at Module 2.")
 ```
 
 ## Mediator
 
-In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$ wird die Variable in der Mitte &ndash; hier $\color{violet}{Z}$ &ndash; **Mediator** genannt.
+In such scenarios, $$\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$, the variable in the middle &ndash; here $\color{violet}{Z}$ &ndash; is called a **mediator**.
 
 ```{r mediator, echo=FALSE}
-question("Angenommen eine Beförderung hängt diskriminierenderweise ab vom Geschlecht der Kandidat:in und das Gehalt wiederum von der Beförderung. Welche Variable ist hier ein Mediator?",
-         answer("Geschlecht"),
-         answer("Beförderung", correct = TRUE, message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
-         answer("Gehalt", message = "Das beschriebene Kausalmodell lautet $\\text{Geschlecht} \\rightarrow \\text{Beförderung} \\rightarrow \\text{Gehalt}$."),
+question("Suppose a whether a candidate is promoted depends on their gender due to discrimination, and the future salary of course depends on the promotion. Which variable is a mediator here?",
+         answer("Gender"),
+         answer("Promotion", correct = TRUE, message = "The causal model described is $\text{gender} \rightarrow \text{promotion} \\rightarrow \\text{salary}$."),
+         answer("salary", message = "The causal model described is $\text{gender} \rightarrow \text{support} \\rightarrow \\text{salary}$."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
 
-Um den kausalen Effekt der Ursache ($\color{green}{X}$) auf die Wirkung ($\color{blue}{Y}$) zu untersuchen, müssen wir den Wert des Mediators ($\color{violet}{Z}$) nicht kennen. Wenn wir also zum Beispiel wissen wollen, wie sich das <green>Geschlechts</green> insgesamt auf das <blue>Gehalt</blue> auswirkt, brauchen wir keine Informationen über <violet>Beförderungen</violet>.
+To study the causal effect of the cause ($\color{green}{X}$) on the effect ($\color{blue}{Y}$), we do not need to know the value of the mediator ($\color{violet}{Z}$). So, for example, if we want to know how <green>gender</green> affects <blue>content</blue> overall, we do not need information about <violet>promotions</violet>.
 
-Tatsächlich kann sogar die Berücksichtigung des Mediators dazu führen, dass der kausale Effekt verzerrt wird. Das werden wir im Folgenden mithilfe einer Simulation genauer betrachten. 
-
-***
-
-*Anmerkung*: Im Kontext von Mediation wird zwischen *totalen*, *direkten* und *indirekten* Effekte unterscheiden. Im Beispiel interessiert uns der gesamte Effekt von Geschlecht, der totale Effekt. 
-
-Würde uns stattdessen interessieren, inwiefern Geschlecht unabhängig von Beförderung einen Effekt auf das Gehalt hat, so wäre das Analyseziel der direkte Effekt. Und wenn uns interessieren würde, inwiefern die Effekte des Geschlechts über Beförderungen vermittelt würden, so wäre das Analyseziel der indirekte Effekt.
+In fact, accounting for the mediator can even cause the causal effect to be biased. 
+We will look at this in more detail below with the help of a small simulation. 
 
 ***
 
+*Note*: In the context of mediation, we can distinguish between *total*, *direct*, and *indirect* effects. 
+In the example, we are interested in the so-called total effect of gender: How does gender affect salary, regardless of the specific mechanisms involved?
 
-## Simulierte Daten
+If instead we were interested in the extent to which gender has an effect on salary independent of promotion, the target of analysis would be the so-called direct effect. 
+And if we were interested in the extent to which the effects of gender are mediated by promotion, the analysis target would be the indirect effect.
 
-Zurück zum Zusammenhang von Lernen, Wissen und Verstehen.
-In `R` sind Simulationen für das Modell 
+***
+
+
+## Data simulation
+
+Let us return to the associations between learning, knowledge and understanding.
+We simulate the following in `R`:
 
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}\\
@@ -157,26 +163,24 @@ In `R` sind Simulationen für das Modell
 \color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
 \end{eqnarray*}
 
-hinterlegt. 
+Recall (see also Module 2) that $U$ denotes unknown causes and $f$ the functions by which values are assigned to the variables.
 
-Zur Erinnerung (siehe auch Modul 2), $U$ bezeichnet jeweils unbekannte Ursachen; $f$ die Funktionen, anhand derer den Variablen Werte zugewiesen werden.
-
-Simulieren Sie Beobachtungen in dem Sie mehrfach auf `Ausführen` klicken und versuchen Sie zu erkennen, wie die Variablen miteinander zusammenhängen:
+Simulate observations by clicking 'Run' several times and try to see how the variables are related to each other:
 
 ```{r sim, exercise=TRUE}
 x <- U_X()
-cat("Wert x (Lernen):", x, "\n")
+cat("Value of x (learning):", x,"\n")
 z <- f_Z(x)
-cat("Wert z (Wissen):", z, "\n")
+cat("Value of z (knowledge):", z,"\n")
 y <- f_Y(z)
-cat("Wert y (Verstehen):", y, "\n")
+cat("Value of y (understanding):", y,"\n")
 ```
 
 ```{r beobachtung, echo=FALSE}
-question("Was passiert, wenn Sie höhere Werte von Lernen (`x`) beobachten?",
-         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel auch höhere Werte von Verstehen (`y`) auf.", correct = TRUE, message = "Es lässt sich ein positiver Zusammenhang zwischen $X$ und $Y$ beobachten."),
-         answer("Bei höheren Werten von Lernen (`x`) treten in der Regel niedrigere Werte von Verstehen (`y`) auf."),
-         answer("Der Wert von Verstehen (`y`) scheint in keinem Zusammenhang mit dem Wert von Lernen (`x`) zu stehen."),
+question("What happens when you observe higher values of learning (`x`)?",
+         answer("With higher values of learning (`x`), higher values of understanding (`y`) usually occur.", correct = TRUE, message = "A positive correlation between $X$ and $Y$ can be observed."),
+         answer("Higher values of learning (`x`) tend to have lower values of understanding (`y`)."),
+         answer("The value of understanding (`y`) does not appear to be related to the value of learning (`x`)."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -185,42 +189,47 @@ question("Was passiert, wenn Sie höhere Werte von Lernen (`x`) beobachten?",
 
 ## Intervention
 
-Statt nur zu beobachten ($\color{green}{X} = U_{\color{green}{X}}$) können wir auch eine Intervention simulieren, in der wir Werte festlegen ($do(\color{green}{X}=x)$).
+Instead of just observing ($\color{green}{X} = U_{\color{green}{X}$), we can also simulate an intervention where we set values ($do(\color{green}{X}=x)$).
 
-Im Code-Beispiel ist $do(\color{green}{X}=1)$. Drücken Sie zunächst ein paar Mal auf `Ausführen` um zu gucken, wie die Werte von Verstehen ($\color{blue}{Y}$) im Falls von $do(\color{green}{X}=1)$ aussehen. Ändern Sie anschließend den Code so, dass Sie $do(\color{green}{X}=10)$ simulieren können. Was passiert? 
+In the code example, $do(\color{green}{X}=1)$. 
+Press `Run Code` a few times to see what the values of understanding ($\color{blue}{Y}$) look like in the case of $do(\color{green}{X}=1)$. 
+Then change the code to simulate $do(\color{green}{X}=10)$. 
+What happens? 
 
 ```{r simdo, exercise=TRUE}
- # Hier der Befehl fuer do(X=1)
+ # Here is the comman to assign do(X=1)
 x <- 1
-cat("Wert x (Lernen):", x, "\n")
+cat("Value of x (learning):", x, "\n")
 z <- f_Z(x)
-cat("Wert z (Wissen):", z, "\n")
+cat("Value of z (knowledge):", z, "\n")
 y <- f_Y(z)
-cat("Wert y (Verstehen):", y, "\n")
+cat("Value of y (understanding):", y, "\n")
 ```
 
 ```{r simdo-solution}
  # do(X=10)
 x <- 10
-cat("Wert x (Lernen):", x, "\n")
+cat("Value of x (learning):", x, "\n")
 z <- f_Z(x)
-cat("Wert z (Wissen):", z, "\n")
+cat("Value of z (knowledge):", z, "\n")
 y <- f_Y(z)
-cat("Wert y (Verstehen):", y, "\n")
+cat("Value of y (understanding):", y, "\n")
 ```
 
-Für die Erläuterung bitte auf `Weiter` klicken.
+What happens here?
 
 ##
 
-Während die Werte für $\color{blue}{Y}$ bei $do(\color{green}{X}=1)$ um die $\color{blue}{15}$ schwanken, liegen sie bei $do(\color{green}{X}=10)$ um die $\color{blue}{150}$. Wir sehen also, dass eine Veränderung von $\color{green}{X}$ tatsächlich zu einer Veränderung von $\color{blue}{Y}$ führt. Dieser kausale Zusammenhang wird durch $\color{violet}{Wissen}$ vermittelt: Mehr Lernen führt zu mehr Wissen führt zu mehr Verstehen.
+While the values of $\color{blue}{Y}$ fluctuate around $\color{blue}{15}$ for $do(\color{green}{X}=1)$, they fluctuate around $\color{blue}{150}$ for $do(\color{green}{X}=10)$. 
+Thus, we see that a change in $\color{green}{X}$ actually leads to a change in $\color{blue}{Y}$. 
+This causal relationship is mediated by $\color{violet}{knowledge}$: More learning leads to more knowledge leads to more understanding.
 
 
 ```{r intervention, echo=FALSE}
-question("Überlegen Sie: Was wird passieren mit dem Zusammenhang zwischen Lernen (`x`) und Verstehen (`y`), wenn wir Wissen kennen, also z.B. `z <- 15`?",
-         answer("Bei höheren Werten von Lernen (`x`) treten weiterhin in der Regel auch höhere Werte von Verstehen (`y`) auf.",),
-         answer("Bei höheren Werten von Lernen (`x`) treten jetzt in der Regel niedrigere Werte von Verstehen (`y`) auf.",),
-         answer("Bei festem Wissen (`z`) steht der Wert von Verstehen (`y`) in keinem Zusammenhang mit dem Wert von Lernen (`x`).", correct = TRUE, message = "Durch Kenntnis von `z` wird die kausale Kette von $X$ nach $Y$ unterbrochen. Wir hatten ja schon vorab gesagt, dass Verstehen nur direkt auf Wissen hört. Wenn sich Wissen nicht ändert, ändert sich hier also auch nicht das Verstehen. Das können Sie auch gleich noch mal in der Simulation testen."),
+question("Consider: What will happen to the relationship between learning (`x`) and understanding (`y`) when we know that knowledge takes on a certain value, e.g., `z <- 15`?",
+         answer("As a rule, for higher values of learning (`x`), higher values of understanding (`y`) continue to occur.",),
+         answer("For higher values of learning (`x`), now lower values of understanding (`y`) generally occur.",),
+         answer("For fixed knowledge (`z`), the value of understanding (`y`) is unrelated to the value of learning (`x`).", correct = TRUE, message = "Knowledge of `z` breaks the causal chain from $X$ to $Y$. We had said before that understanding only listens  to knowledge. So if knowledge does not change, understanding does not change here either. You can test this in the next simulation."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -229,129 +238,133 @@ question("Überlegen Sie: Was wird passieren mit dem Zusammenhang zwischen Lerne
 
 ##
 
-Probieren Sie dies durch Klick auf `Ausführen` ruhig aus:
+Feel free to try this out by pressing `Run Code`:
 
 ```{r sim2, exercise=TRUE}
 x <- U_X()
-cat("Wert x (Lernen):", x, "\n")
+cat("Value of x (learning):", x,"\n")
 z <- 15
-cat("Wert z (Wissen):", z, "\n")
+cat("Value of z (knowledge):", z,"\n")
 y <- f_Y(z)
-cat("Wert y (Verstehen):", y, "\n")
+cat("Value of y (understanding):", y,"\n")
 ```
 
-Der bekannte Wert von `z` wird in Zeile 3 unabhängig vom Wert von `x` auf $15$ gesetzt.
-Jetzt schwanken `x` und `y` zwar noch zufällig, sind aber unabhängig voneinander.
+The  value of `z` is set to $15$ in line 3, regardless of the value of `x`.
+Now `x` and `y` still fluctuate randomly, but are independent of each other.
 
-## Kausales Modell
+## Causal model
 
-Die zugrunde liegenden Gleichungen des soeben simulierten kausalen Modells lauten:
+The underlying equations of the causal model that we just simulated are:
 
 \begin{eqnarray*}
-\color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{G}(1,\,10), \\
-\color{violet}{Z} &=& 5 \cdot \color{green}{X} +  U_{\color{violet}{Z}}, \quad U_{\color{violet}{Z}} \sim \mathcal{N}(0,\,1), \\
+\color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{G}(1,\,10), \\\
+\color{violet}{Z} &=& 5 \cdot \color{green}{X} + U_{\color{violet}{Z}}, \quad U_{\color{violet}{Z}} \sim \mathcal{N}(0,\,1), \\\
 \color{blue}{Y} &=& 3 \cdot \color{violet}{Z} + U_{\color{blue}{Y}}, \quad U_{\color{blue}{Y}} \sim \mathcal{N}(0,\,1).
 \end{eqnarray*}
 
-Dabei steht $\mathcal{G}(1,\,10)$ für eine *Gleichverteilung* auf den Bereich von $1$ bis $10$ und $\mathcal{N}(0,\,1)$ für eine *Normalverteilung* mit den Parametern $\mu=0$ und $\sigma=1$, also eine Standardnormalverteilung. Die konkreten Funktionen und Parameter sind hier willkürlich gewählt.
+Here $\mathcal{G}(1,\,10)$ stands for the *uniform distribution* on the range $1$ to $10$ and $\mathcal{N}(0,\,1)$ for a *normal distribution* with the parameters $\mu=0$ and $\sigma=1$, i.e., a standard normal distribution. 
+The functions and parameters were arbitrarily chosen.
 
-Einsetzen von $f_{\color{violet}{Z}}$ in $f_{\color{blue}{Y}}$ ergibt 
-$\color{blue}{Y} = 3 \cdot (5 \cdot \color{green}{X} +  U_{\color{violet}{Z}}) + U_{\color{blue}{Y}}=15 \cdot \color{green}{X} + 5 \cdot U_{\color{violet}{Z}} + U_{\color{blue}{Y}}.$
+Substituting $f_{\color{violet}{Z}}$ into $f_{\color{blue}{Y}}$ results in 
+$\color{blue}{Y} = 3 \cdot (5 \cdot \color{green}{X} + U_{\color{violet}{Z}}) + U_{\color{blue}{Y}=15 \cdot \color{green}{X} + 5 \cdot U_{\color{violet}{Z}} + U_{\color{blue}{Y}}.$
 
-Für $n=100$ simulierten Beobachtungen lautet der dazugehörige `R`-Code:
+For $n=100$ simulated observations, the corresponding `R` code is:
 
 ```{r RSim, eval = FALSE}
-## Vorbereitungen 
-library(mosaic) # Paket laden
-set.seed(1896) # Zufallszahlengenerator setzen (für Reproduzierbarkeit)
+## Preparation 
+library(mosaic) # load package
+set.seed(1896) # fix random number generator to ensure reproducibility
 
-## Funktionen
+## functions
 U_X <- function(n = 1) runif(n, min = 1, max = 10)
 f_Z <- function(x) 5 * x + rnorm(length(x))
 f_Y <- function(z) 3 * z + rnorm(length(z))
 
-## Datentabelle
-n <- 100 # Anzahl Beobachtungen
+## data table
+n <- 100 # number of observations
 SimData <- tibble(x = U_X(n)) %>%
   mutate(z = f_Z(x)) %>%
   mutate(y = f_Y(z)
 ```
 
-## Lineare Regression, Versuch 1
+## Linear regression, attempt 1
 
-Natürlich wissen Sie in den meisten Anwendungsfällen nicht, welches System an Gleichungen Ihren Daten zugrundeliegen. 
-Stattdessen sammeln Sie Daten und untersuchen dann die Zusammenhänge, um Rückschlüsse über das zugrundeliegende System zu schließen.
-Ein Verfahren, um Zusammenhänge zwischen Variablen $\color{green}{X}$ und $\color{blue}{Y}$ anhand von beobachteten Daten zu schätzen, ist die **Lineare Regression**.
-
-***
-
-*Anmerkung*: Siehe hierzu z. B. "Maschinelles Lernen" aus dem KI-Campus Kurs [The Elements of AI](https://ki-campus.org/courses/elementsofai).
+Of course, in most cases, we don't know which system of equations underlies our data. 
+Instead, we collect data and then examine the associations to make inferences about the underlying system.
+One method for estimating relationships between variables $\color{green}{X}$ and $\color{blue}{Y}$ using observed data is **linear regression**.
 
 ***
 
-Dabei wird angenommen, dass der Zusammenhang zwischen der zu erklärenden Variable $\color{blue}{Y}$ und den weiteren Variablen im Modell linear ist, d. h., es reicht *nur* die jeweiligen Steigungen zu schätzen, um den Zusammenhang zu beschreiben. So sieht es aus, wenn wir in unseren simulierten Daten den Zusammenhang zwischen Lernen und Verstehen berechnen:
+*Note*: You can learn more about linear regression in the AI Campus course [The Elements of AI](https://ki-campus.org/courses/elementsofai), chapter on machine learning.
+
+***
+
+Here, we assume that the relationship between the variable to be explained $\color{blue}{Y}$ and the other variables in the model is linear, i.e., it is sufficient to only estimate the respective slope to describe the relationship.
+This is what it looks like when we calculate the relationship between learning and understanding in our simulated data:
 
 ```{r streu, out.width='80%', fig.align='center', echo = FALSE}
-gf_point(y ~ x, data = SimData) %>% # Streudiagramm
-  gf_lm() %>% # Regressionsgerade
-  gf_labs(x = "x: Lernen", y = "y: Verstehen") # Achsenbeschriftung 
+gf_point(y ~ x, data = SimData) %>% # scatter plot
+  gf_lm() %>% # regression line
+  gf_labs(x = "x: learning", y = "y: understanding") # label axes 
 ```
 
-In `R` kann eine lineare Regression über die Funktion `lm()` berechnet werden.
+In `R` a linear regression can be run via the function `lm()`.
 
-Ohne den Mediator <violet> Wissen </violet> ergibt sich folgendes Modell:
+Without the mediator <violet>knowledge</violet>, we get the following model:
 
 ```{r lmoz}
-# Regression Rechnen
-ModellA <- lm(y ~ x, data = SimData)
-# Ergebnis
-ModellA
+# Calculate regression
+ModelA <- lm(y ~ x, data = SimData)
+# Results
+ModelA
 ```
 
-D. h.:
+So our model looks like this:
 
-$$\widehat{\color{blue}{\text{Verstehen}}} = `r round(coef(ModellA)[1],2)` + `r round(coef(ModellA)[2],2)` \times \color{green}{\text{Lernen}}$$
+$$\widehat{\color{blue}{\text{Understanding}}} = `r round(coef(ModelA)[1],2)` + `r round(coef(ModelA)[2],2)` \times \color{green}{\text{Learning}}$$
 
-Gemäß dieses Modells liegt der (totale) kausale Effekt von <green>Lernen</green> auf <blue>Verstehen</blue> bei $`r round(coef(ModellA)[2],2)`$: Wird <green> Lernen</green> um eine Einheit erhöht, erhöht sich der Mittelwert von <blue> Verstehen </blue> um $`r round(coef(ModellA)[2],2)`$ Einheiten.
+According to this model, the (total) causal effect of <green>learning</green> on <blue>understanding</blue> is $`r round(coef(ModelA)[2],2)`$: If <green>learning</green> is increased by one unit, the mean of <blue>understanding</blue> increases by $`r round(coef(ModelA)[2],2)`$ units.
 
-Das deckt sich mir den Ergebnissen unserer simulierten Intervention: Während die Werte für $\color{blue}{Y}$ bei $do(\color{green}{X}=1)$ um die $\color{blue}{15}$ schwankten, lagen sie bei $do(\color{green}{X}=10)$ um die $\color{blue}{150}$. Die Ergebnisse der linearen Regression entsprechen tatsächlich dem kausalen Effekt von Interesse.
+This is consistent with the results of our simulated intervention: while the values for $\color{blue}{Y}$ fluctuated around $\color{blue}{15}$ for $do(\color{green}{X}=1)$, they were around $\color{blue}{150}$ for $do(\color{green}{X}=10)$. 
+The linear regression results are thus indeed consistent with the causal effect of interest.
 
 
 ***
 
-*Anmerkung*: Der Fokus dieses Kurses liegt auf der Identifizierung von kausalen Effekten, nicht auf Schätzverfahren oder statistischer Inferenz. 
-Wenn Sie damit vertraut sind, können Sie über `summary()` auch die *übliche* Regressionstabelle inkl. Standardfehler, p-Werten usw. erhalten:
+*Note*: This course focuses on the identification of causal effects.
+We will thus spend little time on estimation procedures and statistical inference.
+However, if you are already familiar with linear regression, here is how to get the *usual* regression table incl. standard errors, p values, etc. via `summary()`:
 
 ```{r summary, exercise = TRUE}
-# Regression Rechnen
-ModellA <- lm(y ~ x, data = SimData)
-# Ergebnis
-summary(ModellA)
+# Run regression
+ModelA <- lm(y ~ x, data = SimData)
+# Results
+summary(ModelA)
 ```
 
 ***
 
-## Lineare Regression, Versuch 2
+## Linear regression, attempt 2
 
-Aber was passiert, wenn der Mediator <violet> Wissen</violet>, $\color{violet}{Z}$, mit in das Modell aufgenommen wird?
-Jetzt ändert sich das Ergebnis der linearen Regression:
+But what happens if the mediator <violet> knowledge</violet>, $\color{violet}{Z}$, is included in the model?
+Now the results change:
 
 ```{r lmmz}
-# Regression Rechnen
-ModellB <- lm(y ~ x + z, data = SimData)
-# Ergebnis
-ModellB
+# Run regression
+ModelB <- lm(y ~ x + z, data = SimData)
+# Results
+ModelB
 ```
 
-D. h.:
+Returning the following model:
 
-$$\widehat{\color{blue}{\text{Verstehen}}} = `r round(coef(ModellB)[1],2)` + `r round(coef(ModellB)[2],2)` \times \color{green}{\text{Lernen}} + `r round(coef(ModellB)[3],2)` \times \color{violet}{\text{Wissen}}$$
-Wenn <violet>Wissen</violet> Teil des Modell ist, wir also das <violet>Wissen</violet> berücksichtigen, um den kausalen Effekt von <green>Lernen</green> auf <blue>Verstehen</blue> zu bestimmen, dann sagt unser Modell jetzt: Wird <green> Lernen</green> um eine Einheit erhöht, erhöht sich der Mittelwert von <blue> Verstehen </blue> um $`r round(coef(ModellB)[2],2)`$ Einheiten &ndash; ein viel kleinerer Wert als ohne die Berücksichtigung ($`r round(coef(ModellA)[2],2)`$).
+$$\widehat{\color{blue}{\text{Understanding}}} = `r round(coef(ModelB)[1],2)` + `r round(coef(ModelB)[2],2)` \times \color{green}{\text{Learning}} + `r round(coef(ModelB)[3],2)` \times \color{violet}{\text{Knowledge}}$$
+If <violet>knowledge</violet> is part of the model while we try to determine the causal effect of <green>learning</green> on <blue>understanding</blue>, our model now says: If <green>learning</green> is increased by one unit, the mean value of <blue>understanding </blue> increases by $`r round(coef(ModelB)[2],2)`$ units &ndash; a much smaller value than without considering ($`r round(coef(ModelA)[2],2)`$).
 
 ```{r adjustierung, echo=FALSE}
-question("Welcher Wert beschreibt den (totalen) kausalen Effekt von Lernen (`x`) auf Verstehen (`y`) richtig? Also: Um wie viel Einheiten wird sich der Wert von Verstehen im Mittelwert ändern, wenn eine Einheit mehr gelernt wird?",
-         answer("Der Wert aus dem Modell ohne Wissen (`ModellA`), d. h. $14.86$.", correct = TRUE, message = "Wie wir in der simulierten Intervention beobachtet hatten, ist dies der richtige Wert. Das Modell, das zusätzlich den Mediator enthält, berücksichtigt diesen Wert und unterbricht damit die kausale Kette von $X$ nach $Y$."),
-         answer("Der Wert aus dem Modell mit Wissen (`ModellB`), d. h. $0.86$."),
+question("Which value correctly describes the (total) causal effect of learning (`x`) on understanding (`y`)? That is, by how many units will the value of understanding change on average if one unit more is learned?",
+         answer("The value from the model without knowledge (`modelA`), i.e. $14.86$.", correct = TRUE, message = "As we had observed in the simulated intervention, this is the correct value. The model which additionally includes the mediator breaks the causal chain from $X$ to $Y$."),
+         answer("The value from the model with knowledge (`ModelB`), i.e. $0.86$."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -361,24 +374,19 @@ question("Welcher Wert beschreibt den (totalen) kausalen Effekt von Lernen (`x`)
 
 ***
 
-*Anmerkung*: Die geschätzten Werte in der Regression entprechen aufgrund von zufälligen Rauschen nicht den wahren Werten die wir für die Simulation verwendet haben.
+*Note*: The estimated values in the regression do not correspond to the true values we used for the simulation due to random noise.
 
 ***
 
-## Zusammenfassung
+## Summary
 
 :::{.box}
-Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer Kette $$X \rightarrow Z \rightarrow Y$$ zu bestimmen, sollte ein Mediator $Z$ **nicht** berücksichtigt werden. Bei fixiertem $Z$ (z.B., wenn die Variable in einer Regression aufgenommen wird) wird der kausale Zusammenhang zwischen $X$ und $Y$ unterbrochen.
+To determine the (total) causal effect of $X$ on $Y$ in a chain $$X \rightarrow Z \rightarrow Y$$, any mediator $Z$ should **not** be considered. When $Z$ is conditioned upon (e.g., when the variable is included in a regression), the causal relationship between $X$ and $Y$ is broken.
 ::: 
 
-## Hinweis
+## Note
 
-<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
-
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
-
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
-
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
 
 ![](images/csm_Logo-BMBF.jpg)
 
