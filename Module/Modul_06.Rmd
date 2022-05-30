@@ -1,5 +1,5 @@
 ---
-title: "Modul 06: Nett oder schön? &ndash; Warum nicht beides?"
+title: "Module 06: Kind or handsome? &ndash; Why not both?"
 output: 
   learnr::tutorial:
     progressive: true
@@ -37,7 +37,7 @@ DAG_Collider <- dagify(Z ~ Y,
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed"))  + 
-  geom_text(label = "Y - Aussehen\nX - Nettigkeit\nZ - Date",
+  geom_text(label = "Y - Looks\nX - Kindness\nZ - Date",
             hjust = 0.5, vjust = 1,
             x = 1, y = 1, size = 7, color = "darkgrey")
 
@@ -51,37 +51,37 @@ n <- 100
 SimData <- tibble(x = rnorm(n), y = rnorm(n), u_z = rbinom(n, size = 1, prob = 0.05)) %>%
   mutate(z = (x > 1) | (y > 1)) %>%
   mutate(z = (1-u_z) * z + u_z * (1-z)) %>%
-  mutate(z = ifelse(z, "Ja", "Nein"))
+  mutate(z = ifelse(z, "Yes", "No"))
 ```
 
-## Lernziele
+## Learning objectives
 
-In diesem Modul lernen Sie:
+In this module you will learn:
 
-- was eine umgedrehte Gabel ist;
+- what an inverted fork is;
 
-- was ein Collider ist;
+- what a collider is;
 
-- dass wir manchmal ungewollt selber Zusammenhänge schaffen wo eigentlich keine sind.
+- that we sometimes unintentionally create associations where there are none.
 
-## Aller guten Dinge sind drei
+## All good things come in threes
 
-Auch komplexe kausale Diagramme bestehen aus relativ einfachen Grundelementen. Neben der Kette und der Gabel gibt es noch als Drittes die **umgedrehte Gabel** (engl.: inverted fork). 
+Even complex causal diagrams consist of relatively simple basic elements. Besides the chain and the fork, there is the **inverted fork**. 
 
-Zur Erinnerung: $$A \rightarrow B$$ sagt aus, dass $B$ auf $A$ *hört*, aber nicht umgekehrt. 
+Remember: $$A \rightarrow B$$ says that $B$ *listens* to $A$, but not vice versa. 
 
 ## Dating
 
-Wieder stark vereinfacht: Nehmen wir an, dass Nettigkeit und Aussehen eine Rolle dafür spielen, ob wir mit jemandem auf ein Date gehen.
+Again, highly simplified: Let's assume that kidness and looks play a role in whether we go on a date with someone.
 
-Würden Sie jemanden daten, der weder nett ist noch gut aussieht? Vielleicht, aber wahrscheinlich eher nicht.
+Would you date someone who was neither kind nor good-looking? Maybe, but maybe not.
 
 
-Angenommen <green>Nettigkeit</green> ($\color{green}{X}$) führt zu <violet>Date</violet> ($\color{violet}{Z}$). Außerdem führt (gutes) <blue>Aussehen</blue> ($\color{blue}{Y}$) zu einem <violet>Date</violet> ($\color{violet}{Z}$). 
+Suppose <green>kindness</green> ($\color{green}{X}$) leads to <violet>date</violet> ($\color{violet}{Z}$). Also, (good) <blue>looks</blue> ($\color{blue}{Y}$) lead to <violet>date</violet> ($\color{violet}{Z}$). 
 
-Sie daten also jemanden, der nett ist *und/oder* gut aussieht.
+So you'd date someone who is nice *and/or* good looking.
 
-Dieses angenommene Modell lässt sich als kausales Diagramm wie folgt darstellen:
+This assumed model can be represented with the following causal graph:
 
 ```{r DAG_Collider, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Collider)
@@ -89,7 +89,7 @@ plot(DAG_Collider)
 
 ##
 
-Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
+The structural causal model consists of the following assignments:
 
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}\\
@@ -99,10 +99,10 @@ Das strukturelle kausale Modell besteht aus folgenden Zuweisungen:
 
 
 ```{r abhaengigkleit, echo=FALSE}
-message <- "Nach Konstruktion sind $X$ und $Y$ unabhängig voneinander. Kein kausaler Pfad führt von $X$ zu $Y$ &ndash; oder umgekehrt."
-question("Hängt Aussehen ($Y$) in diesem Beispiel von Nettigkeit ($X$) ab?",
-         answer("Ja"),
-         answer("Nein", correct = TRUE, message = message),
+message <- "By construction, $X$ and $Y$ are independent. No causal path leads from $X$ to $Y$ &ndash; or vice versa."
+question("Do looks ($Y$) depend on kindness ($X$) in this example?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = message),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -111,48 +111,52 @@ question("Hängt Aussehen ($Y$) in diesem Beispiel von Nettigkeit ($X$) ab?",
 
 ## Collider
 
-In Fällen wie diesen: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$ wird die Variable in der Mitte &ndash; hier $\color{violet}{Z}$ &ndash; **Collider** genannt. $\color{violet}{Z}$ ist eine  Wirkung von $\color{green}{X}$ und $\color{blue}{Y}$.
+In cases like these: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$, the variable in the middle &ndash; here  $\color{violet}{Z}$ &ndash; is called a **collider**. $\color{violet}{Z}$ is an effect of $\color{green}{X}$ and $\color{blue}{Y}$.
 
 ```{r collider, echo=FALSE}
-message <- "Wenn es kein Glück oder Pech ($U_Z$) war, dann sieht die nicht-nette Person eher gut aus. Es gibt ja einen Grund dafür, dass Sie sie überhaupt gedatet haben. Wenn es nicht die Nettigkeit war, dann wohl das Aussehen."
-question("Angenommen Sie haben jemanden gedatet ($Z$), der nicht besonders nett ($X$) ist. Wissen Sie dann etwas über das Aussehen ($Y$)?",
-         answer("Ja", correct = TRUE, message = message),
-         answer("Nein"),
+message <- "If it wasn't luck or bad luck ($U_Z$), then the unkind person has to look rather good. After all, there is a reason you dated them in the first place. If it wasn't kindness, it was probably looks."
+question("Suppose you dated someone ($Z$) who is not particularly kind ($X$). Does this tell you anything about their looks ($Y$)?",
+         answer("Yes", correct = TRUE, message = message),
+         answer("No"),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
 
-## Vergleich Gabel und umgedrehte Gabel
+## Contrasting fork and inverted fork
 
-Zur Erinnerung, bei einer **Gabel** gibt es einen nicht-kausalen Pfad von $\color{green}{X}$ nach $\color{blue}{Y}$:
+Recall that in a **fork**, there is a non-causal path from $\color{green}{X}$ to $\color{blue}{Y}$:
 $$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
 
-Angenommen: Im Sommer wird bei <violet>Sonnenschein</violet> sowohl mehr <green>Eis</green> als auch mehr <blue>Sonnencreme</blue> verkauft.
-<green>Eis</green> und <blue>Sonnencreme</blue> sind nicht unabhängig: Wenn ich weiß, dass viel <green>Eis</green> verkauft wurde, kann ich davon ausgehen, dass auch viel <blue>Sonnencreme</blue> verkauft wurde. Vermutlich führte <violet>Sonnenschein</violet> zu hohem <green>Eisverkauf</green> und so auch zu hohem <blue>Sonnencremeverkauf</blue>. Der Zusammenhang wird beobachtet, wenn keine weiteren Variablen berücksichtigt werden -- man nennt ihn auch *unbedingt*, *marginal.*
+Suppose: In summer, <violet>sunshine</violet> leads to an increase in both <green>ice cream</green> and <blue>sunscreen</blue> sales.
+<green>Ice cream</green> and <blue>sunscreen</blue> are not independent: If I know that a lot of <green>ice cream</green> was sold, I can assume that a lot of <blue>sunscreen</blue> was sold as well. 
+Presumably, <violet>sunshine</violet> led to high <green>ice cream </green> sales and also to high <blue>sun cream</blue> sales. The relationship is observed when no other variables are taken into account -- it is also called *unconditional,* *marginal*.
 
-Über die Information <green>Eis</green> kann man über <violet>Sonnenschein</violet> etwas über <blue>Sonnencreme</blue> lernen.
-Wenn ich weiß, dass <violet>Sonnenschein</violet> ist, enhält die Information, dass viel <green>Eis</green> verkauft wurde, keine zusätzliche Information über <blue>Sonnencreme</blue>. *Bedingt* <violet>Sonnenschein</violet>, das heißt wenn ich weiß, dass die Sonne scheint, sind <green>Eis</green> und <blue>Sonnencreme</blue> unabhängig.
+<green>Ice cream</green> tells us something about <violet>sunshine</violet> which tells us something about <blue>sunscreen</blue>.
+But if I know that there is <violet>sunshine</violet>, the information that a lot of <green>ice cream</green> has been sold contains no additional information about <blue>sunscreen</blue> sales. 
+*Conditional* on <violet>sunshine</violet>, that is, if I know that the sun is shining, <green>ice cream</green> and <blue>sunscreen</blue> sales are independent.
 
-Zusammengefasst: Bei einer Gabel gibt es einen unbedingten Zusammenhang zwischen $\color{green}{X}$ nach $\color{blue}{Y}$; gegeben $\color{violet}{Z}$ -- also bedingt -- gibt es aber keine Zusammenhang.
+To summarize: In a fork, there is an unconditional association between $\color{green}{X}$ and $\color{blue}{Y}$; but given $\color{violet}{Z}$ -- that is, conditional -- there is no relationship.
 
-Bei einer **umgedrehten Gabel** gibt es keinen Zusammenhang von $\color{green}{X}$ und $\color{blue}{Y}$:
+In an **inverted fork** there is no association between $\color{green}{X}$ and $\color{blue}{Y}$:
 $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$
-Angenommen: Sowohl am <green>Wochenende</green> als auch im <blue>Urlaub</blue> kann mensch <violet>ausschlafen</violet>.
-Gehen wir davon aus, dass im Urlaub genau so oft Wochenende wie sonst gibt. <green>Wochenende</green> und <blue>Urlaub</blue> sind (*unbedingt*, *marginal*) unabhängig: 
-Aus der Information <green>Wochenende</green> lerne ich nichts über <blue>Urlaub</blue>.
-Wenn ich weiß, dass ich <violet>ausschlafen</violet> kann, weiß ich, dass entweder <green>Wochenende</green> oder <blue>Urlaub</blue> (oder beides) ist. Bei <violet>Ausschlafen</violet> lerne ich aus der Information <blue>kein Urlaub</blue>, dass wahrscheinlich <green>Wochenende</green> ist.
-Einen Grund muss mein Ausschlafen ja haben.
-*Bedingt*, gegeben, <violet>Ausschlafen</violet> sind <green>Wochenende</green> und <blue>Urlaub</blue> damit nicht mehr unabhängig.
+Both on the <green>weekend</green> and on <blue>vacation</blue>, people can <violet>sleep in</violet>.
+Let's assume that weekends and vacation are uncorrelated..
+<green>Weekend</green> and <blue>vacation</blue> will be (*unconditionally*, *marginally*) independent: 
+I learn nothing about <blue>vacation</blue> from the information <green>weekend</green>.
+But if I know that I can <violet>sleep in</violet>, I know that it is either the <green>weekend</green> or <blue>vacation</blue> (or both).
+Conditional on <violet>sleeping in</violet>, I learn from the information that there was no <blue>vacation</blue> that it is probably the <green>weekend</green>.
+There must be a reason for my sleeping in.
+*Conditionally*, given <violet>sleeping in</violet>, <green>weekend</green> and <blue>vacation</blue> are thus no longer independent.
 
-Die umgedrehte Gabel verhält sich damit gerarde umgedreht wie die normale Gabel. 
-Es gibt keinen unbedingten Zusammenhang, aber bedingt gibt es einen Zusammenhang.
+The inverted fork thus behaves exactly the other way around than the normal fork.
+There is no unconditional association, but there is a conditional association.
 
 
-## Modell und Simulierte Daten
+## Model and data simulation
 
-Betrachten wir das folgende strukturelle kausale Modell:
+Consider the following structural causal model:
 
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{N}(0,\,1), \\
@@ -161,57 +165,58 @@ Betrachten wir das folgende strukturelle kausale Modell:
 \color{violet}{Z} &=& (1-U_{\color{violet}{Z}}) \cdot \tilde{\color{violet}{Z}} + U_{\color{violet}{Z}} \cdot (1- \tilde{\color{violet}{Z}}), \quad U_{\color{violet}{Z}} \sim \mathcal{B}(0.05),
 \end{eqnarray*}
 
-$\mathcal{N}(0,\,1)$ steht für eine eine Standardnormalverteilung, $\mathcal{B}(0.05)$ für eine Bernoulliverteilung mit $\pi=0.05$. $\tilde{\color{violet}{Z}}$ ist dabei eine Hilfsvariable, die den Wert $1$ annimmt, wenn $\color{green}{X}$ oder $\color{blue}{Y}$ größer als $1$ ist. Ansonsten ist $\tilde{\color{violet}{Z}}=0$. Ob $\color{violet}{Z}$ dann wirklich $0$ (kein Date) oder $1$ (Date) ist hängt dann auch noch ein Wenig vom zufälligen Glück ab.
+$\mathcal{N}(0,\,1)$ is a standard normal distribution, $\mathcal{B}(0.05)$ is a Bernoulli distribution with $\pi=0.05$. $\tilde{\color{violet}{Z}}$ is an auxiliary variable that takes the value $1$ if $\color{green}{X}$ or $\color{blue}{Y}$ are greater than $1$. Otherwise, $\tilde{\color{violet}{Z}}=0$. Whether $\color{violet}{Z}$ is really $0$ (no date) or $1$ (date) depends on random luck.
 
-$\vee$ ist das logische *oder* (`|` in `R`). 
+$\vee$ is the logical *or* operator (`|` in `R`). 
 
 
 
-Folgender `R` Code simuliert diesen datengenerierenden Prozess:
+The following `R` code simulates this data generating mechanism:
 
 ```{r sim, eval=FALSE}
-library(mosaic) # Paket laden
-set.seed(1896) # Zufallszahlengenerator setzen
-n <- 100 # Anzahl Beobachtungen
+library(mosaic) # load package
+set.seed(1896) # set random seed for reproducibility
+n <- 100 # number of observations
 
 SimData <- tibble(x = rnorm(n),                               # X 
                   y = rnorm(n),                               # Y
                   u_z = rbinom(n, size = 1, prob = 0.05)) %>% # U_z
   mutate(z = (x > 1) | (y > 1)) %>%                           # Z~
   mutate(z = (1-u_z) * z + u_z * (1-z)) %>%                   # Z
-  mutate(z = ifelse(z, "Ja", "Nein"))
+  mutate(z = ifelse(z, "Yes", "No"))
 ```
 
-Sowohl die mathematische Darstellung als auch der `R` Code sind hier anspruchsvoll. 
-Worauf es in diesem Modul aber ankommt, sind die Daten, die dabei rauskommen:
+Both the mathematical representation and the `R` code are a bit more complex here. 
+But what matters here is the data that comes out of it:
 
 ```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(y ~ x, data = SimData, color = ~z) +
   scale_color_colorblind()  +
-  xlab("x (Nettigkeit)") +
-  ylab("y (Aussehen)")
+  xlab("x (kindness)") +
+  ylab("y (looks)")
 ```
 
-## Zusammenhänge
+## Associations
 
-Diese Daten beschreiben die zuvor beschriebene Dating-Situation. Die Farbe der Punkte verrät uns, ob wir jemanden gedatet haben ($\color{violet}{Z}$). 
-$\color{green}{X}$ ist die Nettigkeit und $\color{blue}{Y}$ das Aussehen.
+These data describe the previously described dating situation. 
+The color of the dots tells us if we have dated someone ($\color{violet}{Z}$). 
+$\color{green}{X}$ is kindness and $\color{blue}{Y}$ is looks.
 
-Wenn wir, getrennt nach <violet>Date</violet> ($\color{violet}{Z}$), eine lineare Regression von <blue>Aussehen</blue> ($\color{blue}{Y}$) auf <green>Nettigkeit</green> ($\color{green}{X}$) bestimmen, so sehen die Ergebnisse wie folgt aus:
+If, separately for the two levels of <violet>date</violet> ($\color{violet}{Z}$), we run a linear regression of <blue>looks</blue> ($\color{blue}{Y}$) on <green>kindness</green> ($\color{green}{X}$), the results look like this:
 
 ```{r scatterlm, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(y ~ x, data = SimData, color = ~z) %>%
   gf_lm() +
   scale_color_colorblind() +
-  xlab("x (Nettigkeit)") +
-  ylab("y (Aussehen)")
+  xlab("x (kindness)") +
+  ylab("y (looks)")
 ```
 
 ```{r corb, echo=FALSE}
-message <- "Die Regressionsgerade geht von links oben nach rechts unten. Dies zeigt eine negative Korrelation an. Tendenziell sind die Dates, die hübsch sind, nicht besonders nett &ndash; und umgekehrt."
-question("Für die, die Sie gedatet haben (`z = Ja`): Sehen Sie einen Zusammenhang zwischen Nettigkeit `x` und Aussehen `y`?", 
-         answer("Ja", correct = TRUE, message = message),
-         answer("Nein"),
+message <- "The regression line goes from top left to bottom right. This indicates a negative correlation. Those dates who are particularly good looking are not particularly kind &ndash; and vice versa."
+question("For those you have dated (`z = Yes`): Do you see a correlation between kindness `x` and looks `y`?", 
+         answer("Yes", correct = TRUE, message = message),
+         answer("No"),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -220,9 +225,10 @@ question("Für die, die Sie gedatet haben (`z = Ja`): Sehen Sie einen Zusammenha
 
 ##
 
-Wenn wir <violet>Date</violet> ($\color{violet}{Z}$) berücksichtigen, sehen wir also einen Zusammenhang zwischen <blue>Aussehen</blue> ($\color{blue}{Y}$) und <green>Nettigkeit</green> ($\color{green}{X}$). Dabei haben wir unsere Daten so simuliert, dass die beiden Variablen voneinander unabhängig sind.
+Thus, when we consider <violet>date</violet> ($\color{violet}{Z}$), we see a relationship between <blue>looks</blue> ($\color{blue}{Y}$) and <green>kindness</green> ($\color{green}{X}$). 
+But originally, we simulated our data so that the two variables are independent of each other.
 
-Wenn wir uns hingegen den Zusammenhang zwischen $\color{green}{X}$ und $\color{blue}{Y}$ ohne Berücksichtigung von $\color{violet}{Z}$ angucken, erkennen wir, dass die Variablen eigentlich unabhängig sind:
+If we look at the relationship between $\color{green}{X}$ and $\color{blue}{Y}$ without considering $\color{violet}{Z}$, we can see that the variables are indeed independent:
 
 ```{r scatterlmub, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(y ~ x, data = SimData) %>%
@@ -231,37 +237,33 @@ gf_point(y ~ x, data = SimData) %>%
 
 ***
 
-*Anmerkung:* Dass die Gerade hier nicht ganz parallel zur x-Achse verläuft liegt an zufälliger Variation. Auch wenn es im datengenerierenden Prozess keine Korrelation zwischen den Variablen gibt ($\rho=0$), kann es in einer (simulierten) Stichprobe eine geben ($r\neq0$).
+*Note:* The fact that the straight line here is not completely parallel to the x-axis is due to random variation. Even if there is no correlation between the variables in the data generating process ($\rho=0$), there may be one in a (simulated) sample ($r\neq0$).
 
 ***
 
-Häufig lesen wir den Satz:
+We often hear the sentence:
 
-> Ich traue keiner Statistik, die ich nicht selbst gefälscht habe.
+> Don't trust any statistic that you haven't falsified yourself
 
-Wenn wir als Stichprobe für die Analyse eines möglichen Zusammenhangs zwischen Aussehen und Nettigkeit unsere Dates heranziehen, sollten wir besser sagen:
+If we take our dates as a sample for the analysis of a possible association between looks and kindness, we should better say:
 
-> Ich traue auch keiner Statistik, die ich selbst gefälscht habe.
+> Don't trust any statistic that you have falsified yourself.
 
-Natürlich sind unsere Dates nicht *gefälscht*, aber wir haben eine selbst gewählte Stichprobe als Grundlage. 
-Diese liefert ein verzerrtes Ergebnis mit Zusammenhängen an Stellen, an denen es eigentlich keine gibt.
+Of course our dates are not *fake*, but we have a self-selected sample on which we base our analyses.
+This delivers a distorted result with correlations in places where there are actually none.
 
-## Zusammenfassung
+## Summary
 
 :::{.box}
-Um den (totalen) kausalen Effekt von $X$ auf $Y$ in einer umgedrehten Gabel $$X \rightarrow Z \leftarrow Y$$ zu bestimmen, darf der Collider $Z$ nicht berücksichtigt werden. (Dies gilt auch für alle Nachfahren von $Z$.)
-Wird $Z$ berücksichtigt, wird ein scheinbarer Zusammenhang zwischen $X$ und $Y$ erzeugt und fließt in die Analyse ein. 
-Beispielsweise sollte man in einem linearen Modell nicht $Z$ als erklärende Variable aufnehmen.
-Man sollte auch nicht die Daten anhand von $Z$ in Gruppen einteilen, die man dann separat analysiert -- auch das verzerrt Zusammenhänge.
+To determine the causal effect of $X$ on $Y$ in an inverted fork $$X \rightarrow Z \leftarrow Y$$, the collider $Z$ must not be considered. (This is also true for all descendants of $Z$).
+If $Z$ is conditioned upon, a spurious association between $X$ and $Y$ is generated and biases the analysis. 
+For example, one should not include $Z$ as an explanatory variable in a linear model.
+Nor should one divide the data into groups based on $Z$ and analyze them in separation -- this also distorts associations.
 ::: 
 
-## Hinweis
+## Note
 
-<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
-
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
-
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
 
 
 ![](images/csm_Logo-BMBF.jpg)
