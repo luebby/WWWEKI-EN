@@ -1,5 +1,5 @@
 ---
-title: "Modul 07: Warum Raumteilung keine gute Investition ist"
+title: "Module 07: Why splitting rooms is not a good investment"
 output: 
   learnr::tutorial:
     progressive: true
@@ -39,7 +39,7 @@ DAG_Fork <- dagify(X ~ Z,
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Zimmer\nZ - Fläche\nY - Preis", 
+  geom_text(label = "X - Rooms\nZ - Living area\nY - Price", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 7, color = "darkgrey") 
 
@@ -53,64 +53,64 @@ erglm2 <- lm(price ~ rooms + livingArea, data = SaratogaHouses)
 options(scipen = 999)
 ```
 
-## Lernziele
+## Learning objectives
 
-In diesem Modul lernen Sie:
+In this module you will learn:
 
-- dass aus einer Beobachtung nicht immer eine Handlung abgeleitet werden kann.
+- that an observation does not always allow us to derive a suitable action.
 
-## Immobilienpreis
+## Real estate price
 
-Von was hängt der Wert einer Immobilie ab?
+What determines the value of a property?
 
-<img src="images/Grundriss.jpg" alt="Grundriss" width="50%" height="50%">
+<img src="images/Grundriss.jpg" alt="floor plan" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
 <span style="font-size: 10px;"><br>
 Quelle: [https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/](https://pixabay.com/de/photos/bauplan-grundriss-architektenplan-354233/)
 </span>
 
 
-Ein Faktor, der besonders leicht zu bestimmen ist, ist die Anzahl der Zimmer. 
-Dieses Kriterium wird in den USA auch häufig zur Vermarktung verwendet.
+One factor that is particularly easy to determine is the number of rooms. 
+This criterion is also often used for marketing in the USA.
 
-Im `R` Paket `mosaicData` gibt es einen Immobiliendatensatz: `SaratogaHouses`.
-Er enthält Daten zu Häusern in Saratoga County, New York, USA, im Jahr 2006.
+In the `R` package `mosaicData` there is a data set containing real estate records: `SaratogaHouses`.
+It contains data on houses in Saratoga County, New York, USA, in 2006.
 
-Schauen wir uns dort den Zusammenhang zwischen Anzahl Zimmer (`rooms`) und Preis (`price`) einmal an:
+Let's have a look at the relation between number of rooms (`rooms`) and price (`price`):
 
 ```{r desi}
-# Vorbereitungen: Paket und Daten laden
+# Load data and packages
 library(mosaic)
 data(SaratogaHouses)
 
-# Streudiagramm
+# scatter plot
 gf_point(price ~ rooms, data = SaratogaHouses) %>%
-  gf_lm() # Regressionsgerade ergänzt
+  gf_lm() # add regression line
 ```
 
-Wir sehen: Je mehr Zimmer, desto höher der Preis im Mittel.
+As you can see: The average price increases with the number of rooms.
 
-## Lineare Regression - 1. Versuch
+## Linear regression - first attempt
 
-Gehen wir von einem linearen Zusammenhang zwischen <green>Anzahl Zimmer</green> (`rooms`), $\color{green}{x}$, und <blue>Preis</blue> (`price`), $\color{blue}{y}$, aus:
+Let us assume a linear relationship between <green>number of rooms</green> (`rooms`), $\color{green}{x}$, and <blue>price</blue> (`price`), $\color{blue}{y}$:
 
 $$\color{blue}{y}_i = \beta_0 + \beta_1 \cdot \color{green}{x}_i + \epsilon_i$$
-Dabei ist $\beta_1$ die Steigung, die den (linearen) Zusammenhang beschreibt, $\beta_0$ der $y$-Achsenabschnitt.
+$\beta_1$ is the slope describing the linear relationship, $\beta_0$ is the $y$-intercept
 
-Geschätzt werden können die Koeffizienten $\beta_0, \beta_1$ mit Hilfe der Daten:
+We can use the data to estimate the two coefficients $\beta_0, \beta_1$:
 
 ```{r lm1}
 erglm1 <- lm(price ~ rooms, data = SaratogaHouses)
 erglm1
 ```
 
-Also:
+Resulting in:
 
 $$\hat{\color{blue}{y}}_i = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{x}_i $$
 
 ```{r Steigung, echo=FALSE}
-message <- "Die anhand der Stichprobe im linearen Modell geschätzte Steigung liegt bei $\\hat{\\beta}_1= 22573$. Bei $\\hat{\\beta}_0=53016$ handelt es sich um den geschätzten Y-Achsenabschnitt, also der Mittelwert des Preises bei $x=0$ Räumen."
-question("Im linearen Modell der Stichprobe: Um wie viel erhöht sich im Mittel der Preis pro Raum?",
+message <- "The slope estimated from the sample in the linear model is $\\hat{\beta}_1= 22573$.  $\\hat{\beta}_0=53016$ is the estimated y-intercept, that is, the mean of the price at $x=0$ rooms."
+question("In the linear model describing the sample, by how much does the price increase per room?",
          answer("53016"),
          answer("22573", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -121,82 +121,81 @@ question("Im linearen Modell der Stichprobe: Um wie viel erhöht sich im Mittel 
 
 ##
 
-Angenommen, ein Haus hat gemäß Grundriss 4 abgetrennte Räume, also  <green>Anzahl Zimmer</green> (`rooms`), $\color{green}{x}=\color{green}{4}$.
+If a house has 4 separated rooms according to the floor plan, <green>number of rooms</green> (`rooms`) is $\color{green}{x}=\color{green}{4}$.
 
-Damit liegt der geschätzte Mittelwert des Preise bei
+Thus, the estimated price is
 
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{4}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*4`}.$$
 
 ##
 
-<img src="images/idee.png" alt="Idee" width="50%" height="50%">
+<img src="images/idee.png" alt="Idea" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
 <span style="font-size: 10px;"><br>
 Quelle: [https://pixabay.com/de/vectors/idee-erfindung-erfinder-denken-152213/](Quelle: https://pixabay.com/de/vectors/idee-erfindung-erfinder-denken-152213/)
 </span>
 
-Nun könnte man einen scheinbar genialen Einfall haben: Man teilt das Wohnzimmer einfach auf.
-Aus Eins mach Zwei, aus $4$ Zimmern werden $5$, $do(\color{green}{x}=\color{green}{5})$. 
-Dann gilt gemäß des Modells:
+Now you could have a seemingly brilliant idea: Just divide the living room.
+One becomes two, $4$ rooms turn into $5$, $do(\color{green}{x}=\color{green}{5})$. 
+Then, according to the model:
 
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{5}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*5`}.$$
 
 ```{r Wertsteigerung, echo=FALSE}
-message <- "Das geschätzte lineare Modell der Stichprobe bezieht sich auf die Beobachtungsdaten ($X=x$), d. h., die Steigung beschreibt die beobachtete Änderung des Mittelwertes, nicht den Effekt einer Handlung $do(X=x)$ (vgl. Modul 2)."
-question("Erhöht eine solche Raumteilung den Preis der Immobilie im Mittel um $22573$?",
-         answer("Ja"),
-         answer("Nein", correct = TRUE, message = message),
+message <- "The estimated linear model of the sample refers to the observed data ($X=x$), i.e., the slope describes the observed change in the mean, not the effect of an action $do(X=x)$ (cf. Module 2)."
+question("Does such a room divsion increase the price of the property by $22573$ on average?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = message),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
 ```
 
-## Wiederholung: Elemente Kausaler Diagramme
+## Repetition: Elements of Causal Diagrams
 
-In den Module 4, 5 und 6 haben Sie die Grundelemente kausaler Diagramme kennengelernt:
+In Modules 4, 5 and 6 you have learned the basic elements of causal diagrams:
 
 
-| Pfad                       | $\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$ | $\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$  | $\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$ 
+| Path                       | $\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$ | $\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$  | $\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$ 
 | :--------------------------|:--------------------------------|:--------------------------------|:-----------------------------|
-| Name                       | Kette                           | Gabel                           | Umgedrehte Gabel         
-| Verbindung $\color{green}{X}$ und $\color{blue}{Y}$     | Kausal                          | Nicht kausal                    | Keine                       
-| Rolle von $\color{violet}{Z}$              | Mediator                        | Confounder                      | Collider
-| Adjustierung $\color{violet}{Z}$           | Unterbricht kausalen Pfad       | Unterbricht nicht-kausalen Pfad | Öffnet nicht-kausalen Pfad
+| Name                       | Chain                           | Fork                           | Inverted fork         
+| Association between $\color{green}{X}$ and $\color{blue}{Y}$     | causal                          | non causal                    | no association                       
+| Role of $\color{violet}{Z}$              | Mediator                        | Confounder                      | Collider
+| Adjustment of $\color{violet}{Z}$           | Blocks causal path       | Blocks non-causal path | Opens non-causal path
 
-Wie können wir nun aus Beobachtungsdaten kausale Effekte schätzen?
+How can we estimate causal effects from observational data, given these rules?
 
-**Die Grundidee**: Um die Änderung von $\color{blue}{y}$ zu schätzen, wenn $\color{green}{x}$ verändert wird, sollten alle nicht-kausale Pfade (*Gabeln*) unterbrochen werden. 
-Gleichzeitig sollten kausale Pfade(*Ketten*) nicht unterbrochen werden.
-Zudem sollten keine nicht-kausalen Pfade (*umgedrehte Gabeln*) aufgemacht werden. 
-Während also in einer Gabel für $\color{violet}{Z}$ adjustiert werden sollte, sollte dies in einer Kette oder umgedrehten Gabel nicht passieren.
+**The basic idea**: To estimate the change in $\color{blue}{y}$ when $\color{green}{x}$ is changed, all non-causal paths (*forks*) should be blocked. 
+At the same time, causal paths (*chains*) should not be blocked.
+Moreover, non-causal paths (*inverted forks*) should not be opened. 
+So while we should adjust for $\color{violet}{Z}$ in a fork, this should not happen in a chain or inverted fork.
 
 <br>
 <br>
 
-Für den Zusammenhang zwischen <green>Anzahl Zimmer</green> und <blue>Preis</blue>:
-Überlegen Sie, welcher *Confounder* hier vorliegen könnte?
+Considering the relationship between <green>number of rooms</green> and <blue>price</blue>: What *confounder* might be present?
 
-*Denken Sie bitte kurz darüber nach und klicken Sie erst dann auf `Nächstes Thema`*
+*Please think about it for a moment before you press `Next`*.
 
 ##
 
-<violet>Wohnfläche</violet> könnte eine gemeinsame Ursache von <green>Anzahl Zimmer</green> und <blue>Preis</blue> sein.
-Größere Häuser haben in der Regel mehr Zimmer und kosten auch mehr.
+<violet>Living space</violet> could be a common cause of <green>number of rooms</green> and <blue>price</blue>.
+Larger houses usually have more rooms and also cost more.
 
 ```{r DAG_Fork, echo=FALSE, fig.align='center', out.width='85%'}
 plot(DAG_Fork)
 ```
 
-In diesem simplen Graphen können wir uns jetzt auf spezifische Aspekte konzentrieren.
+In this simple graph, we can now focus on specific aspects.
 
 ```{r graph2, echo=FALSE}
-message <- "Neben dem direkten Effekt über $X \\rightarrow Y$ gibt es auch den nicht-kausalen $X \\leftarrow Z \\rightarrow Y$. Hier ist die **Fläche** ein **Confounder**."
-question("Angenommen, uns interessiert der Zusammenhang zwischen der Anzahl der Zimmer und dem Preis, unter Berücksichtigung der Fläche.
-Welcher Struktur enstpricht der Teilgraph?",
-         answer("Kette"),
-         answer("Gabel", correct = TRUE, message = message),
-         answer("Umgedrehte Gabel"),
+message <- "Apart from the direct effect via $X \\rightarrow Y$, there is also the non-causal $X \\leftarrow Z \\rightarrow Y$. Here, the **area** is a **confounder**."
+question("Suppose we are interested in the relationship between the number of rooms and the price, given the area.
+Which structure does the subgraph correspond to?",
+         answer("Chain"),
+         answer("Fork", correct = TRUE, message = message),
+         answer("Inverted fork"),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
@@ -205,11 +204,11 @@ Welcher Struktur enstpricht der Teilgraph?",
 
 
 ```{r graph1, echo=FALSE}
-message <- "Neben dem direkten Effekt über $Z \\rightarrow Y$ gibt es auch den indirekten $Z \\rightarrow X \\rightarrow Y$. Hierbei ist die **Anzahl Räume** ein **Mediator**."
-question("Angenommen, uns interessiert der Zusammenhang zwischen Fläche und Preis, der über die Anzahl Räume vermittelt wird. Welcher Struktur enstpricht der Teilgraph?",
-         answer("Kette", correct = TRUE, message = message),
-         answer("Gabel"),
-         answer("Umgedrehte Gabel"),
+message <- "Apart from the direct effect via $Z \\rightarrow Y$, there is also the indirect $Z \\rightarrow X \\rightarrow Y$. Here the **number of rooms** is a **mediator**."
+question("Suppose we are interested in the relationship between area and price via the number of rooms. Which structure does the subgraph correspond to?",
+         answer("Chain", correct = TRUE, message = message),
+         answer("Fork"),
+         answer("Inverted fork"),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
@@ -217,12 +216,12 @@ question("Angenommen, uns interessiert der Zusammenhang zwischen Fläche und Pre
 ```
 
 
-## Lineare Regression - 2. Versuch
+## Linear regression - second attempt
 
-Wenn die Wohnfläche ein Confounder ist, so sollten wir für diese Variable adjustieren, um den kausalen Effekt der Anzahl der Zimmer zu schätzen.
+If living area is a confounder, we should adjust for this variable to estimate the causal effect of number of rooms.
 
 
-<violet>Wohnfläche</violet> liegt in der Datentabelle als Variable `livingArea` vor. Ergänzen Sie das Modell entsprechend.
+<violet>Living area</violet> is present in the data table as the variable `livingArea`. Complete the model accordingly.
 
 ```{r lm, exercise=TRUE, eval=FALSE}
 lm(price ~ rooms, data = SaratogaHouses)
@@ -232,21 +231,23 @@ lm(price ~ rooms, data = SaratogaHouses)
 lm(price ~ rooms + livingArea, data = SaratogaHouses)
 ```
 
-Was fällt Ihnen auf?
+What do you notice?
 
 ##
 
 ```{r lms}
-# Modell ohne Wohnfläche
+# Model without living area
 lm(price ~ rooms, data = SaratogaHouses)
-# Modell mit Wohnfläche
+# Model with living area
 lm(price ~ rooms + livingArea, data = SaratogaHouses)
 ```
 
-Gegeben die <violet>Wohnfläche</violet> ist der Effekt der <green>Anzahl Räume</green> auf den <blue>Preis</blue> viel kleiner. Statt einer geschätzten Steigung von $\hat{\beta}_1=`r round(coef(erglm1))[2]`$ im Modell *ohne* Berücksichtigung der <violet>Wohnfläche</violet> haben wir *mit* Berücksichtigung nur noch eine Steigung von $\hat{\beta}_1=`r round(coef(erglm2))[2]`$.
+Given the <violet>living area</violet>, the effect of the <green>number of rooms</green> on the <blue>price</blue> is much smaller. 
+Instead of an estimated slope of $\hat{\beta}_1=`r round(coef(erglm1))[2]`$ in the model *without* accounting for <violet>living area</violet>, we find  $\hat{\beta}_1=`r round(coef(erglm2))[2]`$ *with* accounting it.
 
-Auch wenn dies immer noch ein stark vereinfachtes Modell ist: Der geschätzte kausale Effekt der Anzahl Räume auf den Preis ist im Modell mit der Wohnfläche (`price ~ rooms + livingArea`) realistischer als der ohne (`price ~ rooms`).
-Natürlich kann es zusätzlich noch weitere Confounder geben, die berücksichtigt werden sollten.
+Even though this is still a highly simplified model, the estimated causal effect of the number of rooms on price is at least more realistic in the model with living area (`price ~ rooms + livingArea`) than in the one without (`price ~ rooms`).
+Of course, there may be additional confounders that should be taken into account.
+
 
 ##
 
@@ -255,10 +256,10 @@ plot(DAG_Fork)
 ```
 
 ```{r adjustierung, echo=FALSE}
-message <- "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab, welcher kausale Effekt bestimmt werden soll. Hier würde das Modell `price ~ livingArea + rooms` den (indirekten) kausalen Pfad von Fläche über Zimmer zu Preis unterbrechen. Das korrekte Modell wäre daher  `price ~ livingArea`."
-question("Angenommen, wir wollen die erwartete Änderung des Preises, wenn die Fläche erhöht wird, analysieren. Sollte dann für die Anzahl Zimmer adjustiert werden?",
-         answer("Ja", message = "Welche Variablen ins Modell aufgenommen werden sollen, hängt davon ab welcher kausale Effekt bestimmt werden soll."),
-         answer("Nein",correct = TRUE, message = message),
+message <- "Which variables to include in the model depends on which causal effect is to be determined. Here, the model `price ~ livingArea + rooms` would interrupt the (indirect) causal path from area to rooms to price. The correct model would therefore be `price ~ livingArea`."
+question("Suppose we want to analyze the expected change in price when living area is increased. Should we then adjust for the number of rooms?",
+         answer("Yes", message = "Which variables to include in the model depends on which causal effect we want to determine."),
+         answer("No",correct = TRUE, message = message),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
@@ -266,14 +267,10 @@ question("Angenommen, wir wollen die erwartete Änderung des Preises, wenn die F
 ```
 
 
+## Note
 
-## Hinweis
-
-<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
-
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
-
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
+ Förderkennzeichen 16DHBQP040 gefördert.
 
 
 ![](images/csm_Logo-BMBF.jpg)
