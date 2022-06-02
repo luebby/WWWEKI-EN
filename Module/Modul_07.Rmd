@@ -270,7 +270,6 @@ question("Suppose we want to analyze the expected change in price when living ar
 ## Note
 
 This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
- Förderkennzeichen 16DHBQP040 gefördert.
 
 
 ![](images/csm_Logo-BMBF.jpg)

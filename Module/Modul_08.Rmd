@@ -1,5 +1,5 @@
 ---
-title: "Modul 08: Magie durch Zufall"
+title: "Module 08: Randomness is Magic"
 output: 
   learnr::tutorial:
     language: 
@@ -39,7 +39,7 @@ DAG_Modell <- dagify(X ~ Z,
   geom_dag_text(size = 7) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin", 
+  geom_text(label = "X - Breastfeeding\nY - Overweight\nZ - Graduate", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 6, color = "darkgrey") 
 
@@ -54,7 +54,7 @@ DAG_ModellG <- dagify(X ~ Z,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nS - Stichprobe", 
+  geom_text(label = "X - Breastfeeding\nY - Overweight\nZ - Graduate\nS - Sample", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 
@@ -69,7 +69,7 @@ DAG_ModellS <- dagify(X ~ Z,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nS - Stichprobe\nD - Zufall", 
+  geom_text(label = "X - Breastfeeding\nY - Overweight\nZ - Graduate\nS - Sample\nD - Randomness", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 
@@ -83,7 +83,7 @@ DAG_ModellE <- dagify(X ~ D,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nD - Zufall", 
+  geom_text(label = "X - Breastfeeding\nY - Overweight\nZ - Graduate\nD - Randomness", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 library(mosaic)
@@ -91,82 +91,83 @@ library(mosaic)
 options(scipen = 999)
 ```
 
-## Lernziele
+## Learning objectives
 
-In diesem Modul lernen Sie:
+In this module you will learn more about:
 
-- die unterschiedlichen Anforderungen von Beschreibung und Vorhersage; 
+- the different data requirements for description and prediction; 
 
-- welche Vorteile eine zufällig gezogene Stichprobe hat;
+- the advantages of randomly drawn samples;
 
-- welche Vorteile eine zufällige Zuordnung im Rahmen eines Experiments hat.
+- the advantages of random assignment in the context of experiments.
 
 
-## Weniger Übergewicht durch Stillen?
+## Reducing overweight through breastfeeding?
 
-Eine <red>fiktive</red> Studie präsentiert Ihnen dieses Ergebnis:
+A <red>fictive</red> study reports these results:
 
 ```{r, out.width="90%", echo = FALSE}
-akademikerin <- c(rep(0, 70), rep(1, 30))
+graduate <- c(rep(0, 70), rep(1, 30))
 set.seed(1954)
-stillen <- numeric(100)
-puebergewicht <- numeric(100)
-uebergewicht <- numeric(100)
+breastfeeding <- numeric(100)
+poverweight <- numeric(100)
+overweight <- numeric(100)
 for(i in 1:100) 
   {
-  stillen[i] <- ifelse(akademikerin[i], 
+  breastfeeding[i] <- ifelse(graduate[i], 
                     sample(c(0,1),1, prob = c(0.1, 0.9)), 
                     sample(c(0,1),1, prob = c(0.4, 0.6)))
-  puebergewicht[i] <- ifelse(akademikerin[i], 0.3, 0.5)
-  puebergewicht[i] <- puebergewicht[i] - ifelse(stillen[i], 0.2, 0)
-  uebergewicht[i] <- sample(c(0,1),1, prob = c(1-puebergewicht[i], puebergewicht[i]))
+  poverweight[i] <- ifelse(graduate[i], 0.3, 0.5)
+  poverweight[i] <- poverweight[i] - ifelse(breastfeeding[i], 0.2, 0)
+  overweight[i] <- sample(c(0,1),1, prob = c(1-poverweight[i], poverweight[i]))
 }
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
-  mutate(Übergewicht = uebergewicht,
-         akademikerin = akademikerin,
-         stillen = stillen)
+  mutate(Overweight = overweight,
+         graduate = graduate,
+         breastfeeding = breastfeeding)
 
 d2 <- d %>%
-  mutate(Übergewicht = ifelse(Übergewicht, "Ja", "Nein")) %>%
-  mutate(stillen = ifelse(stillen, "Stillen: Ja", "Stillen: Nein")) %>%
-  mutate(akademikerin = ifelse(akademikerin, "Ja", "Nein")) 
+  mutate(Overweight = ifelse(Overweight, "Yes", "No")) %>%
+  mutate(breastfeeding = ifelse(breastfeeding, "Breastfeeding: Yes", "Breastfeeding: No")) %>%
+  mutate(graduate = ifelse(graduate, "Yes", "No")) 
 
 
-gf_bar(~ Übergewicht | stillen , data = d2, 
-       fill = ~ Übergewicht) + 
+gf_bar(~ Overweight | breastfeeding , data = d2, 
+       fill = ~ Overweight) + 
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
-  labs(title = "Studienergebnis", y="Häufigkeit") +
+  labs(title = "Study result", y="Frequency") +
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 ```
 
-Was Sie sehen: Kinder von Frauen, die mindestens 4 Monate voll <green>stillen</green> haben seltener im Alter von 6 Jahren  <blue>Übergewicht</blue> als Kinder von Frauen, die nicht mindestens 4 Monate voll stillen &ndash; in dieser fiktiven Studie.
+As you can see: Children of women who <green>breastfed</green> exclusively for at least four months were less likely to be <blue>overweight</blue> at age six than children who weren't breastfed &ndash; in this fictional study.
 
-Dies ist die Ebene **Beschreibung** (siehe Modul 3).<br>
-Um die Ebenen ***Vorhersage*** und ***Kausale Inferenz*** zu erreichen brauchen wir mehr. 
-Einen hilfreichen Kniff dafür kennen Statistiker:innen und Wissenschaftler:innen schon lange.
+
+This is level of **description** (see Module 3).<br>
+To reach the levels ***prediction*** and ***causal inference*** we need more. 
+A helpful trick for this has been known by statisticians and scientists for a long time.
 
 ##
 
-Erstellen wir zunächst ein stark vereinfachtes Modell, in dem wir die folgenden kausalen Zusammenhänge annehmen:
+Let us start with a highly simplified model in which we assume the following causal relationships:
 
 
-- <blue>Übergewicht</blue> des Kindes im Alter von 6 Jahren hängt eventuell ab vom vollständigen <green>Stillen</green> durch die Mutter bis zum 4. Monat (<purple>Ja</purple>, <orange>Nein</orange>).
+- Whether the child is <blue>overweight</blue> at age 6 potentially depends on whether they were  <green>breastfed</green> exclusively for the first four months (<purple>Yes</purple>, <orange>No</orange>).
 
-- <blue>Übergewicht</blue> hängt eventuell zusätzlich ab vom Bildungsgrad der Mutter, hier gemessen daran, ob die Mutter einen Hochschulabschluss hat und somit <violet>Akademikerin</violet> ist.
+- But <blue>overweight</blue> also depends on the level of education of the mother, here assessed with whether or not the mother is a college <violet>graduate</violet>.
 
-- <green>Stillen</green> (<purple>Ja</purple>, <orange>Nein</orange>) hängt eventuell davon ab, ob die Mutter <violet>Akademikerin</violet> ist.
+- <green>Breastfeeding</green> (<purple>Yes</purple>, <orange>No</orange>) could also potentially depend on whether or not the mother is a college <violet>graduate</violet> ist.
 
-Das kausale Diagramm sieht dann wie folgt aus:
+This results in the following causal graph:
 
 ```{r DAG_Modell, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_Modell)
 ```
 
 ```{r graph1, echo=FALSE}
-message <- "Beim Teilgraph Stillen $\\leftarrow$ Akademikerin $\\rightarrow$ Übergewicht handelt es sich um eine Gabel."
-question("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen und Übergewicht?",
+message <- "The subgraph breastfeeding $\\leftarrow$ graduate $\\rightarrow$ overweight is a fork."
+question("What role does the variable graduate play between breastfeeding and overweight?",
          answer("Mediator"),
          answer("Confounder", correct = TRUE, message = message),
          answer("Collider"),
@@ -176,105 +177,105 @@ question("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen un
          )
 ```
 
-So weit, so gut. 
-Für die Arbeit mit realen Daten müssen wir aber noch zusätzlich etwas berücksichtigen: Wir haben natürlich nicht Daten für alle Frauen mit Kindern, sondern nur für eine Stichprobe.
+So far, so good. 
+But when working with real data, we have to take something else into account: We do not, of course, have data for all women with children, but only for a sample.
 
 
-## Population und Stichprobe
+## Population and sample
 
-Angenommen in einer Population die uns interessiert sind 30% Akademikerinnen (<i class="fa fa-graduation-cap" aria-hidden="true"></i>).
-Eine relevante Population könnte zum Beispiel alle Mütter in einem bestimmten Land zu einem bestimmten Zeitpunkt sein.
+Suppose that we are interested in a population where 30% of women are graduates.
+For example, a relevant population could be all mothers in a given country at a given time.
 
-Mindestens 4 Monate voll <green>stillen</green> ist farblich durch <purple>Ja (lila)</purple> und <orange>Nein (orange)</orange> gekennzeichnet:
+At least 4 months of full <green>breastfeeding</green> is color-coded with <purple>Yes (purple)</purple> and <orange>No (orange)</orange>:
 
 ```{r population, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(1954)
 stipro <- rep(1,100)
-akademikerin <- c(rep(0, 70), rep(1, 30))
+graduate <- c(rep(0, 70), rep(1, 30))
 set.seed(1954)
-stillen <- numeric(100)
-for(i in 1:100) stillen[i] <- ifelse(akademikerin[i], 
+breastfeeding <- numeric(100)
+for(i in 1:100) breastfeeding[i] <- ifelse(graduate[i], 
                                      sample(c(0,1),1, prob = c(0.1, 0.9)), 
                                      sample(c(0,1),1, prob = c(0.4, 0.6)))
 
-akademikerin  <- fontawesome(ifelse(akademikerin , "fa-graduation-cap", "fa-female"))
-stillen <- ifelse(stillen, "#7A378B", "#FF8811")
+graduate  <- fontawesome(ifelse(graduate , "fa-graduation-cap", "fa-female"))
+breastfeeding <- ifelse(breastfeeding, "#7A378B", "#FF8811")
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
   mutate(stipro = stipro,
-         akademikerin = akademikerin,
-         stillen = stillen)  %>%
-  mutate(stichprobe = ifelse(stipro == 1, "Ja","Nein"))
+         graduate = graduate,
+         breastfeeding = breastfeeding)  %>%
+  mutate(Sample = ifelse(stipro == 1, "Yes","No"))
 
-pdp <- prop( ~ stillen, data = d, success = "#7A378B")
+pdp <- prop( ~ breastfeeding, data = d, success = "#7A378B")
 
 ppop <- ggplot(d, aes(x = x, y = y)) +
   geom_tile(color = "white", size = .5, alpha = .2) +
   theme_void() +
-  geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerin), colour = stillen) +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = graduate), colour = breastfeeding) +
   labs(title = "Population") +
   theme(legend.position = "none", plot.title = element_text(hjust = 0.5)) +
   guides(fill = "none")
 ppop
 ```
 
-In dieser Ziel-Population liegt der Anteil <purple>gestillt</purple> bei $`r pdp`$.
+In this target population, the probability of  <purple>breastfeeding</purple> is $`r pdp`$.
 
 ##
 
-In der Regel kennen wir die Werte in der *Population* gar nicht, wir haben nur eine *Stichprobe* zur Verfügung für unsere Analysen.
+Usually we do not know the values in the *population*, we only have a *sample* available for our analyses.
 
 <br>
 
-Nehmen wir an, bei der <u>Datenerhebung</u> gibt es einen Zusammenhang zwischen dem Bildungsgrad der Mutter (<violet>Akademikerin</violet>) und ihrer Teilnahme an der Studie.
-Zum Beispiel sieht es in unseren fiktiven Daten so aus, dass Akademikerinnen eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu werden:
+Suppose that for our <u>data collection</u>, there is a relationship between the mother's level of education (<violet>graduate</violet>) and her participation in the study.
+For example, in our fictitious data, it looks like graduates are more likely to become part of the sample:
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellG)
 ```
 
-Ziehen wir jetzt eine mögliche Stichprobe, Frauen die in unseren Daten landen sind farblich hinterlegt:
+Now let's draw a sample, women who end up in our data are highlighted in color:
 
 ```{r gsti, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(1954)
 stipro <- c(sample(c(rep(1,10), rep(0,60))),sample(c(rep(1,20), rep(0,10))))
-akademikerin <- c(rep(0, 70), rep(1, 30))
+graduate <- c(rep(0, 70), rep(1, 30))
 set.seed(1954)
-stillen <- numeric(100)
-for(i in 1:100) stillen[i] <- ifelse(akademikerin[i], 
+breastfeeding <- numeric(100)
+for(i in 1:100) breastfeeding[i] <- ifelse(graduate[i], 
                                      sample(c(0,1),1, prob = c(0.1, 0.9)), 
                                      sample(c(0,1),1, prob = c(0.4, 0.6)))
 
-akademikerin  <- fontawesome(ifelse(akademikerin , "fa-graduation-cap", "fa-female"))
-stillen <- ifelse(stillen, "#7A378B", "#FF8811")
+graduate  <- fontawesome(ifelse(graduate , "fa-graduation-cap", "fa-female"))
+breastfeeding <- ifelse(breastfeeding, "#7A378B", "#FF8811")
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
   mutate(stipro = stipro,
-         akademikerin = akademikerin,
-         stillen = stillen)  %>%
-  mutate(Stichprobe = ifelse(stipro == 1, "Ja","Nein"))
+         graduate = graduate,
+         breastfeeding = breastfeeding)  %>%
+  mutate(Sample = ifelse(stipro == 1, "Yes","No"))
 
 dd <- d %>%
   filter(stipro == 1)
-pdgs <- prop( ~ stillen, data = dd, success = "#7A378B")
+pdgs <- prop( ~ breastfeeding, data = dd, success = "#7A378B")
 
-pgsti <- ggplot(d, aes(x = x, y = y, color = Stichprobe)) +
-  geom_tile(color = "white", size = .5, aes(fill = Stichprobe), alpha = .2) +
+pgsti <- ggplot(d, aes(x = x, y = y, color = Sample)) +
+  geom_tile(color = "white", size = .5, aes(fill = Sample), alpha = .2) +
   theme_void() +
-  geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerin), colour = stillen) +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = graduate), colour = breastfeeding) +
   scale_fill_manual(values = c("#00998A","grey80")) +
-  labs(title = "Gelegenheitsstichprobe") +
+  labs(title = "Convenience sample") +
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5)) 
 pgsti
 ```
 
 ```{r stipro, echo=FALSE}
-message <- "Akademikerinnen sind in der Stichprobe überrepräsentiert."
-question("Ist diese Stichprobe *repräsentativ* &ndash; können gültige Schlüsse über die Population getroffen werden?",
-         answer("Ja"),
-         answer("Nein", correct = TRUE, message = message),
+message <- "Graduates are overrepresented."
+question("Is this sample *representative* &ndash; can we use it to draw inferences about the population?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = message),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
@@ -283,26 +284,26 @@ question("Ist diese Stichprobe *repräsentativ* &ndash; können gültige Schlüs
 
 ##
 
-In dieser *Gelegenheitsstichprobe* liegt der Anteil <purple>gestillt</purple> bei $`r round(pdgs,2)`=`r round(pdgs,2)*100`\%$ &ndash; und ist damit systematisch zu hoch.
+In this *convenience sample*, the probability of <purple>breastfeeding</purple> is $`r round(pdgs,2)`=`r round(pdgs,2)*100`\%$ &ndash; and thus systematically too high.
 
-Wir können zwar das Ergebnis der Stichprobe zur *Beschreibung* dieser verwenden, aber wir können die Ergebnisse weder verallgemeinern noch zur Vorhersage verwenden.
+We can use the sample result to *describe* it, but we cannot generalize or use the results to predict new data from the population of interest.
 
-Wollten wir anhand der Daten zum Beispiel vorhersagen, ob eine zufällig gewählte Frau stillt oder nicht, so läge unsere geschätzte Wahrscheinlich von $Pr(\color{green}{\text{Stillen}} = \color{purple}{\text{Ja}}) = `r round(pdgs,2)`$ zu hoch.
+For example, if we wanted to use the data to predict whether a randomly selected woman was breastfeeding or not, our estimated probability of $Pr(\color{green}{\text{breastfeeding}} = \color{purple}{\text{Yes}}) = `r round(pdgs,2)`$ would be too high.
 
 <br>
 
-Wir brauchen also *mehr* als nur die Daten der Stichprobe...
+So we need *more* than just the sample...
 
-## Zufällige Stichprobe
+## Random sampling
 
-Das Problem ist, dass unsere Stichprobe von einer Variable abhängt, <violet>Akademikerin</violet>, und von dieser wiederum hängt die untersuchte Variable <green>Stillen</green> ab.
-Akademikerinnen sind hier wahrscheinlicher Teil der Stichprobe, und Akademikerinnen stillen häufiger, also überschätzen wir anhand der Stichprobe den Anteil der Frauen, die mindestens 4 Monate voll stillen.
+The problem is that our sample depends on a variable, <violet>graduate</violet>, on which in turn the variable under study, <green>breastfeeding</green>, depends.
+Graduates are more likely to be part of the sample, and graduates breastfeed more often, so we overestimate the proportion of women who breastfeed fully for at least 4 months based on the sample.
 
-Dieses Problem betrifft zahlreiche Umfragen -- oft nehmen Personen mit bestimmten Eigenschaften lieber teil, und diese Eigenschaften wiederum hängen mit unserem Untersuchungsgegenstand zusammen.
+This problem affects many surveys -- people with certain characteristics often prefer to participate, and these characteristics in turn are related to the object of study.
 
-Wie können wir an der Stelle sicherstellen, dass unsere Stichprobe uns nicht hinters Licht führt?
+How can we make sure at this point that our sample doesn't fool us?
 
-Hier hilft der Zufall!
+This is where randomness helps!
 
 <img src="images/Wuerfel.jpg" alt="Wuerfel" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
@@ -310,132 +311,133 @@ Hier hilft der Zufall!
 Quelle: [https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/](https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/)
 </span>
 
-Durch die zufällige Auswahl der Stichprobe wird die Abhängigkeit der Stichprobenzugehörigkeit von der Variable <violet>Akademikerin</violet> gelöscht.
+Random sampling removes the dependence of sample membership on the variable <violet>graduate</violet>.
 
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellS)
 ```
 
-Die Stichprobe hängt dann nur noch vom Zufall ab, und dieser ergibt z.B. dieses Ergebnis:
+The sample then depends only on random chance, resulting, for example, in the following:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(1954)
 stipro <- as.factor(sample(c(rep(1,30), rep(0,70))))
-akademikerin <- c(rep(0, 70), rep(1, 30))
+graduate <- c(rep(0, 70), rep(1, 30))
 set.seed(1954)
-stillen <- numeric(100)
-for(i in 1:100) stillen[i] <- ifelse(akademikerin[i], 
+breastfeeding <- numeric(100)
+for(i in 1:100) breastfeeding[i] <- ifelse(graduate[i], 
                                      sample(c(0,1),1, prob = c(0.1, 0.9)), 
                                      sample(c(0,1),1, prob = c(0.4, 0.6)))
 
-akademikerin  <- fontawesome(ifelse(akademikerin , "fa-graduation-cap", "fa-female"))
-stillen <- ifelse(stillen, "#7A378B", "#FF8811")
+graduate  <- fontawesome(ifelse(graduate , "fa-graduation-cap", "fa-female"))
+breastfeeding <- ifelse(breastfeeding, "#7A378B", "#FF8811")
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
   mutate(stipro = stipro,
-         akademikerin = akademikerin,
-         stillen = stillen)  %>%
-  mutate(Stichprobe = ifelse(stipro == 1, "Ja","Nein"))
+         graduate = graduate,
+         breastfeeding = breastfeeding)  %>%
+  mutate(Sample = ifelse(stipro == 1, "Yes","No"))
 
 dd <- d %>%
   filter(stipro == 1)
-pdz <- prop( ~ stillen, data = dd, success = "#7A378B")
+pdz <- prop( ~ breastfeeding, data = dd, success = "#7A378B")
 
-pzsti <- ggplot(d, aes(x = x, y = y, color = Stichprobe)) +
-  geom_tile(color = "white", size = .5, aes(fill = Stichprobe), alpha = .2) +
+pzsti <- ggplot(d, aes(x = x, y = y, color = Sample)) +
+  geom_tile(color = "white", size = .5, aes(fill = Sample), alpha = .2) +
   theme_void() +
-  geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerin), colour = stillen) +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = graduate), colour = breastfeeding) +
   scale_fill_manual(values = c("#00998A", "grey80")) +
-  labs(title = "Zufällige Stichprobe") +
+  labs(title = "Random sample") +
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 pzsti
 ```
 
-In dieser zufälligen Stichprobe weicht der Anteil <purple>gestillt</purple> mit $`r round(pdz,2)`=`r round(pdz,2)*10`\5$ nicht mehr systematisch vom *wahren* Anteil in der Ziel-Population ab. 
+In this random sample, the probability of <purple>breastfeeding</purple> with $`r round(pdz,2)`$ no longer deviates systematically from the *true* probability in the target population. 
 
-Alle Abweichungen sind nur noch zufällig -- mal werden wir den wahren Wert überschätzen, mal werden wir ihn unterschätzen.
-Und je größer die Stichprobe ist, desto weniger schwankt der Anteil bei wiederholter Stichprobenziehung.
+All remaining deviations are just random -- sometimes we will overestimate the true value, sometimes we will underestimate it.
+And the larger the sample, the smaller the deviations we see when we sample repeatedly.
 
 <br> 
 
-Dank der Zufallsstichprobe können wir somit zuverlässige **Vorhersagen** machen darüber, ob eine zufällig gewählte Frau stillt oder nicht.
+Thanks to random sample, we can thus make reliable **predictions** about whether a randomly selected woman is breastfeeding or not.
 
-Aber wie sieht es mit dem Analyseziel *Kausaler Inferenz* aus? 
+But what about the analysis goal of *causal inference*? 
 
 
 ```{r ki, echo=FALSE}
-message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Übergewicht. Damit wäre unsere Schätzung des kausalen Effekts verzerrt."
-question("Kann der kausale Effekt von Stillen auf Übergewicht durch einen direkten Vergleich von Kindern deren Mütter stillen vs. nicht stillen geschätzt werden?",
-         answer("Ja"),
-         answer("Nein", correct = TRUE, message = message),
+message <- "Graduate is a confounder here and lies on a non-causal path from breastfeeding to overweight. Thus, our estimate of the causal effect would be biased."
+question("Can the causal effect of breastfeeding on overweight be estimated by a direct comparison of children whose mothers breastfeed vs. do not breastfeed?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = message),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
          )
 ```
 
-## Zufällige Zuordnung
+## Random assignment
 
 ```{r simbeob, include=FALSE}
-akademikerin <- c(rep(0, 70), rep(1, 30))
+graduate <- c(rep(0, 70), rep(1, 30))
 set.seed(1954)
-stillen <- numeric(100)
-puebergewicht <- numeric(100)
-uebergewicht <- numeric(100)
+breastfeeding <- numeric(100)
+poverweight <- numeric(100)
+overweight <- numeric(100)
 for(i in 1:100) 
   {
-  stillen[i] <- ifelse(akademikerin[i], 
+  breastfeeding[i] <- ifelse(graduate[i], 
                     sample(c(0,1),1, prob = c(0.1, 0.9)), 
                     sample(c(0,1),1, prob = c(0.4, 0.6)))
 }
 
 for(i in 1:100) 
   {
-  puebergewicht[i] <- ifelse(akademikerin[i], 0.3, 0.5)
-  puebergewicht[i] <- puebergewicht[i] - ifelse(stillen[i], 0.2, 0)
-  uebergewicht[i] <- sample(c(0,1),1, prob = c(1-puebergewicht[i], puebergewicht[i]))
+  poverweight[i] <- ifelse(graduate[i], 0.3, 0.5)
+  poverweight[i] <- poverweight[i] - ifelse(breastfeeding[i], 0.2, 0)
+  overweight[i] <- sample(c(0,1),1, prob = c(1-poverweight[i], poverweight[i]))
 }
 
-akademikerins <- fontawesome(ifelse(akademikerin, "fa-graduation-cap", "fa-female"))
-stillens <- ifelse(stillen, "#7A378B", "#FF8811")
+graduates <- fontawesome(ifelse(graduate, "fa-graduation-cap", "fa-female"))
+breastfeedings <- ifelse(breastfeeding, "#7A378B", "#FF8811")
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
-  mutate(uebergewicht = uebergewicht,
-         akademikerin = akademikerin,
-         akademikerins = akademikerins,
-         stillen = stillen,
-         stillen = stillen) %>%
-  mutate(uebergewicht = ifelse(uebergewicht == 1, "Ja","Nein"))
-d$Übergewicht <- d$uebergewicht
+  mutate(overweight = overweight,
+         graduate = graduate,
+         graduates = graduates,
+         breastfeeding = breastfeeding,
+         breastfeeding = breastfeeding) %>%
+  mutate(overweight = ifelse(overweight == 1, "Yes","No"))
+d$Overweight <- d$overweight
 
 d2 <- d %>%
-  mutate(stillen = ifelse(stillen, "Ja", "Nein")) %>%
-  mutate(akademikerin = ifelse(akademikerin, "Ja", "Nein")) 
+  mutate(breastfeeding = ifelse(breastfeeding, "Yes", "No")) %>%
+  mutate(graduate = ifelse(graduate, "Yes", "No")) 
 
-puebergewichtstillen <- d2 %>%
-  filter(stillen == "Ja") %>%
-  prop( ~ uebergewicht, success = "Nein", .) %>% 
+poverweightbreastfeeding <- d2 %>%
+  filter(breastfeeding == "Yes") %>%
+  prop( ~ overweight, success = "No", .) %>% 
   round(., digits = 2)
 
-puebergewichtkstillen <- d2 %>%
-  filter(stillen == "Nein") %>%
-  prop( ~ uebergewicht, success = "Nein", .) %>% 
+poverweightkbreastfeeding <- d2 %>%
+  filter(breastfeeding == "No") %>%
+  prop( ~ overweight, success = "No", .) %>% 
   round(., digits = 2)
 ```
 
-Über unsere fiktive Studie wird in den Medien berichtet. Eine mögliche Schlagzeile lautet:
+Our fictitious study is reported in the media. 
+A possible headline reads:
 
-> Gesunde Wirkung von Stillen bewiesen: `r puebergewichtstillen*100` % der Kinder von Frauen, die mindestens 4 Monate voll stillen, sind im Alter von 6 Jahren nicht übergewichtig.
+> Benefits of breastfeeding proven: `r poverweightbreastfeeding*100` % of children who were exclusively breastfed for 4 months are not overweight at age 6.
 
 
 ```{r beob1, echo=FALSE}
-message <- "Ohne Variation keine Korrelation. Es fehlt die Information, wie viele Kinder, die nicht voll gestillt wurden, Übergewicht haben."
-question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen mit Übergewicht korreliert ist?",
-         answer("Ja"),
-         answer("Nein", correct = TRUE, message = message),
+message <- "No variation means no correlation. Here, information is missing on how many children who were not breastfed turn out overweight."
+question("Do the headline data alone suggest that breastfeeding is correlated with overweight?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = message),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
@@ -444,21 +446,21 @@ question("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen 
 
 ##
 
-Zu wissen, wie viele <purple>gestillte</purple> Kinder kein Übergewicht entwickelt haben, ist zwar schön, es fehlt aber mindestens noch der Vergleich zu den <orange>nicht-gestillten</orange> Kindern.
+Knowing how many <purple>breastfed</purple> children did become overweight is nice, but we still lack at least a comparison to  children who were <orange>not breastfed</orange>.
 
-Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile berichtet, bei <purple>gestillten</purple> Kindern bei $\color{purple}{`r puebergewichtstillen`}$ liegt, liegt er bei <orange>nicht-gestillten</orange> Kindern bei $\color{orange}{`r puebergewichtkstillen`}$.
+In the fictitious study, as reported in the headline, the probability of overweight is $\color{purple}{`r poverweightbreastfeeding`}$ for <purple>breastfed</purple> children, and it is $\color{orange}{`r poverweightkbreastfeeding`}$ for children who were <orange>not breastfed</orange>.
 
-Die Daten wurden im Rahmen einer **Beobachtungsstudie** erhoben, das heißt es wurde erfragt, ob die Mütter <green>Stillen</green> (<purple>Ja</purple> oder <orange>Nein</orange>). Und es wurde die Variable <blue>Übergewicht</blue> erhoben.
+Data were collected as part of an **observational study**, that is, mothers were simply asked about <green>breastfeeding</green> (<purple>Yes</purple> or <orange>No</orange>), and information about <blue>overweight</blue> was collected.
 
-Ein Vergleich des Anteils <blue>Übergewicht</blue> je nach <green>Stillen</green> ergibt:
+A comparison of the proportion <blue>overweight</blue> according to <green>breastfeeding</green> reveals:
 
-$$\color{purple}{`r puebergewichtstillen`}-\color{orange}{`r puebergewichtkstillen`}=`r (puebergewichtstillen-puebergewichtkstillen)`.$$
+$$\color{purple}{`r poverweightbreastfeeding`}-\color{orange}{`r poverweightkbreastfeeding`}=`r (poverweightbreastfeeding-poverweightkbreastfeeding)`.$$
 
 ```{r beob2, echo=FALSE}
-message <- "Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Übergewicht."
-question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Stillen auf die Wahrscheinlichkeit Übergewicht zu entwickeln bei $0.36$ liegt?",
-         answer("Ja"),
-         answer("Nein", correct = TRUE, message = message),
+message <- "Graduate is a confounder and lies on a non-causal path from breastfeeding to overweight."
+question("Does the observational study data suggest that the average causal effect of breastfeeding on the probability of overweight is $0.36$?",
+         answer("Yes"),
+         answer("No", correct = TRUE, message = message),
 		allow_retry = TRUE,
 		correct = random_praise(),
 		incorrect = random_encouragement()
@@ -467,42 +469,42 @@ question("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durch
 
 ##
 
-Das angenommene Modell war folgendes:
+The assumed model looked like this:
 
 ```{r DAG_Modell2, echo=FALSE, fig.align='center', out.width='60%', fig.asp = .8}
 plot(DAG_Modell)
 ```
 
-Dies führt zu folgender fiktiver Verteilung in der Population:
+This leads to the following distribution in the population:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-pbeob <- ggplot(d, aes(x = x, y = y, color = Übergewicht)) +
-  geom_tile(color = "white", size = .5, aes(fill = Übergewicht), alpha = .2) +
+pbeob <- ggplot(d, aes(x = x, y = y, color = Overweight)) +
+  geom_tile(color = "white", size = .5, aes(fill = Overweight), alpha = .2) +
   theme_void() +
-  geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerins), colour = stillens) +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = graduates), colour = breastfeedings) +
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
-  labs(title = "Beobachtungsstudie") +
+  labs(title = "Observational study") +
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 pbeob
 ```
 
+Overweight occurs less often if <purple>breastfed</purple> than if <orange>not breastfed</orange>.
 
-Bei <purple>stillen</purple> tritt seltener Übergewicht auf als bei <orange>nicht-stillen</orange>.
-
-Aber: Akademikerinnen <purple>stillen</purple> häufiger als Nicht-Akademikerinnen &ndash; und Kinder von Akademikerinnen entwickeln seltener Übergewicht.
+But: Graduates <purple>breastfeed</purple> more often than non-graduates &ndash; and children of graduates are less likely to become overweight.
 
 
-## Randomisiertes Experiment
 
-Unter Annahme des kausalen Modells mit nur einer Konfundierenden (hier: Akademikerin) könnten Sie, wie Sie bereits gelernt haben, einfach für diese Variable adjustieren.
-Aber was, wenn Sie die Variable in Ihren Daten gar nicht erhoben haben?
-Und, noch viel wichtiger: Natürlich könnte es hier zahlreiche weitere Konfundierende geben.
+## Randomized experiment
 
-Ein klassischer Lösungsansatz zur Bestimmung von durchschnittlichen kausalen Effekten sind **randomisierte Experimente** (engl. randomized controlled trial, RCT). Dabei werden Pfeile, die auf die Variable $\color{green}{X}$ zeigen eliminiert, und die Zuweisung $do(\color{green}{X}=\color{green}{x})$ erfolgt zufällig.
+Assuming the causal model with only one confounder (here: graduate), we could simply adjust for this variable, as we have already learned.
+But what if we did not collect the variable in our data?
+And, more importantly, of course there could be numerous other confounders here!
 
-*Hinweis*: Wäre an dieser Stelle ein randomisiertes Experiment überhaupt ethisch vertretbar und praktisch umsetzbar? 
-Können wir randomisieren, welche Mütter stillen und welche nicht?
-Im Interview mit der Ökonomin Anne Brenøe erfahren Sie mehr zu Designs, mit denen die kausalen Effekte des Stillens in der Praxis untersucht werden können.
+A classical approach to determine average causal effects are **randomized controlled trials** (RCT). Arrows pointing into the variable $\color{green}{X}$ are eliminated and the assignment $do(\color{green}{X}=\color{green}{x})$ is randomized.
+
+*Note*: Would a randomized experiment even be ethical and feasible for this question? 
+Can we randomize which mothers breastfeed and which don't?
+In the interview with economist Anne Brenøe, you can learn more about designs that can be used to study the causal effects of breastfeeding in practice.
 
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
@@ -511,99 +513,98 @@ plot(DAG_ModellE)
 
 ##
 
-Mit einem möglichen Ergebnis wie folgt:
+A possible outcome looks like this:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
-akademikerin <- c(rep(0, 70), rep(1, 30))
+graduate <- c(rep(0, 70), rep(1, 30))
 set.seed(1954)
-stillen <- numeric(100)
-puebergewicht <- numeric(100)
-uebergewicht <- numeric(100)
+breastfeeding <- numeric(100)
+poverweight <- numeric(100)
+overweight <- numeric(100)
 for(i in 1:100) 
   {
-  stillen[i] <- sample(c(0,1), 1)
-  puebergewicht[i] <- ifelse(akademikerin[i], 0.3, 0.5)
-  puebergewicht[i] <- puebergewicht[i] - ifelse(stillen[i], 0.2, 0)
-  uebergewicht[i] <- sample(c(0,1),1, prob = c(1-puebergewicht[i], puebergewicht[i]))
+  breastfeeding[i] <- sample(c(0,1), 1)
+  poverweight[i] <- ifelse(graduate[i], 0.3, 0.5)
+  poverweight[i] <- poverweight[i] - ifelse(breastfeeding[i], 0.2, 0)
+  overweight[i] <- sample(c(0,1),1, prob = c(1-poverweight[i], poverweight[i]))
 }
 
-akademikerins <- fontawesome(ifelse(akademikerin, "fa-graduation-cap", "fa-female"))
-stillens <- ifelse(stillen, "#7A378B", "#FF8811")
+graduates <- fontawesome(ifelse(graduate, "fa-graduation-cap", "fa-female"))
+breastfeedings <- ifelse(breastfeeding, "#7A378B", "#FF8811")
 
 d <- crossing(x = 1:10,
               y = 1:10) %>%
-  mutate(uebergewicht = uebergewicht,
-         akademikerin = akademikerin,
-         akademikerins = akademikerins,
-         stillen = stillen,
-         stillen = stillen) %>%
-  mutate(Übergewicht = ifelse(uebergewicht == 1, "Ja","Nein"))
+  mutate(overweight = overweight,
+         graduate = graduate,
+         graduates = graduates,
+         breastfeeding = breastfeeding,
+         breastfeeding = breastfeeding) %>%
+  mutate(Overweight = ifelse(overweight == 1, "Yes","No"))
 
 d2 <- d %>%
-  mutate(stillen = ifelse(stillen, "Ja", "Nein")) %>%
-  mutate(akademikerin = ifelse(akademikerin, "Ja", "Nein")) 
+  mutate(breastfeeding = ifelse(breastfeeding, "Yes", "No")) %>%
+  mutate(graduate = ifelse(graduate, "Yes", "No")) 
 
-puebergewichtstillene <- d2 %>%
-  filter(stillen == "Ja") %>%
-  prop( ~ Übergewicht, success = "Nein", .) %>% 
+poverweightbreastfeedinge <- d2 %>%
+  filter(breastfeeding == "Yes") %>%
+  prop( ~ Overweight, success = "No", .) %>% 
   round(., digits = 2)
 
-puebergewichtkstillene <- d2 %>%
-  filter(stillen == "Nein") %>%
-  prop( ~ Übergewicht, success = "Nein", .) %>% 
+poverweightkbreastfeedinge <- d2 %>%
+  filter(breastfeeding == "No") %>%
+  prop( ~ Overweight, success = "No", .) %>% 
   round(., digits = 2)
 
-pexp <- ggplot(d, aes(x = x, y = y, color = Übergewicht)) +
-  geom_tile(color = "white", size = .5, aes(fill = Übergewicht), alpha = .2) +
+pexp <- ggplot(d, aes(x = x, y = y, color = Overweight)) +
+  geom_tile(color = "white", size = .5, aes(fill = Overweight), alpha = .2) +
   theme_void() +
-  geom_text(family='fontawesome-webfont', size = 8, aes(label = akademikerins), colour = stillens) +
+  geom_text(family='fontawesome-webfont', size = 8, aes(label = graduates), colour = breastfeedings) +
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
-  labs(title = "Randomisiertes Experiment") +
+  labs(title = "Randomized experiment") +
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 pexp
 
 ```
 
-Ein Vergleich des Anteils <blue>Übergewicht</blue> je nach <green>Stillen</green> ergibt jetzt als Schätzer für den durchschnittlichen kausalen Effekt:
+A comparison of the probabilities for <blue>overweight</blue> according to <green>breastfeeding</green> now yields the following estimate of the average causal effect:
 
-$$\color{purple}{`r puebergewichtstillene`}-\color{orange}{`r puebergewichtkstillene`}=`r (puebergewichtstillene -puebergewichtkstillene)`.$$
+$$\color{purple}{`r poverweightbreastfeedinge`}-\color{orange}{`r poverweightkbreastfeedinge`}=`r (poverweightbreastfeedinge -poverweightkbreastfeedinge)`.$$
 
-In der <red>fiktiven</red> Beobachtungsstudie war unsere Schätzung verzerrt gewesen aufgrund des Confounders <violet>Akademikerin</violet>. 
+In the <red>fictious</red> observational study, our estimate was  biased because of the confounder <violet>graduate</violet>. 
 
-In unserem <red>fiktiven</red> Experiment müssen wir uns um diese und andere Drittvariablen keine Sorgen mehr machen, weil sie nicht beeinflussen können, ob Mütter stillen oder nicht.
+In our <red>fictious</red> experiment, we no longer have to worry about this and other third variables because they cannot influence whether mothers breastfeed or not.
 
-Um von der reinen Vorhersage ("Wie wahrscheinlich ist es, dass eine zufällig gewählte Frau stillt?") zur **kausalen Inferenz** zu kommen ("Welchen Effekt hat das Stillen auf das Risiko von Übergewicht?") benötigt es mehr als nur die Daten.
-Wir benötigen zusätzlich wissen darüber, wie die Daten entstanden sind &ndash; welche zusätzlichen Variablen die Variablen von Interesse beeinflusst haben, oder ob beispielsweise eine zufällige Intervention stattgefunden hat.
+To move from pure prediction ("How likely is it that a randomly selected woman breastfeeds?") to **causal inference** ("What effect does breastfeeding have on the risk of overweight?") requires more than just the data.
+We need additional knowledge about how the data came to be &ndash; what additional variables influenced the variables of interest, or whether, for example, there was a random intervention.
+
 
 ***
 
-*Anmerkung*: Aus Gründen der Präzision und der individuellen Unterschiede is es angemessen hier die Variable <violet>Akademikerin</violet> für die Analyse mit zu berücksichtigen.
+*Note*: For reasons of statistical precision, it is appropriate to include the variable <violet>graduate</violet> in the analysis even in a randomized experiment.
 
 ## 
 
-Richard McElreath weist in seinem Vortrag [Causal Thinking for Descriptive Research](https://speakerdeck.com/rmcelreath/causal-thinking-for-descriptive-research) zu Recht darauf hin, dass wir *ehrliche Methoden für bescheidene Fragen* einsetzen sollen:
+In his talk, [Causal Thinking for Descriptive Research](https://speakerdeck.com/rmcelreath/causal-thinking-for-descriptive-research), Richard McElreath points out that we should *use honest methods for modest questions*:
 
-1. Was soll analysiert werden?
+1. What are we trying to describe?
 
-2. Welche Daten müssen wir dafür idealerweise haben?
+2. What is the ideal data for doing so?
 
-3. Welche Daten liegen tatsächlich vor?
+3. What data do we actually have?
 
-4. Was ist der Grund für mögliche Abweichungen zwischen (2) und (3)?
+4. What causes differences between (2) and (3)?
 
-In diesem Modul haben Sie statistische Methoden kennengelernt, wie Sie Datenerhebung, wenn möglich, optimal gestalten können, um in (4) keine Abweichungen festzustellen. Optimalerweise haben wir eine Zufallsstichprobe; optimalerweise gibt es eine zufällige Zuordnung zu experimentellen Gruppen.
-Leider gelingt das in der Praxis nicht immer; in manchen Situationen ist es schlicht nicht möglich.
+In this module, you have learned statistical methods for optimally designing data collection, if possible, so that no differences are found in (4). 
+Ideally, we have a random sample; ideally, there is random assignment to experimental groups.
+
+Unfortunately, it doesn't always work like this in practice, and in some situations it is simply not possible.
 
 
 
 
-## Hinweis
+## Note
 
-<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
-
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
-
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
 
 
 ![](images/csm_Logo-BMBF.jpg)

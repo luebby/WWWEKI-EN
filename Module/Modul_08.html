@@ -13,7 +13,7 @@
 <meta name="progressive" content="true" />
 <meta name="allow-skip" content="false" />
 
-<title>Modul 08: Magie durch Zufall</title>
+<title>Module 08: Randomness is Magic</title>
 
 
 <!-- highlightjs -->
@@ -89,10 +89,22 @@ if (window.hljs) {
   display: none;
 }
 </style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("section-TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
 <!-- end tabsets -->
 
 
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+<link rel="stylesheet" href="css\style.css" type="text/css" />
 
 </head>
 
@@ -105,52 +117,32 @@ if (window.hljs) {
 
 <div class="topics">
 
-<p><a href="https://ki-campus.org/">
-<img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right">
-</a></p>
-<div id="section-lernziele" class="section level2">
-<h2>Lernziele</h2>
-<p>In diesem Modul lernen Sie:</p>
+<p><a href="https://ki-campus.org/"> <img border="0" alt="KICampusLogo" src="images/KIcampusLogo.png" width="100" height="30" style="float: right"> </a></p>
+<div id="section-learning-objectives" class="section level2">
+<h2>Learning objectives</h2>
+<p>In this module you will learn more about:</p>
 <ul>
-<li><p>die unterschiedlichen Anforderungen von Beschreibung und
-Vorhersage;</p></li>
-<li><p>welche Vorteile eine zufällig gezogene Stichprobe hat;</p></li>
-<li><p>welche Vorteile eine zufällige Zuordnung im Rahmen eines
-Experiments hat.</p></li>
+<li><p>the different data requirements for description and prediction;</p></li>
+<li><p>the advantages of randomly drawn samples;</p></li>
+<li><p>the advantages of random assignment in the context of experiments.</p></li>
 </ul>
 </div>
-<div id="section-weniger-übergewicht-durch-stillen"
-class="section level2">
-<h2>Weniger Übergewicht durch Stillen?</h2>
-<p>Eine <red>fiktive</red> Studie präsentiert Ihnen dieses Ergebnis:</p>
+<div id="section-reducing-overweight-through-breastfeeding" class="section level2">
+<h2>Reducing overweight through breastfeeding?</h2>
+<p>A <red>fictive</red> study reports these results:</p>
 <p><img src="Modul_08_files/figure-html/unnamed-chunk-1-1.png" width="90%" /></p>
-<p>Was Sie sehen: Kinder von Frauen, die mindestens 4 Monate voll
-<green>stillen</green> haben seltener im Alter von 6 Jahren
-<blue>Übergewicht</blue> als Kinder von Frauen, die nicht mindestens 4
-Monate voll stillen – in dieser fiktiven Studie.</p>
-<p>Dies ist die Ebene <strong>Beschreibung</strong> (siehe Modul 3).<br>
-Um die Ebenen <strong><em>Vorhersage</em></strong> und
-<strong><em>Kausale Inferenz</em></strong> zu erreichen brauchen wir
-mehr. Einen hilfreichen Kniff dafür kennen Statistiker:innen und
-Wissenschaftler:innen schon lange.</p>
+<p>As you can see: Children of women who <green>breastfed</green> exclusively for at least four months were less likely to be <blue>overweight</blue> at age six than children who weren’t breastfed – in this fictional study.</p>
+<p>This is level of <strong>description</strong> (see Module 3).<br> To reach the levels <strong><em>prediction</em></strong> and <strong><em>causal inference</em></strong> we need more. A helpful trick for this has been known by statisticians and scientists for a long time.</p>
 </div>
 <div id="section-section" class="section level2">
 <h2></h2>
-<p>Erstellen wir zunächst ein stark vereinfachtes Modell, in dem wir die
-folgenden kausalen Zusammenhänge annehmen:</p>
+<p>Let us start with a highly simplified model in which we assume the following causal relationships:</p>
 <ul>
-<li><p><blue>Übergewicht</blue> des Kindes im Alter von 6 Jahren hängt
-eventuell ab vom vollständigen <green>Stillen</green> durch die Mutter
-bis zum 4. Monat (<purple>Ja</purple>, <orange>Nein</orange>).</p></li>
-<li><p><blue>Übergewicht</blue> hängt eventuell zusätzlich ab vom
-Bildungsgrad der Mutter, hier gemessen daran, ob die Mutter einen
-Hochschulabschluss hat und somit <violet>Akademikerin</violet>
-ist.</p></li>
-<li><p><green>Stillen</green> (<purple>Ja</purple>,
-<orange>Nein</orange>) hängt eventuell davon ab, ob die Mutter
-<violet>Akademikerin</violet> ist.</p></li>
+<li><p>Whether the child is <blue>overweight</blue> at age 6 potentially depends on whether they were <green>breastfed</green> exclusively for the first four months (<purple>Yes</purple>, <orange>No</orange>).</p></li>
+<li><p>But <blue>overweight</blue> also depends on the level of education of the mother, here assessed with whether or not the mother is a college <violet>graduate</violet>.</p></li>
+<li><p><green>Breastfeeding</green> (<purple>Yes</purple>, <orange>No</orange>) could also potentially depend on whether or not the mother is a college <violet>graduate</violet> ist.</p></li>
 </ul>
-<p>Das kausale Diagramm sieht dann wie folgt aus:</p>
+<p>This results in the following causal graph:</p>
 <p><img src="Modul_08_files/figure-html/DAG_Modell-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <div class="panel panel-default">
 <div data-label="graph1" class="tutorial-question panel-body">
@@ -160,38 +152,22 @@ ist.</p></li>
 <script>if (Tutorial.triggerMathJax) Tutorial.triggerMathJax()</script>
 </div>
 </div>
-<p>So weit, so gut. Für die Arbeit mit realen Daten müssen wir aber noch
-zusätzlich etwas berücksichtigen: Wir haben natürlich nicht Daten für
-alle Frauen mit Kindern, sondern nur für eine Stichprobe.</p>
+<p>So far, so good. But when working with real data, we have to take something else into account: We do not, of course, have data for all women with children, but only for a sample.</p>
 </div>
-<div id="section-population-und-stichprobe" class="section level2">
-<h2>Population und Stichprobe</h2>
-<p>Angenommen in einer Population die uns interessiert sind 30%
-Akademikerinnen
-(<i class="fa fa-graduation-cap" aria-hidden="true"></i>). Eine
-relevante Population könnte zum Beispiel alle Mütter in einem bestimmten
-Land zu einem bestimmten Zeitpunkt sein.</p>
-<p>Mindestens 4 Monate voll <green>stillen</green> ist farblich durch
-<purple>Ja (lila)</purple> und <orange>Nein (orange)</orange>
-gekennzeichnet:</p>
+<div id="section-population-and-sample" class="section level2">
+<h2>Population and sample</h2>
+<p>Suppose that we are interested in a population where 30% of women are graduates. For example, a relevant population could be all mothers in a given country at a given time.</p>
+<p>At least 4 months of full <green>breastfeeding</green> is color-coded with <purple>Yes (purple)</purple> and <orange>No (orange)</orange>:</p>
 <p><img src="Modul_08_files/figure-html/population-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>In dieser Ziel-Population liegt der Anteil <purple>gestillt</purple>
-bei <span class="math inline">\(0.66\)</span>.</p>
+<p>In this target population, the probability of <purple>breastfeeding</purple> is <span class="math inline">\(0.66\)</span>.</p>
 </div>
 <div id="section-section-1" class="section level2">
 <h2></h2>
-<p>In der Regel kennen wir die Werte in der <em>Population</em> gar
-nicht, wir haben nur eine <em>Stichprobe</em> zur Verfügung für unsere
-Analysen.</p>
+<p>Usually we do not know the values in the <em>population</em>, we only have a <em>sample</em> available for our analyses.</p>
 <p><br></p>
-<p>Nehmen wir an, bei der <u>Datenerhebung</u> gibt es einen
-Zusammenhang zwischen dem Bildungsgrad der Mutter
-(<violet>Akademikerin</violet>) und ihrer Teilnahme an der Studie. Zum
-Beispiel sieht es in unseren fiktiven Daten so aus, dass Akademikerinnen
-eine höhere Wahrscheinlichkeit haben, Teil der Stichprobe zu werden:</p>
+<p>Suppose that for our <u>data collection</u>, there is a relationship between the mother’s level of education (<violet>graduate</violet>) and her participation in the study. For example, in our fictitious data, it looks like graduates are more likely to become part of the sample:</p>
 <p><img src="Modul_08_files/figure-html/unnamed-chunk-2-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>Ziehen wir jetzt eine mögliche Stichprobe, Frauen die in unseren
-Daten landen sind farblich hinterlegt:</p>
+<p>Now let’s draw a sample, women who end up in our data are highlighted in color:</p>
 <p><img src="Modul_08_files/figure-html/gsti-1.png" width="90%" style="display: block; margin: auto;" /></p>
 <div class="panel panel-default">
 <div data-label="stipro" class="tutorial-question panel-body">
@@ -204,61 +180,28 @@ Daten landen sind farblich hinterlegt:</p>
 </div>
 <div id="section-section-2" class="section level2">
 <h2></h2>
-<p>In dieser <em>Gelegenheitsstichprobe</em> liegt der Anteil
-<purple>gestillt</purple> bei <span
-class="math inline">\(0.8=80\%\)</span> – und ist damit systematisch zu
-hoch.</p>
-<p>Wir können zwar das Ergebnis der Stichprobe zur <em>Beschreibung</em>
-dieser verwenden, aber wir können die Ergebnisse weder verallgemeinern
-noch zur Vorhersage verwenden.</p>
-<p>Wollten wir anhand der Daten zum Beispiel vorhersagen, ob eine
-zufällig gewählte Frau stillt oder nicht, so läge unsere geschätzte
-Wahrscheinlich von <span
-class="math inline">\(Pr(\color{green}{\text{Stillen}} =
-\color{purple}{\text{Ja}}) = 0.8\)</span> zu hoch.</p>
+<p>In this <em>convenience sample</em>, the probability of <purple>breastfeeding</purple> is <span class="math inline">\(0.8=80\%\)</span> – and thus systematically too high.</p>
+<p>We can use the sample result to <em>describe</em> it, but we cannot generalize or use the results to predict new data from the population of interest.</p>
+<p>For example, if we wanted to use the data to predict whether a randomly selected woman was breastfeeding or not, our estimated probability of <span class="math inline">\(Pr(\color{green}{\text{breastfeeding}} = \color{purple}{\text{Yes}}) = 0.8\)</span> would be too high.</p>
 <p><br></p>
-<p>Wir brauchen also <em>mehr</em> als nur die Daten der Stichprobe…</p>
+<p>So we need <em>more</em> than just the sample…</p>
 </div>
-<div id="section-zufällige-stichprobe" class="section level2">
-<h2>Zufällige Stichprobe</h2>
-<p>Das Problem ist, dass unsere Stichprobe von einer Variable abhängt,
-<violet>Akademikerin</violet>, und von dieser wiederum hängt die
-untersuchte Variable <green>Stillen</green> ab. Akademikerinnen sind
-hier wahrscheinlicher Teil der Stichprobe, und Akademikerinnen stillen
-häufiger, also überschätzen wir anhand der Stichprobe den Anteil der
-Frauen, die mindestens 4 Monate voll stillen.</p>
-<p>Dieses Problem betrifft zahlreiche Umfragen – oft nehmen Personen mit
-bestimmten Eigenschaften lieber teil, und diese Eigenschaften wiederum
-hängen mit unserem Untersuchungsgegenstand zusammen.</p>
-<p>Wie können wir an der Stelle sicherstellen, dass unsere Stichprobe
-uns nicht hinters Licht führt?</p>
-<p>Hier hilft der Zufall!</p>
-<p><img src="images/Wuerfel.jpg" alt="Wuerfel" width="50%" height="50%">
-<!-- style="padding-left:50px;" --> <span style="font-size: 10px;"><br>
-Quelle: <a
-href="https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/">https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/</a>
-</span></p>
-<p>Durch die zufällige Auswahl der Stichprobe wird die Abhängigkeit der
-Stichprobenzugehörigkeit von der Variable <violet>Akademikerin</violet>
-gelöscht.</p>
+<div id="section-random-sampling" class="section level2">
+<h2>Random sampling</h2>
+<p>The problem is that our sample depends on a variable, <violet>graduate</violet>, on which in turn the variable under study, <green>breastfeeding</green>, depends. Graduates are more likely to be part of the sample, and graduates breastfeed more often, so we overestimate the proportion of women who breastfeed fully for at least 4 months based on the sample.</p>
+<p>This problem affects many surveys – people with certain characteristics often prefer to participate, and these characteristics in turn are related to the object of study.</p>
+<p>How can we make sure at this point that our sample doesn’t fool us?</p>
+<p>This is where randomness helps!</p>
+<p><img src="images/Wuerfel.jpg" alt="Wuerfel" width="50%" height="50%"> <!-- style="padding-left:50px;" --> <span style="font-size: 10px;"><br> Quelle: <a href="https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/">https://pixabay.com/de/photos/w%c3%bcrfel-rot-fallen-zufall-635353/</a> </span></p>
+<p>Random sampling removes the dependence of sample membership on the variable <violet>graduate</violet>.</p>
 <p><img src="Modul_08_files/figure-html/unnamed-chunk-3-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>Die Stichprobe hängt dann nur noch vom Zufall ab, und dieser ergibt
-z.B. dieses Ergebnis:</p>
+<p>The sample then depends only on random chance, resulting, for example, in the following:</p>
 <p><img src="Modul_08_files/figure-html/unnamed-chunk-4-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>In dieser zufälligen Stichprobe weicht der Anteil
-<purple>gestillt</purple> mit <span
-class="math inline">\(0.73=7.3\5\)</span> nicht mehr systematisch vom
-<em>wahren</em> Anteil in der Ziel-Population ab.</p>
-<p>Alle Abweichungen sind nur noch zufällig – mal werden wir den wahren
-Wert überschätzen, mal werden wir ihn unterschätzen. Und je größer die
-Stichprobe ist, desto weniger schwankt der Anteil bei wiederholter
-Stichprobenziehung.</p>
+<p>In this random sample, the probability of <purple>breastfeeding</purple> with <span class="math inline">\(0.73\)</span> no longer deviates systematically from the <em>true</em> probability in the target population.</p>
+<p>All remaining deviations are just random – sometimes we will overestimate the true value, sometimes we will underestimate it. And the larger the sample, the smaller the deviations we see when we sample repeatedly.</p>
 <p><br></p>
-<p>Dank der Zufallsstichprobe können wir somit zuverlässige
-<strong>Vorhersagen</strong> machen darüber, ob eine zufällig gewählte
-Frau stillt oder nicht.</p>
-<p>Aber wie sieht es mit dem Analyseziel <em>Kausaler Inferenz</em>
-aus?</p>
+<p>Thanks to random sample, we can thus make reliable <strong>predictions</strong> about whether a randomly selected woman is breastfeeding or not.</p>
+<p>But what about the analysis goal of <em>causal inference</em>?</p>
 <div class="panel panel-default">
 <div data-label="ki" class="tutorial-question panel-body">
 <div id="ki-answer_container" class="shiny-html-output"></div>
@@ -268,14 +211,11 @@ aus?</p>
 </div>
 </div>
 </div>
-<div id="section-zufällige-zuordnung" class="section level2">
-<h2>Zufällige Zuordnung</h2>
-<p>Über unsere fiktive Studie wird in den Medien berichtet. Eine
-mögliche Schlagzeile lautet:</p>
+<div id="section-random-assignment" class="section level2">
+<h2>Random assignment</h2>
+<p>Our fictitious study is reported in the media. A possible headline reads:</p>
 <blockquote>
-<p>Gesunde Wirkung von Stillen bewiesen: 80 % der Kinder von Frauen, die
-mindestens 4 Monate voll stillen, sind im Alter von 6 Jahren nicht
-übergewichtig.</p>
+<p>Benefits of breastfeeding proven: 80 % of children who were exclusively breastfed for 4 months are not overweight at age 6.</p>
 </blockquote>
 <div class="panel panel-default">
 <div data-label="beob1" class="tutorial-question panel-body">
@@ -288,22 +228,11 @@ mindestens 4 Monate voll stillen, sind im Alter von 6 Jahren nicht
 </div>
 <div id="section-section-3" class="section level2">
 <h2></h2>
-<p>Zu wissen, wie viele <purple>gestillte</purple> Kinder kein
-Übergewicht entwickelt haben, ist zwar schön, es fehlt aber mindestens
-noch der Vergleich zu den <orange>nicht-gestillten</orange> Kindern.</p>
-<p>Während in der fiktiven Studie dieser Anteil, wie in der Schlagzeile
-berichtet, bei <purple>gestillten</purple> Kindern bei <span
-class="math inline">\(\color{purple}{0.8}\)</span> liegt, liegt er bei
-<orange>nicht-gestillten</orange> Kindern bei <span
-class="math inline">\(\color{orange}{0.44}\)</span>.</p>
-<p>Die Daten wurden im Rahmen einer <strong>Beobachtungsstudie</strong>
-erhoben, das heißt es wurde erfragt, ob die Mütter
-<green>Stillen</green> (<purple>Ja</purple> oder <orange>Nein</orange>).
-Und es wurde die Variable <blue>Übergewicht</blue> erhoben.</p>
-<p>Ein Vergleich des Anteils <blue>Übergewicht</blue> je nach
-<green>Stillen</green> ergibt:</p>
-<p><span
-class="math display">\[\color{purple}{0.8}-\color{orange}{0.44}=0.36.\]</span></p>
+<p>Knowing how many <purple>breastfed</purple> children did become overweight is nice, but we still lack at least a comparison to children who were <orange>not breastfed</orange>.</p>
+<p>In the fictitious study, as reported in the headline, the probability of overweight is <span class="math inline">\(\color{purple}{0.8}\)</span> for <purple>breastfed</purple> children, and it is <span class="math inline">\(\color{orange}{0.44}\)</span> for children who were <orange>not breastfed</orange>.</p>
+<p>Data were collected as part of an <strong>observational study</strong>, that is, mothers were simply asked about <green>breastfeeding</green> (<purple>Yes</purple> or <orange>No</orange>), and information about <blue>overweight</blue> was collected.</p>
+<p>A comparison of the proportion <blue>overweight</blue> according to <green>breastfeeding</green> reveals:</p>
+<p><span class="math display">\[\color{purple}{0.8}-\color{orange}{0.44}=0.36.\]</span></p>
 <div class="panel panel-default">
 <div data-label="beob2" class="tutorial-question panel-body">
 <div id="beob2-answer_container" class="shiny-html-output"></div>
@@ -315,91 +244,47 @@ class="math display">\[\color{purple}{0.8}-\color{orange}{0.44}=0.36.\]</span></
 </div>
 <div id="section-section-4" class="section level2">
 <h2></h2>
-<p>Das angenommene Modell war folgendes:</p>
+<p>The assumed model looked like this:</p>
 <p><img src="Modul_08_files/figure-html/DAG_Modell2-1.png" width="60%" style="display: block; margin: auto;" /></p>
-<p>Dies führt zu folgender fiktiver Verteilung in der Population:</p>
+<p>This leads to the following distribution in the population:</p>
 <p><img src="Modul_08_files/figure-html/unnamed-chunk-5-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>Bei <purple>stillen</purple> tritt seltener Übergewicht auf als bei
-<orange>nicht-stillen</orange>.</p>
-<p>Aber: Akademikerinnen <purple>stillen</purple> häufiger als
-Nicht-Akademikerinnen – und Kinder von Akademikerinnen entwickeln
-seltener Übergewicht.</p>
+<p>Overweight occurs less often if <purple>breastfed</purple> than if <orange>not breastfed</orange>.</p>
+<p>But: Graduates <purple>breastfeed</purple> more often than non-graduates – and children of graduates are less likely to become overweight.</p>
 </div>
-<div id="section-randomisiertes-experiment" class="section level2">
-<h2>Randomisiertes Experiment</h2>
-<p>Unter Annahme des kausalen Modells mit nur einer Konfundierenden
-(hier: Akademikerin) könnten Sie, wie Sie bereits gelernt haben, einfach
-für diese Variable adjustieren. Aber was, wenn Sie die Variable in Ihren
-Daten gar nicht erhoben haben? Und, noch viel wichtiger: Natürlich
-könnte es hier zahlreiche weitere Konfundierende geben.</p>
-<p>Ein klassischer Lösungsansatz zur Bestimmung von durchschnittlichen
-kausalen Effekten sind <strong>randomisierte Experimente</strong> (engl.
-randomized controlled trial, RCT). Dabei werden Pfeile, die auf die
-Variable <span class="math inline">\(\color{green}{X}\)</span> zeigen
-eliminiert, und die Zuweisung <span
-class="math inline">\(do(\color{green}{X}=\color{green}{x})\)</span>
-erfolgt zufällig.</p>
-<p><em>Hinweis</em>: Wäre an dieser Stelle ein randomisiertes Experiment
-überhaupt ethisch vertretbar und praktisch umsetzbar? Können wir
-randomisieren, welche Mütter stillen und welche nicht? Im Interview mit
-der Ökonomin Anne Brenøe erfahren Sie mehr zu Designs, mit denen die
-kausalen Effekte des Stillens in der Praxis untersucht werden
-können.</p>
+<div id="section-randomized-experiment" class="section level2">
+<h2>Randomized experiment</h2>
+<p>Assuming the causal model with only one confounder (here: graduate), we could simply adjust for this variable, as we have already learned. But what if we did not collect the variable in our data? And, more importantly, of course there could be numerous other confounders here!</p>
+<p>A classical approach to determine average causal effects are <strong>randomized controlled trials</strong> (RCT). Arrows pointing into the variable <span class="math inline">\(\color{green}{X}\)</span> are eliminated and the assignment <span class="math inline">\(do(\color{green}{X}=\color{green}{x})\)</span> is randomized.</p>
+<p><em>Note</em>: Would a randomized experiment even be ethical and feasible for this question? Can we randomize which mothers breastfeed and which don’t? In the interview with economist Anne Brenøe, you can learn more about designs that can be used to study the causal effects of breastfeeding in practice.</p>
 <p><img src="Modul_08_files/figure-html/unnamed-chunk-6-1.png" width="90%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="section-section-5" class="section level2">
 <h2></h2>
-<p>Mit einem möglichen Ergebnis wie folgt:</p>
+<p>A possible outcome looks like this:</p>
 <p><img src="Modul_08_files/figure-html/unnamed-chunk-7-1.png" width="90%" style="display: block; margin: auto;" /></p>
-<p>Ein Vergleich des Anteils <blue>Übergewicht</blue> je nach
-<green>Stillen</green> ergibt jetzt als Schätzer für den
-durchschnittlichen kausalen Effekt:</p>
-<p><span
-class="math display">\[\color{purple}{0.76}-\color{orange}{0.6}=0.16.\]</span></p>
-<p>In der <red>fiktiven</red> Beobachtungsstudie war unsere Schätzung
-verzerrt gewesen aufgrund des Confounders
-<violet>Akademikerin</violet>.</p>
-<p>In unserem <red>fiktiven</red> Experiment müssen wir uns um diese und
-andere Drittvariablen keine Sorgen mehr machen, weil sie nicht
-beeinflussen können, ob Mütter stillen oder nicht.</p>
-<p>Um von der reinen Vorhersage (“Wie wahrscheinlich ist es, dass eine
-zufällig gewählte Frau stillt?”) zur <strong>kausalen Inferenz</strong>
-zu kommen (“Welchen Effekt hat das Stillen auf das Risiko von
-Übergewicht?”) benötigt es mehr als nur die Daten. Wir benötigen
-zusätzlich wissen darüber, wie die Daten entstanden sind – welche
-zusätzlichen Variablen die Variablen von Interesse beeinflusst haben,
-oder ob beispielsweise eine zufällige Intervention stattgefunden
-hat.</p>
+<p>A comparison of the probabilities for <blue>overweight</blue> according to <green>breastfeeding</green> now yields the following estimate of the average causal effect:</p>
+<p><span class="math display">\[\color{purple}{0.76}-\color{orange}{0.6}=0.16.\]</span></p>
+<p>In the <red>fictious</red> observational study, our estimate was biased because of the confounder <violet>graduate</violet>.</p>
+<p>In our <red>fictious</red> experiment, we no longer have to worry about this and other third variables because they cannot influence whether mothers breastfeed or not.</p>
+<p>To move from pure prediction (“How likely is it that a randomly selected woman breastfeeds?”) to <strong>causal inference</strong> (“What effect does breastfeeding have on the risk of overweight?”) requires more than just the data. We need additional knowledge about how the data came to be – what additional variables influenced the variables of interest, or whether, for example, there was a random intervention.</p>
+<hr />
+<p><em>Note</em>: For reasons of statistical precision, it is appropriate to include the variable <violet>graduate</violet> in the analysis even in a randomized experiment.</p>
 </div>
 <div id="section-section-6" class="section level2">
 <h2></h2>
-<p>Richard McElreath weist in seinem Vortrag <a
-href="https://speakerdeck.com/rmcelreath/causal-thinking-for-descriptive-research">Causal
-Thinking for Descriptive Research</a> zu Recht darauf hin, dass wir
-<em>ehrliche Methoden für bescheidene Fragen</em> einsetzen sollen:</p>
+<p>In his talk, <a href="https://speakerdeck.com/rmcelreath/causal-thinking-for-descriptive-research">Causal Thinking for Descriptive Research</a>, Richard McElreath points out that we should <em>use honest methods for modest questions</em>:</p>
 <ol style="list-style-type: decimal">
-<li><p>Was soll analysiert werden?</p></li>
-<li><p>Welche Daten müssen wir dafür idealerweise haben?</p></li>
-<li><p>Welche Daten liegen tatsächlich vor?</p></li>
-<li><p>Was ist der Grund für mögliche Abweichungen zwischen (2) und
-(3)?</p></li>
+<li><p>What are we trying to describe?</p></li>
+<li><p>What is the ideal data for doing so?</p></li>
+<li><p>What data do we actually have?</p></li>
+<li><p>What causes differences between (2) and (3)?</p></li>
 </ol>
-<p>In diesem Modul haben Sie statistische Methoden kennengelernt, wie
-Sie Datenerhebung, wenn möglich, optimal gestalten können, um in (4)
-keine Abweichungen festzustellen. Optimalerweise haben wir eine
-Zufallsstichprobe; optimalerweise gibt es eine zufällige Zuordnung zu
-experimentellen Gruppen. Leider gelingt das in der Praxis nicht immer;
-in manchen Situationen ist es schlicht nicht möglich.</p>
+<p>In this module, you have learned statistical methods for optimally designing data collection, if possible, so that no differences are found in (4). Ideally, we have a random sample; ideally, there is random assignment to experimental groups.</p>
+<p>Unfortunately, it doesn’t always work like this in practice, and in some situations it is simply not possible.</p>
 </div>
-<div id="section-hinweis" class="section level2">
-<h2>Hinweis</h2>
-<p><red> <strong>Dieser Kurs ist aktuell noch in der
-Entwicklung!</strong> </red></p>
-<p>Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge <a
-href="https://github.com/luebby/WWWEKI/issues">hier</a>.</p>
-<p>Das Vorhaben <em>Was, wie, warum? Einstiegskurs Kausale Inferenz
-(WWWEKI)</em> wird mit Mitteln des Bundesministeriums für Bildung und
-Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.</p>
+<div id="section-note" class="section level2">
+<h2>Note</h2>
+<p>This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.</p>
 <p><img src="images/csm_Logo-BMBF.jpg" /></p>
 
 <script type="application/shiny-prerendered" data-context="server-start">
@@ -418,9 +303,6 @@ theme_set(
   theme.fom  
 )
 
-# deutsche Version von random_praise
-source("random-praise_de/translation_random-praise_de.R")
-
 # DAGs
 co <- data.frame(x=c(0,1,2), y=c(0,1,0), name=c("X", "Z", "Y"))
 DAG_Modell <- dagify(X ~ Z,
@@ -432,7 +314,7 @@ DAG_Modell <- dagify(X ~ Z,
   geom_dag_text(size = 7) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin", 
+  geom_text(label = "X - Breastfeeding\nY - Overweight\nZ - Graduate", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 6, color = "darkgrey") 
 
@@ -447,7 +329,7 @@ DAG_ModellG <- dagify(X ~ Z,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nS - Stichprobe", 
+  geom_text(label = "X - Breastfeeding\nY - Overweight\nZ - Graduate\nS - Sample", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 
@@ -462,7 +344,7 @@ DAG_ModellS <- dagify(X ~ Z,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nS - Stichprobe\nD - Zufall", 
+  geom_text(label = "X - Breastfeeding\nY - Overweight\nZ - Graduate\nS - Sample\nD - Randomness", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 
@@ -476,7 +358,7 @@ DAG_ModellE <- dagify(X ~ D,
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Stillen\nY - Übergewicht\nZ - Akademikerin\nD - Zufall", 
+  geom_text(label = "X - Breastfeeding\nY - Overweight\nZ - Graduate\nD - Randomness", 
             hjust = 1, vjust = 1,
             x = 2, y = 1, size = 3.5, color = "darkgrey") 
 library(mosaic)
@@ -487,290 +369,40 @@ options(scipen = 999)
 <script type="application/shiny-prerendered" data-context="server">
 learnr:::register_http_handlers(session, metadata = NULL)
 </script>
-
-
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::clear_tutorial_cache()
-</script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::i18n_observe_tutorial_language(input, session)
-</script>
-
-
-<script type="application/shiny-prerendered" data-context="server">
 session$onSessionEnded(function() {
-        learnr:::event_trigger(session, "session_stop")
+        learnr:::session_stop_event(session)
       })
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(knitr)", "library(ggplot2)", "library(dplyr)", 
-"library(tidyr)", "library(emojifont)", "library(ggthemes)", 
-"library(ggdag)", "", "theme.fom <- theme_classic(22*1.04)", 
-"theme.fom <- theme.fom", "theme_set(", "  theme.fom  ", ")", 
-"", "# deutsche Version von random_praise", "source(\"random-praise_de/translation_random-praise_de.R\")", 
-"", "# DAGs", "co <- data.frame(x=c(0,1,2), y=c(0,1,0), name=c(\"X\", \"Z\", \"Y\"))", 
-"DAG_Modell <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     coords = co) %>% ", 
-"  ggdag() + ", "  geom_dag_point(colour = c(\"#0F710B\", \"#DA70D6\", \"#0000FF\")) + ", 
-"  geom_dag_text(size = 7) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 6, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c(\"X\", \"Z\", \"Y\", \"S\"))", 
-"DAG_ModellG <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     S ~ Z,", 
-"                     coords = co) %>% ", "  ggdag() + ", "  geom_dag_point(colour = c(\"#0F710B\", \"#DA70D6\", \"#0000FF\", \"Black\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nS - Stichprobe\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0,-1), y=c(0,1,0,1,1), name=c(\"X\", \"Z\", \"Y\", \"S\", \"D\"))", 
-"DAG_ModellS <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     S ~ D,", 
-"                     coords = co) %>% ", "  ggdag() + ", "  geom_dag_point(colour = c( \"#808000\", \"#0F710B\", \"#DA70D6\",\"Black\",\"#0000FF\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nS - Stichprobe\\nD - Zufall\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c(\"X\", \"Z\", \"Y\", \"D\"))", 
-"DAG_ModellE <- dagify(X ~ D,", "                      Y ~ Z,", 
-"                      Y ~ X,", "                      coords = co) %>% ", 
-"  ggdag() + ", "  geom_dag_point(colour = c( \"#808000\",\"#0F710B\", \"#DA70D6\", \"#0000FF\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nD - Zufall\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"library(mosaic)", "", "options(scipen = 999)"), overwrite = FALSE)
-</script>
-
-
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(knitr)", "library(ggplot2)", "library(dplyr)", 
-"library(tidyr)", "library(emojifont)", "library(ggthemes)", 
-"library(ggdag)", "", "theme.fom <- theme_classic(22*1.04)", 
-"theme.fom <- theme.fom", "theme_set(", "  theme.fom  ", ")", 
-"", "# deutsche Version von random_praise", "source(\"random-praise_de/translation_random-praise_de.R\")", 
-"", "# DAGs", "co <- data.frame(x=c(0,1,2), y=c(0,1,0), name=c(\"X\", \"Z\", \"Y\"))", 
-"DAG_Modell <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     coords = co) %>% ", 
-"  ggdag() + ", "  geom_dag_point(colour = c(\"#0F710B\", \"#DA70D6\", \"#0000FF\")) + ", 
-"  geom_dag_text(size = 7) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 6, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c(\"X\", \"Z\", \"Y\", \"S\"))", 
-"DAG_ModellG <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     S ~ Z,", 
-"                     coords = co) %>% ", "  ggdag() + ", "  geom_dag_point(colour = c(\"#0F710B\", \"#DA70D6\", \"#0000FF\", \"Black\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nS - Stichprobe\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0,-1), y=c(0,1,0,1,1), name=c(\"X\", \"Z\", \"Y\", \"S\", \"D\"))", 
-"DAG_ModellS <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     S ~ D,", 
-"                     coords = co) %>% ", "  ggdag() + ", "  geom_dag_point(colour = c( \"#808000\", \"#0F710B\", \"#DA70D6\",\"Black\",\"#0000FF\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nS - Stichprobe\\nD - Zufall\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c(\"X\", \"Z\", \"Y\", \"D\"))", 
-"DAG_ModellE <- dagify(X ~ D,", "                      Y ~ Z,", 
-"                      Y ~ X,", "                      coords = co) %>% ", 
-"  ggdag() + ", "  geom_dag_point(colour = c( \"#808000\",\"#0F710B\", \"#DA70D6\", \"#0000FF\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nD - Zufall\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"library(mosaic)", "", "options(scipen = 999)"), overwrite = FALSE)
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "graph1", question = structure("What role does the variable graduate play between breastfeeding and overweight?", html = TRUE, class = c("html", "character")), answers = list(structure(list(id = "lnr_ans_9ccfb0e",     option = "Mediator", value = "Mediator", label = structure("Mediator", html = TRUE, class = c("html",     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2d7116",     option = "Confounder", value = "Confounder", label = structure("Confounder", html = TRUE, class = c("html",     "character")), correct = TRUE, message = structure("The subgraph breastfeeding \\(\\leftarrow\\) graduate \\(\\rightarrow\\) overweight is a fork.", html = TRUE, class = c("html",     "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer")), structure(list(id = "lnr_ans_89b31fd", option = "Collider",     value = "Collider", label = structure("Collider", html = TRUE, class = c("html",     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", "character")), try_again = structure("Try Again", html = TRUE, class = c("html", "character"))), messages = list(correct = structure("Correct! What first-rate work!", html = TRUE, class = c("html", "character")), try_again = structure("Please try again.", html = TRUE, class = c("html", "character")), incorrect = structure("Please try again.", html = TRUE, class = c("html", "character")), message = NULL, post_message = NULL), ids = list(    answer = "graph1-answer", question = "graph1"), loading = structure("<strong>Loading:<\u002fstrong> \nWhat role does the variable graduate play between breastfeeding and overweight?\n<br/><br/><br/>", html = TRUE, class = c("html", "character")), random_answer_order = FALSE, allow_retry = TRUE,     seed = 447745631.291502, options = list()), class = c("learnr_radio", "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(knitr)", "library(ggplot2)", "library(dplyr)", 
-"library(tidyr)", "library(emojifont)", "library(ggthemes)", 
-"library(ggdag)", "", "theme.fom <- theme_classic(22*1.04)", 
-"theme.fom <- theme.fom", "theme_set(", "  theme.fom  ", ")", 
-"", "# deutsche Version von random_praise", "source(\"random-praise_de/translation_random-praise_de.R\")", 
-"", "# DAGs", "co <- data.frame(x=c(0,1,2), y=c(0,1,0), name=c(\"X\", \"Z\", \"Y\"))", 
-"DAG_Modell <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     coords = co) %>% ", 
-"  ggdag() + ", "  geom_dag_point(colour = c(\"#0F710B\", \"#DA70D6\", \"#0000FF\")) + ", 
-"  geom_dag_text(size = 7) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 6, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c(\"X\", \"Z\", \"Y\", \"S\"))", 
-"DAG_ModellG <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     S ~ Z,", 
-"                     coords = co) %>% ", "  ggdag() + ", "  geom_dag_point(colour = c(\"#0F710B\", \"#DA70D6\", \"#0000FF\", \"Black\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nS - Stichprobe\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0,-1), y=c(0,1,0,1,1), name=c(\"X\", \"Z\", \"Y\", \"S\", \"D\"))", 
-"DAG_ModellS <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     S ~ D,", 
-"                     coords = co) %>% ", "  ggdag() + ", "  geom_dag_point(colour = c( \"#808000\", \"#0F710B\", \"#DA70D6\",\"Black\",\"#0000FF\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nS - Stichprobe\\nD - Zufall\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c(\"X\", \"Z\", \"Y\", \"D\"))", 
-"DAG_ModellE <- dagify(X ~ D,", "                      Y ~ Z,", 
-"                      Y ~ X,", "                      coords = co) %>% ", 
-"  ggdag() + ", "  geom_dag_point(colour = c( \"#808000\",\"#0F710B\", \"#DA70D6\", \"#0000FF\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nD - Zufall\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"library(mosaic)", "", "options(scipen = 999)"), overwrite = FALSE)
-</script>
-
-
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::store_exercise_setup_chunk("__setup__", c("library(learnr)", "library(knitr)", "library(ggplot2)", "library(dplyr)", 
-"library(tidyr)", "library(emojifont)", "library(ggthemes)", 
-"library(ggdag)", "", "theme.fom <- theme_classic(22*1.04)", 
-"theme.fom <- theme.fom", "theme_set(", "  theme.fom  ", ")", 
-"", "# deutsche Version von random_praise", "source(\"random-praise_de/translation_random-praise_de.R\")", 
-"", "# DAGs", "co <- data.frame(x=c(0,1,2), y=c(0,1,0), name=c(\"X\", \"Z\", \"Y\"))", 
-"DAG_Modell <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     coords = co) %>% ", 
-"  ggdag() + ", "  geom_dag_point(colour = c(\"#0F710B\", \"#DA70D6\", \"#0000FF\")) + ", 
-"  geom_dag_text(size = 7) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 6, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c(\"X\", \"Z\", \"Y\", \"S\"))", 
-"DAG_ModellG <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     S ~ Z,", 
-"                     coords = co) %>% ", "  ggdag() + ", "  geom_dag_point(colour = c(\"#0F710B\", \"#DA70D6\", \"#0000FF\", \"Black\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nS - Stichprobe\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0,-1), y=c(0,1,0,1,1), name=c(\"X\", \"Z\", \"Y\", \"S\", \"D\"))", 
-"DAG_ModellS <- dagify(X ~ Z,", "                     Y ~ Z,", 
-"                     Y ~ X,", "                     S ~ D,", 
-"                     coords = co) %>% ", "  ggdag() + ", "  geom_dag_point(colour = c( \"#808000\", \"#0F710B\", \"#DA70D6\",\"Black\",\"#0000FF\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nS - Stichprobe\\nD - Zufall\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"", "co <- data.frame(x=c(0,1,2,0), y=c(0,1,0,1), name=c(\"X\", \"Z\", \"Y\", \"D\"))", 
-"DAG_ModellE <- dagify(X ~ D,", "                      Y ~ Z,", 
-"                      Y ~ X,", "                      coords = co) %>% ", 
-"  ggdag() + ", "  geom_dag_point(colour = c( \"#808000\",\"#0F710B\", \"#DA70D6\", \"#0000FF\")) + ", 
-"  geom_dag_text(size = 4) +", "  theme_dag_blank() +", "  geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, \"pt\"), type = \"closed\")) +", 
-"  geom_text(label = \"X - Stillen\\nY - Übergewicht\\nZ - Akademikerin\\nD - Zufall\", ", 
-"            hjust = 1, vjust = 1,", "            x = 2, y = 1, size = 3.5, color = \"darkgrey\") ", 
-"library(mosaic)", "", "options(scipen = 999)"), overwrite = FALSE)
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "stipro", question = structure("Is this sample <em>representative<\u002fem> &ndash; can we use it to draw inferences about the population?", html = TRUE, class = c("html", "character")), answers = list(structure(list(id = "lnr_ans_3c8a807",     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html",     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7872f7a",     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html",     "character")), correct = TRUE, message = structure("Graduates are overrepresented.", html = TRUE, class = c("html",     "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", "character")), try_again = structure("Try Again", html = TRUE, class = c("html", "character"))), messages = list(correct = structure("Correct! What first-rate work!", html = TRUE, class = c("html", "character")), try_again = structure("But no need to fret, try it again.", html = TRUE, class = c("html", "character")), incorrect = structure("But no need to fret, try it again.", html = TRUE, class = c("html", "character")), message = NULL, post_message = NULL), ids = list(    answer = "stipro-answer", question = "stipro"), loading = structure("<strong>Loading:<\u002fstrong> \nIs this sample <em>representative<\u002fem> &ndash; can we use it to draw inferences about the population?\n<br/><br/><br/>", html = TRUE, class = c("html", "character")), random_answer_order = FALSE, allow_retry = TRUE,     seed = 1181402164.44987, options = list()), class = c("learnr_radio", "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "graph1", question = structure("Welche Rolle spielt hier die Variable Akademikerin zwischen Stillen und Übergewicht?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9ccfb0e", 
-    option = "Mediator", value = "Mediator", label = structure("Mediator", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2d7116", 
-    option = "Confounder", value = "Confounder", label = structure("Confounder", html = TRUE, class = c("html", 
-    "character")), correct = TRUE, message = structure("Beim Teilgraph Stillen \\(\\leftarrow\\) Akademikerin \\(\\rightarrow\\) Übergewicht handelt es sich um eine Gabel.", html = TRUE, class = c("html", 
-    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
-)), structure(list(id = "lnr_ans_89b31fd", option = "Collider", 
-    value = "Collider", label = structure("Collider", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer"))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Perfekt!", html = TRUE, class = c("html", 
-"character")), try_again = structure("Nicht ganz. Aber kein Ding: Wir lernen mehr aus Fehlern als aus Erfolgen. Lassen Sie es uns noch einmal versuchen!", html = TRUE, class = c("html", 
-"character")), incorrect = structure("Nicht ganz. Aber kein Ding: Wir lernen mehr aus Fehlern als aus Erfolgen. Lassen Sie es uns noch einmal versuchen!", html = TRUE, class = c("html", 
-"character")), message = NULL, post_message = NULL), ids = list(
-    answer = "graph1-answer", question = "graph1"), loading = structure("<strong>Loading:<\u002fstrong> \nWelche Rolle spielt hier die Variable Akademikerin zwischen Stillen und Übergewicht?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-"character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 876941404.591642, options = list()), class = c("learnr_radio", 
-"tutorial_question")))
-</script>
-
-
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "stipro", question = structure("Ist diese Stichprobe <em>repräsentativ<\u002fem> &ndash; können gültige Schlüsse über die Population getroffen werden?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_3c8a807", 
-    option = "Ja", value = "Ja", label = structure("Ja", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7872f7a", 
-    option = "Nein", value = "Nein", label = structure("Nein", html = TRUE, class = c("html", 
-    "character")), correct = TRUE, message = structure("Akademikerinnen sind in der Stichprobe überrepräsentiert.", html = TRUE, class = c("html", 
-    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
-))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Perfekt!", html = TRUE, class = c("html", 
-"character")), try_again = structure("Nicht verzagen! Übung macht die Meister:in!", html = TRUE, class = c("html", 
-"character")), incorrect = structure("Nicht verzagen! Übung macht die Meister:in!", html = TRUE, class = c("html", 
-"character")), message = NULL, post_message = NULL), ids = list(
-    answer = "stipro-answer", question = "stipro"), loading = structure("<strong>Loading:<\u002fstrong> \nIst diese Stichprobe <em>repräsentativ<\u002fem> &ndash; können gültige Schlüsse über die Population getroffen werden?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-"character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1181402164.44987, options = list()), class = c("learnr_radio", 
-"tutorial_question")))
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "ki", question = structure("Can the causal effect of breastfeeding on overweight be estimated by a direct comparison of children whose mothers breastfeed vs. do not breastfeed?", html = TRUE, class = c("html", "character")), answers = list(structure(list(id = "lnr_ans_3c8a807",     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html",     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", "tutorial_quiz_answer")), structure(list(id = "lnr_ans_7872f7a",     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html",     "character")), correct = TRUE, message = structure("Graduate is a confounder here and lies on a non-causal path from breastfeeding to overweight. Thus, our estimate of the causal effect would be biased.", html = TRUE, class = c("html",     "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", "character")), try_again = structure("Try Again", html = TRUE, class = c("html", "character"))), messages = list(correct = structure("Correct! What first-rate work!", html = TRUE, class = c("html", "character")), try_again = structure("But no need to fret, try it again.", html = TRUE, class = c("html", "character")), incorrect = structure("But no need to fret, try it again.", html = TRUE, class = c("html", "character")), message = NULL, post_message = NULL), ids = list(    answer = "ki-answer", question = "ki"), loading = structure("<strong>Loading:<\u002fstrong> \nCan the causal effect of breastfeeding on overweight be estimated by a direct comparison of children whose mothers breastfeed vs. do not breastfeed?\n<br/><br/><br/>", html = TRUE, class = c("html", "character")), random_answer_order = FALSE, allow_retry = TRUE,     seed = 1181402164.44987, options = list()), class = c("learnr_radio", "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "ki", question = structure("Kann der kausale Effekt von Stillen auf Übergewicht durch einen direkten Vergleich von Kindern deren Mütter stillen vs. nicht stillen geschätzt werden?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_3c8a807", 
-    option = "Ja", value = "Ja", label = structure("Ja", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_7872f7a", 
-    option = "Nein", value = "Nein", label = structure("Nein", html = TRUE, class = c("html", 
-    "character")), correct = TRUE, message = structure("Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Übergewicht. Damit wäre unsere Schätzung des kausalen Effekts verzerrt.", html = TRUE, class = c("html", 
-    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
-))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Perfekt!", html = TRUE, class = c("html", 
-"character")), try_again = structure("Nicht verzagen! Übung macht die Meister:in!", html = TRUE, class = c("html", 
-"character")), incorrect = structure("Nicht verzagen! Übung macht die Meister:in!", html = TRUE, class = c("html", 
-"character")), message = NULL, post_message = NULL), ids = list(
-    answer = "ki-answer", question = "ki"), loading = structure("<strong>Loading:<\u002fstrong> \nKann der kausale Effekt von Stillen auf Übergewicht durch einen direkten Vergleich von Kindern deren Mütter stillen vs. nicht stillen geschätzt werden?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-"character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 1181402164.44987, options = list()), class = c("learnr_radio", 
-"tutorial_question")))
-</script>
-
-
-<script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "beob1", question = structure("Lassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen mit Übergewicht korreliert ist?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_9ccfb0e", 
-    option = "Ja", value = "Ja", label = structure("Ja", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2d7116", 
-    option = "Nein", value = "Nein", label = structure("Nein", html = TRUE, class = c("html", 
-    "character")), correct = TRUE, message = structure("Ohne Variation keine Korrelation. Es fehlt die Information, wie viele Kinder, die nicht voll gestillt wurden, Übergewicht haben.", html = TRUE, class = c("html", 
-    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
-))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Gut gemacht", html = TRUE, class = c("html", 
-"character")), try_again = structure("Nicht ganz. Aber kein Ding: Wir lernen mehr aus Fehlern als aus Erfolgen. Lassen Sie es uns noch einmal versuchen!", html = TRUE, class = c("html", 
-"character")), incorrect = structure("Nicht ganz. Aber kein Ding: Wir lernen mehr aus Fehlern als aus Erfolgen. Lassen Sie es uns noch einmal versuchen!", html = TRUE, class = c("html", 
-"character")), message = NULL, post_message = NULL), ids = list(
-    answer = "beob1-answer", question = "beob1"), loading = structure("<strong>Loading:<\u002fstrong> \nLassen alleine die Daten der Schlagzeile den Schluss zu, dass Stillen mit Übergewicht korreliert ist?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-"character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 876941404.591642, options = list()), class = c("learnr_radio", 
-"tutorial_question")))
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "beob1", question = structure("Do the headline data alone suggest that breastfeeding is correlated with overweight?", html = TRUE, class = c("html", "character")), answers = list(structure(list(id = "lnr_ans_9ccfb0e",     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html",     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", "tutorial_quiz_answer")), structure(list(id = "lnr_ans_f2d7116",     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html",     "character")), correct = TRUE, message = structure("No variation means no correlation. Here, information is missing on how many children who were not breastfed turn out overweight.", html = TRUE, class = c("html",     "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", "character")), try_again = structure("Try Again", html = TRUE, class = c("html", "character"))), messages = list(correct = structure("Correct! What first-rate work!", html = TRUE, class = c("html", "character")), try_again = structure("Please try again.", html = TRUE, class = c("html", "character")), incorrect = structure("Please try again.", html = TRUE, class = c("html", "character")), message = NULL, post_message = NULL), ids = list(    answer = "beob1-answer", question = "beob1"), loading = structure("<strong>Loading:<\u002fstrong> \nDo the headline data alone suggest that breastfeeding is correlated with overweight?\n<br/><br/><br/>", html = TRUE, class = c("html", "character")), random_answer_order = FALSE, allow_retry = TRUE,     seed = 447745631.291502, options = list()), class = c("learnr_radio", "tutorial_question")))
 </script>
  
 <script type="application/shiny-prerendered" data-context="server">
-learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "beob2", question = structure("Lassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Stillen auf die Wahrscheinlichkeit Übergewicht zu entwickeln bei \\(0.36\\) liegt?", html = TRUE, class = c("html", 
-"character")), answers = list(structure(list(id = "lnr_ans_a820da0", 
-    option = "Ja", value = "Ja", label = structure("Ja", html = TRUE, class = c("html", 
-    "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", 
-"tutorial_quiz_answer")), structure(list(id = "lnr_ans_35601cc", 
-    option = "Nein", value = "Nein", label = structure("Nein", html = TRUE, class = c("html", 
-    "character")), correct = TRUE, message = structure("Akademikerin ist hier ein Confounder und liegt auf einem nicht-kausalen Pfad von Stillen zu Übergewicht.", html = TRUE, class = c("html", 
-    "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"
-))), button_labels = list(submit = structure("<span data-i18n=\"button.questionsubmit\">Submit Answer<\u002fspan>", html = TRUE, class = c("html", 
-"character")), try_again = structure("<span data-i18n=\"button.questiontryagain\">Try Again<\u002fspan>", html = TRUE, class = c("html", 
-"character"))), messages = list(correct = structure("Richtig", html = TRUE, class = c("html", 
-"character")), try_again = structure("Nicht verzagen! Übung macht die Meister:in!", html = TRUE, class = c("html", 
-"character")), incorrect = structure("Nicht verzagen! Übung macht die Meister:in!", html = TRUE, class = c("html", 
-"character")), message = NULL, post_message = NULL), ids = list(
-    answer = "beob2-answer", question = "beob2"), loading = structure("<strong>Loading:<\u002fstrong> \nLassen die Daten der Beobachtungsstudie den Schluss zu, dass der durchschnittliche kausale Effekt von Stillen auf die Wahrscheinlichkeit Übergewicht zu entwickeln bei \\(0.36\\) liegt?\n<br/><br/><br/>", html = TRUE, class = c("html", 
-"character")), random_answer_order = FALSE, allow_retry = TRUE, 
-    seed = 741941218.654507, options = list()), class = c("learnr_radio", 
-"tutorial_question")))
+learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label = "beob2", question = structure("Does the observational study data suggest that the average causal effect of breastfeeding on the probability of overweight is \\(0.36\\)?", html = TRUE, class = c("html", "character")), answers = list(structure(list(id = "lnr_ans_d7a4ece",     option = "Yes", value = "Yes", label = structure("Yes", html = TRUE, class = c("html",     "character")), correct = FALSE, message = NULL), class = c("tutorial_question_answer", "tutorial_quiz_answer")), structure(list(id = "lnr_ans_975eb63",     option = "No", value = "No", label = structure("No", html = TRUE, class = c("html",     "character")), correct = TRUE, message = structure("Graduate is a confounder and lies on a non-causal path from breastfeeding to overweight.", html = TRUE, class = c("html",     "character"))), class = c("tutorial_question_answer", "tutorial_quiz_answer"))), button_labels = list(submit = structure("Submit Answer", html = TRUE, class = c("html", "character")), try_again = structure("Try Again", html = TRUE, class = c("html", "character"))), messages = list(correct = structure("Correct! Delightful!", html = TRUE, class = c("html", "character")), try_again = structure("Let&#39;s try it again.", html = TRUE, class = c("html", "character")), incorrect = structure("Let&#39;s try it again.", html = TRUE, class = c("html", "character")), message = NULL, post_message = NULL), ids = list(    answer = "beob2-answer", question = "beob2"), loading = structure("<strong>Loading:<\u002fstrong> \nDoes the observational study data suggest that the average causal effect of breastfeeding on the probability of overweight is \\(0.36\\)?\n<br/><br/><br/>", html = TRUE, class = c("html", "character")), random_answer_order = FALSE, allow_retry = TRUE,     seed = 1114684608.98093, options = list()), class = c("learnr_radio", "tutorial_question")))
 </script>
  <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="dependencies">
-{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.11"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["i18n"]},{"type":"character","attributes":{},"value":["1.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/i18n"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["i18next.min.js","tutorial-i18n-init.js"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["<script id=\"i18n-cstm-trns\" type=\"application/json\">{\"language\":\"de\",\"resources\":{\"en\":{\"translation\":{\"button\":{\"runcode\":\"Run Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Hint\",\"hint_plural\":\"Hints\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Next Hint\",\"hintprev\":\"Previous Hint\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copy to Clipboard\",\"startover\":\"Start Over\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continue\",\"submitanswer\":\"Submit Answer\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Previous Topic\",\"nexttopic\":\"Next Topic\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Try Again\"},\"text\":{\"startover\":\"Start Over\",\"areyousure\":\"Are you sure you want to start over? (all exercise progress will be reset)\",\"youmustcomplete\":\"You must complete the\",\"exercise\":\"exercise\",\"exercise_plural\":\"exercises\",\"inthissection\":\"in this section before continuing.\",\"code\":\"Code\",\"enginecap\":\"{{engine}} $t(text.code)\",\"quiz\":\"Quiz\"}}},\"fr\":{\"translation\":{\"button\":{\"runcode\":\"Lancer le Code\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Indication\",\"hint_plural\":\"Indications\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Indication Suivante\",\"hintprev\":\"Indication Précédente\",\"solution\":\"Solution\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copier dans le Presse-papier\",\"startover\":\"Recommencer\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuer\",\"submitanswer\":\"Soumettre\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Chapitre Précédent\",\"nexttopic\":\"Chapitre Suivant\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Réessayer\"},\"text\":{\"startover\":\"Recommencer\",\"areyousure\":\"Êtes-vous certains de vouloir recommencer? (La progression sera remise à zéro)\",\"youmustcomplete\":\"Vous devez d'abord compléter\",\"exercise\":\"l'exercice\",\"exercise_plural\":\"des exercices\",\"inthissection\":\"de cette section avec de continuer.\",\"code\":\"Code\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\"}}},\"es\":{\"translation\":{\"button\":{\"runcode\":\"Ejecutar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Pista\",\"hint_plural\":\"Pistas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Siguiente pista\",\"hintprev\":\"Pista anterior\",\"solution\":\"Solución\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar al portapapeles\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar respuesta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tema anterior\",\"nexttopic\":\"Tema siguiente\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Volver a intentar\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"¿De verdad quieres empezar de nuevo? (todo el progreso del ejercicio se perderá)\",\"youmustcomplete\":\"Debes completar\",\"exercise\":\"el ejercicio\",\"exercise_plural\":\"los ejercicios\",\"inthissection\":\"en esta sección antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Cuestionario\"}}},\"pt\":{\"translation\":{\"button\":{\"runcode\":\"Executar código\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Dica\",\"hint_plural\":\"Dicas\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Próxima dica\",\"hintprev\":\"Dica anterior\",\"solution\":\"Solução\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Copiar para a área de transferência\",\"startover\":\"Reiniciar\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Continuar\",\"submitanswer\":\"Enviar resposta\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Tópico anterior\",\"nexttopic\":\"Próximo tópico\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tentar novamente\"},\"text\":{\"startover\":\"Reiniciar\",\"areyousure\":\"Tem certeza que deseja começar novamente? (todo o progresso feito será perdido)\",\"youmustcomplete\":\"Você deve completar\",\"exercise\":\"o exercício\",\"exercise_plural\":\"os exercícios\",\"inthissection\":\"nesta seção antes de continuar.\",\"code\":\"Código\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Quiz\"}}},\"tr\":{\"translation\":{\"button\":{\"runcode\":\"Çalıştırma Kodu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Ipucu\",\"hint_plural\":\"İpuçları\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Sonraki İpucu\",\"hintprev\":\"Önceki İpucu\",\"solution\":\"Çözüm\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Pano'ya Kopyala\",\"startover\":\"Baştan Başlamak\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Devam et\",\"submitanswer\":\"Cevabı onayla\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Önceki Konu\",\"nexttopic\":\"Sonraki Konu\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Tekrar Deneyin\"},\"text\":{\"startover\":\"Baştan Başlamak\",\"areyousure\":\"Baştan başlamak istediğinizden emin misiniz? (tüm egzersiz ilerlemesi kaybolacak)\",\"youmustcomplete\":\"Tamamlamalısın\",\"exercise\":\"egzersiz\",\"exercise_plural\":\"egzersizler\",\"inthissection\":\"devam etmeden önce bu bölümde\",\"code\":\"Kod\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Sınav\"}}},\"emo\":{\"translation\":{\"button\":{\"runcode\":\"🏃\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"💡\",\"hint_plural\":\"$t(button.hint)\",\"hinttitle\":\"$t(button.hint)\",\"solution\":\"🎯\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"📋\",\"startover\":\"⏮\",\"startovertitle\":\"Start Over\",\"continue\":\"✅\",\"submitanswer\":\"🆗\",\"submitanswertitle\":\"Submit Answer\",\"previoustopic\":\"⬅\",\"nexttopic\":\"➡\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"🔁\"},\"text\":{\"startover\":\"⏮\",\"areyousure\":\"🤔\",\"youmustcomplete\":\"⚠️ 👉 🧑‍💻\",\"exercise\":\"\",\"exercise_plural\":\"\",\"inthissection\":\"\",\"code\":\"💻\",\"enginecap\":\"$t(text.code) {{engine}}\"}}},\"eu\":{\"translation\":{\"button\":{\"runcode\":\"Kodea egikaritu\",\"runcodetitle\":\"$t(button.runcode) ({{kbd}})\",\"hint\":\"Laguntza\",\"hint_plural\":\"Laguntza\",\"hinttitle\":\"$t(button.hint)\",\"hintnext\":\"Aurreko laguntza\",\"hintprev\":\"Hurrengo laguntza\",\"solution\":\"Ebazpena\",\"solutiontitle\":\"$t(button.solution)\",\"copyclipboard\":\"Arbelean kopiatu\",\"startover\":\"Berrabiarazi\",\"startovertitle\":\"$t(button.startover)\",\"continue\":\"Jarraitu\",\"submitanswer\":\"Erantzuna bidali\",\"submitanswertitle\":\"$t(button.submitanswer)\",\"previoustopic\":\"Aurreko atala\",\"nexttopic\":\"Hurrengo atala\",\"questionsubmit\":\"$t(button.submitanswer)\",\"questiontryagain\":\"Berriro saiatu\"},\"text\":{\"startover\":\"Berrabiarazi\",\"areyousure\":\"Berriro hasi nahi duzu? (egindako lana galdu egingo da)\",\"youmustcomplete\":\"Aurrera egin baino lehen atal honetako\",\"exercise\":\"ariketa egin behar duzu.\",\"exercise_plural\":\"ariketak egin behar dituzu.\",\"inthissection\":\"\",\"code\":\"Kodea\",\"enginecap\":\"$t(text.code) {{engine}}\",\"quiz\":\"Galdetegia\"}}},\"de\":{\"custom\":{\"button\":{\"runcode\":\"Ausführen\",\"hint\":\"Hinweis\",\"hint_plural\":\"Hinweise\",\"hinttitle\":\"Hinweis\",\"hintnext\":\"Nächster Tipp\",\"hintprev\":\"Vorheriger Tipp\",\"solution\":\"Lösung\",\"solutiontitle\":\"Lösung\",\"copyclipboard\":\"In die Zwischenablage kopieren\",\"startover\":\"Neustart\",\"startovertitle\":\"Neustart\",\"continue\":\"Weiter\",\"submitanswer\":\"Antwort abgeben!\",\"previoustopic\":\"Zurück\",\"nexttopic\":\"Weiter\",\"questiontryagain\":\"Neuer Versuch\"},\"text\":{\"startover\":\"Neustart\",\"areyousure\":\"Wollen Sie wirklich einen Neustart? (Alle Übungen werden dabei zurückgesetzt!)\",\"youmustcomplete\":\"Sie müssen die \",\"exercise\":\"Aufgabe\",\"exercise_plural\":\"Aufgaben\",\"inthissection\":\"in diesen Abschnitt beenden bevor Sie fortfahren können.\"}}}}}<\/script>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["3.6.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/3.6.0"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery-3.6.0.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquerylib"]},{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.11"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1.9010"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1.9010"]}]}]}
+{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["header-attrs"]},{"type":"character","attributes":{},"value":["2.9"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pandoc"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["header-attrs.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootstrap"]},{"type":"character","attributes":{},"value":["3.3.5"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/bootstrap"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["viewport"]}},"value":[{"type":"character","attributes":{},"value":["width=device-width, initial-scale=1"]}]},{"type":"character","attributes":{},"value":["js/bootstrap.min.js","shim/html5shiv.min.js","shim/respond.min.js"]},{"type":"character","attributes":{},"value":["css/cerulean.min.css"]},{"type":"character","attributes":{},"value":["<style>h1 {font-size: 34px;}\n       h1.title {font-size: 38px;}\n       h2 {font-size: 30px;}\n       h3 {font-size: 24px;}\n       h4 {font-size: 18px;}\n       h5 {font-size: 16px;}\n       h6 {font-size: 12px;}\n       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}\n       pre:not([class]) { background-color: white }<\/style>"]},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["pagedtable"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/pagedtable-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["js/pagedtable.js"]},{"type":"character","attributes":{},"value":["css/pagedtable.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["textmate.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-format"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmarkdown/templates/tutorial/resources"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-format.js"]},{"type":"character","attributes":{},"value":["tutorial-format.css","rstudio-theme.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["navigation"]},{"type":"character","attributes":{},"value":["1.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/navigation-1.1"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tabsets.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["highlightjs"]},{"type":"character","attributes":{},"value":["9.12.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/highlightjs"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["highlight.js"]},{"type":"character","attributes":{},"value":["default.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["jquery"]},{"type":"character","attributes":{},"value":["1.11.3"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/jquery"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["jquery.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["font-awesome"]},{"type":"character","attributes":{},"value":["5.1.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["rmd/h/fontawesome"]}]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["css/all.css","css/v4-shims.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["rmarkdown"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["2.9"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["bootbox"]},{"type":"character","attributes":{},"value":["4.4.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/bootbox"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["bootbox.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["idb-keyvalue"]},{"type":"character","attributes":{},"value":["3.2.0"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/idb-keyval"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["idb-keyval-iife-compat.min.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[false]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial.js"]},{"type":"character","attributes":{},"value":["tutorial.css"]},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-autocompletion"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-autocompletion.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","version","src","meta","script","stylesheet","head","attachment","package","all_files","pkgVersion"]},"class":{"type":"character","attributes":{},"value":["html_dependency"]}},"value":[{"type":"character","attributes":{},"value":["tutorial-diagnostics"]},{"type":"character","attributes":{},"value":["0.10.1"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["file"]}},"value":[{"type":"character","attributes":{},"value":["lib/tutorial"]}]},{"type":"NULL"},{"type":"character","attributes":{},"value":["tutorial-diagnostics.js"]},{"type":"NULL"},{"type":"NULL"},{"type":"NULL"},{"type":"character","attributes":{},"value":["learnr"]},{"type":"logical","attributes":{},"value":[true]},{"type":"character","attributes":{},"value":["0.10.1"]}]}]}
 </script>
 <!--/html_preserve-->
 <!--html_preserve-->
 <script type="application/shiny-prerendered" data-context="execution_dependencies">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","boot","broom","bslib","checkmate","cli","colorspace","compiler","crayon","crosstalk","curl","dagitty","datasets","DBI","digest","dplyr","ellipsis","emojifont","evaluate","fansi","farver","fastmap","forcats","generics","ggdag","ggdendro","ggforce","ggformula","ggplot2","ggraph","ggrepel","ggridges","ggstance","ggthemes","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","highr","hms","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","labeling","labelled","later","lattice","leaflet","learnr","lifecycle","magrittr","markdown","MASS","Matrix","methods","mime","mosaic","mosaicCore","mosaicData","munsell","pillar","pkgconfig","plyr","polyclip","promises","proto","purrr","R6","Rcpp","readr","rlang","rmarkdown","rprojroot","rstudioapi","sass","scales","shiny","showtext","showtextdb","splines","stats","stringi","stringr","sysfonts","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","tzdb","utf8","utils","V8","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.2.1","1.4.1","4.1.2","1.3-28","0.7.12","0.3.1","2.0.0","3.1.1","2.0-2","4.1.2","1.4.2","1.2.0","4.3.2","0.3-1","4.1.2","1.1.2","0.6.29","1.0.8","0.3.2","0.5.5","0.14","1.0.2","2.1.0","1.1.0","0.5.1","0.1.2","0.2.4","0.1.22","0.3.3","0.10.1","3.3.5","2.0.5","0.9.1","0.5.3","0.3.5","4.2.4","1.6.1","4.1.2","0.8.0","4.1.2","4.1.2","2.3","0.3.0","2.4.3","0.9","1.1.1","0.5.2","1.5.4","1.6.5","1.2.11","0.1.4","1.7.3","1.37","0.4.2","2.9.0","1.3.0","0.20-45","2.0.4.1","0.10.1.9010","1.0.1","2.0.2","1.1","7.3-55","1.4-0","4.1.2","0.12","1.8.3","0.9.0","0.20.2","0.5.0","1.7.0","2.0.3","1.8.6","1.10-0","1.2.0.1","1.0.0","0.3.4","2.5.1","1.0.8","2.1.2","1.0.1","2.11","2.0.2","0.13","0.4.0","1.1.1","1.7.1","0.9-4","3.0","4.1.2","4.1.2","1.7.6","1.4.0","0.8.5","3.1.6","1.2.0","1.2.0","1.1.1","4.1.2","1.0.2","0.2.0","1.2.2","4.1.2","4.1.0","0.3.8","0.6.2","0.4.0","2.4.3","0.29","1.8-4","2.2.2"]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["packages","version"]},"class":{"type":"character","attributes":{},"value":["data.frame"]},"row.names":{"type":"integer","attributes":{},"value":[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108]}},"value":[{"type":"character","attributes":{},"value":["assertthat","backports","base","boot","broom","bslib","checkmate","colorspace","compiler","crayon","crosstalk","curl","dagitty","datasets","DBI","digest","dplyr","ellipsis","emojifont","evaluate","fansi","farver","fastmap","forcats","generics","ggdag","ggdendro","ggforce","ggformula","ggplot2","ggraph","ggrepel","ggridges","ggstance","ggthemes","glue","graphics","graphlayouts","grDevices","grid","gridExtra","gtable","haven","highr","hms","htmltools","htmlwidgets","httpuv","igraph","jquerylib","jsonlite","knitr","labeling","labelled","later","lattice","leaflet","learnr","lifecycle","magrittr","markdown","MASS","Matrix","methods","mime","mosaic","mosaicCore","mosaicData","munsell","pillar","pkgconfig","plyr","polyclip","promises","proto","purrr","R6","Rcpp","readr","rlang","rmarkdown","rprojroot","sass","scales","shiny","showtext","showtextdb","splines","stats","stringi","stringr","sysfonts","tibble","tidygraph","tidyr","tidyselect","tools","tweenr","utf8","utils","V8","vctrs","viridis","viridisLite","withr","xfun","xtable","yaml"]},{"type":"character","attributes":{},"value":["0.2.1","1.2.1","4.1.0","1.3-28","0.7.8","0.2.5.1","2.0.0","2.0-2","4.1.0","1.4.1","1.1.1","4.3.1","0.3-1","4.1.0","1.1.1","0.6.27","1.0.7","0.3.2","0.5.5","0.14","0.5.0","2.1.0","1.1.0","0.5.1","0.1.0","0.2.4","0.1.22","0.3.3","0.10.1","3.3.5","2.0.5","0.9.1","0.5.3","0.3.5","4.2.4","1.4.2","4.1.0","0.7.1","4.1.0","4.1.0","2.3","0.3.0","2.4.1","0.9","1.1.0","0.5.1.1","1.5.3","1.6.1","1.2.6","0.1.4","1.7.2","1.33","0.4.2","2.8.0","1.2.0","0.20-44","2.0.4.1","0.10.1","1.0.0","2.0.1","1.1","7.3-54","1.3-3","4.1.0","0.11","1.8.3","0.9.0","0.20.2","0.5.0","1.6.1","2.0.3","1.8.6","1.10-0","1.2.0.1","1.0.0","0.3.4","2.5.0","1.0.7","1.4.0","0.4.11","2.9","2.0.2","0.4.0","1.1.1","1.6.0","0.9-4","3.0","4.1.0","4.1.0","1.6.2","1.4.0","0.8.5","3.1.2","1.2.0","1.1.3","1.1.1","4.1.0","1.0.2","1.2.1","4.1.0","3.4.2","0.3.8","0.6.1","0.4.0","2.4.2","0.24","1.8-4","2.2.1"]}]}]}
 </script>
 <!--/html_preserve-->
 </div>
@@ -784,8 +416,7 @@ learnr:::question_prerendered_chunk(structure(list(type = "learnr_radio", label 
 
 <!-- begin doc-metadata -->
 <div id="doc-metadata">
-<h2 class="title toc-ignore" style="display:none;">Modul 08: Magie durch
-Zufall</h2>
+<h2 class="title toc-ignore" style="display:none;">Module 08: Randomness is Magic</h2>
 </div>
 <!-- end doc-metadata -->
 
@@ -800,18 +431,6 @@ Zufall</h2>
 
 
 
-<!-- Build Tabsets -->
-<script>
-$(document).ready(function () {
-  window.buildTabsets("section-TOC");
-});
-
-$(document).ready(function () {
-  $('.tabset-dropdown > .nav-tabs > li').click(function () {
-    $(this).parent().toggleClass('nav-tabs-open')
-  });
-});
-</script>
 
 <script>
 // add bootstrap table styles to pandoc tables
