@@ -1,5 +1,5 @@
 ---
-title: "Modul 09: Was wäre gewesen, wenn?"
+title: "Module 09: What would have been, if...?"
 output: 
   learnr::tutorial:
     progressive: true
@@ -36,7 +36,7 @@ DAG1 <- dagify(Y~ X,
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
-  geom_text(label = "X - Lernzeit\nY - Klausurpunkte", 
+  geom_text(label = "X - Study time\nY - Exam points", 
             hjust = 1, vjust = 2,
             x = 1, y = 0, size = 10, color = "darkgrey") 
 
@@ -53,38 +53,39 @@ DAG2 <- dagify(Y~ X,
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed"))
 ```
 
-## Lernziele
+## Learning objectives
 
-In diesem Modul lernen Sie:
+In this module you will learn:
 
-- wie Counterfactuals bestimmt werden können.
+- how to determine counterfactuals.
 
 
-## Der nicht-gegangene Weg
+## The non-traveled path
 
-Bei der (rückblickenden) Beurteilung von Handlungen fragen wir uns häufig: *Wie wäre es gewesen, wenn ich mich anders entschieden hätte?*
+When (retrospectively) assessing actions, we often ask ourselves: *What would it have been like if I had made a different decision?*
 
-Zum Beispiel bei der Beurteilung des menschlichen Einflusses auf den Klimawandel: Wie wäre die Erderwärmung, wenn es die Industialisierung nicht gegeben hätte?
+For example, assessing the human impact on climate change: what would global warming have been like if the industrialization had not occurred?
 
-Oder zum Beispiel bei Fragen einer möglichen Diskriminierung: Hätte ich den Kredit bekommen, wenn ich nicht einer ethnischen Minderheit angehören würde?
+Or, for example, concerning the possibility of discrimination: Would I have gotten the loan if I were not a member of an ethnic minority?
+
 
 ##
 
-Entscheidend ist bei diesen Fragen und Überlegungen: Wir sind den einen Weg gegangen und kennen das Ergebnis. 
+These questions share an underlying structure: We have gone one way and know the result. 
 
-Uns interessiert aber auch, wie das Ergebnis gewesen wäre, wenn wir den anderen Weg gegangen wären.
+But we are now interested in what the result would have been if we had gone the other way.
 
-Wir wollen also das sogenannte **Counterfactual** bestimmen. 
-Dieser Wert ist kontrafaktisch in dem Sinne, dass er in der Realität nicht vorliegt, da ein anderes der **potenziellen Ergebnisse** vorliegt. 
+We therefore want to determine the so-called **counterfactual**. 
+Its value is counterfactual in the sense that it does not exist in reality because another of the **potential outcomes** was realized. 
 
 ***
 
-*Hinweis*: Siehe auch Modul 1.
+*Note*: See also Module 1.
 
 ***
 
 <center>
-<img src="images/Zweiwege.jpg" alt="Weggabel" width="50%" height="50%">
+<img src="images/Zweiwege.jpg" alt="Fork in the road" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
 <span style="font-size: 10px;"><br>
 Quelle: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/](https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/)
@@ -93,25 +94,27 @@ Quelle: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607
 
 <br>
 
-Wir wissen, was passiert ist, nachdem wir links abgebogen sind. 
-Wir wollen nun wissen, was passiert wäre, wenn wir rechts abgebogen wären &ndash; mit dem Wissen des Ergebnisses nach der Abbiegung nach links.
+We know what happened after we turned left. 
+We now want to know what would have happened if we had turned right &ndash; with the background knowledge of what happened when we turned left.
 
-Dies ist in der kausalen Leiter nach Pearl die höchste Stufe:
+This is the highest rung in Pearl's causal ladder:
 
-3.  **Counterfactuals**:  &ndash; Vorstellung: *Was wäre gewesen*? 
+3.  **Counterfactuals**:  &ndash; Imagination: *What would have been, if*? 
 
-Wir haben $X=x'$ und als Folge $Y=y'$ beobachtet. Wie wahrscheinlich ist dann $Y=y$, wenn ich $X=x$ gesetzt hätte? Formal: $Pr(y_x|x',y')$
+We observed $X=x'$ and its consequence $Y=y'$.
+How probable is $Y=y$, if I had instead assigned $X=x$? 
+Expressed formally, we want to know the following probability: $Pr(y_x|x',y')$
 
 ***
 
-*Hinweis*: Siehe Modul 3 für die kausale Leiter.
+*Note*: See Module 3 for an introduction to the causal ladder.
 
 ***
 
 ```{r counterfactual, echo=FALSE}
-question("Was ist beim Klimawandel das Counterfactual?",
-         answer("Die Erderwärmung ohne Industrialisierung.", correct = TRUE, message = "Die Industrialisierung hat stattgefunden, die Erderwärmung in diesem Fall beobachten wir leider gerade."),
-         answer("Die Erderwärmung mit Industrialisierung."),
+question("What is the counterfactual when it comes to climate change?",
+         answer("Global warming without industrialization.", correct = TRUE, message = "The industrialization has happened, and so we can observe the resulting global warming unfold in real life."),
+         answer("Global warming with industrialization."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -119,48 +122,51 @@ question("Was ist beim Klimawandel das Counterfactual?",
 ```
 
 
-## Lernen und Klausurerfolg
+## Study time and exam points
 
-Das Phänomen kennen sicherlich viele: Sie lernen für eine Klausur, zum Beispiel insgesamt 10 Stunden. 
-Sie erreichen in der Klausur eine gute Note, sagen wir mit 50 Punkten.
+Many people are familiar with this consideration: You study for an exam, for example, a total of 10 hours. 
+You achieve a good grade in the exam, let's say 50 points.
 
-*"Hätte ich mehr gelernt, etwa 20 Stunden, dann hätte ich eine sehr gute Note erreicht."*
+*"If I had studied more, maybe 20 hours, I would have achieved an even better, a very good grade."*.
 
-Gehen wir &ndash; extrem stark vereinfacht &ndash; von folgendem kausalen Diagramm aus:
+Let us assume the following highly simplified causal diagram:
 
 ```{r DAG1, echo=FALSE, fig.align='center', out.width='60%'}
 plot(DAG1)
 ```
 
-Dann ist <green>Lernzeit</green> die Ursache $\color{green}{X}$ und <blue>Klausurerfolg</blue> der Effekt $\color{blue}{Y}$.
+<green>Study time</green> is the cause $\color{green}{X}$ and <blue>exam points</blue> is the effect $\color{blue}{Y}$.
 
-**Hinweis**: Für die Berechnung von Counterfactuals müssen Sie das zugrundeliegende kausale Modell kennen -- deswegen steht dieser Schritt auch an der Spitze der kausalen Leiter. In unserem Beispiel hier wird es in Wirklichkeit natürlich viele weitere Faktoren geben und der Effekt der Lernzeit auf den Klausurerfolg ist empirisch nicht leicht zu bestimmen. Wir vereinfachen hier stark, um das Konzept und die Berechnung von Counterfactuals im simplen Fall zu illustrieren.
+**Note**: To calculate counterfactuals, you need to know the underlying causal model -- which is why this step is at the top of the causal ladder. 
+In our example here, in reality, there will of course be many other factors influencing exam success.
+So determining the causal effect of study time on exam points empirically will be very hard.
+We assume a known causal model that is highly simplified to show the underlying logic of counterfactuals.
 
 
 ##
 
-Das **kausale Modell** des  Graphen $\color{green}{X} \rightarrow \color{blue}{Y}$ besteht aus zwei Zuweisungen:
+The **causal model** of the graph $\color{green}{X} \rightarrow \color{blue}{Y}$ consists of two assignments:
 
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
 
-Inklusive der externen Faktoren $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ sieht das kausale Diagram wie folgt aus:
+Including the external factors $U_{\color{green}{X}}$ and $U_{\color{blue}{Y}}$, the causal diagram looks like this:
 
 ```{r DAG2, echo=FALSE, fig.align='center', out.width='60%', warning=FALSE}
 plot(DAG2)
 ```
 
-Treffen wir noch eine stark vereinfachende Annahme:
+Let's make an additional simplifying assumption:
 
 $$f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$$
 
-Das bedeutet, dass der Mittelwert von $\color{blue}{Y}$ (Klausurpunkte) mit jeder Einheit von $\color{green}{X}$ (gelernte Stunden) um $2$ Einheiten steigt. Dabei liegt der Mittelwert von $U_{\color{blue}{Y}}$ bei Null.
+This says that the mean of $\color{blue}{Y}$ (exam points) increases by $2$ units with each unit of $\color{green}{X}$ (hours learned). In this case, the mean value of $U_{\color{blue}{Y}$ is zero.
 
 ```{r erwartung, echo=FALSE}
-question("Welchen Wert für $Y$ erwarten Sie, wenn jemand $x'=10$ Stunden lernt?",
+question("What value for $Y$ do you expect for someone who studied for $x'=10$ hours?",
          answer("$0$"),
          answer("$10$"),
-         answer("$20$",  correct = TRUE, message = "Wenn wir für $U_Y$ im Schnitt einen Wert von $0$ erwarten, dann liegt der erwartete Wert von $Y$, wenn $x'=10$ ist, bei $2\\cdot 10 = 20$."),
+         answer("$20$", correct = TRUE, message = "If we expect a value of $0$ for $U_Y$ (the average), then the expected value of $Y$ when $x'=10$ is $2\\cdot 10 = $20$."),
          answer("$30$"),
          allow_retry = TRUE,
          correct = random_praise(),
@@ -169,63 +175,64 @@ question("Welchen Wert für $Y$ erwarten Sie, wenn jemand $x'=10$ Stunden lernt?
 ```
 
 
-*Hinweis*: Wie Sie im Interview mit Jakob Runge am Beispiel der Klimasysteme erfahren haben, erfordert das Aufstellen dieser Gleichungen in der Praxis viel theoretisches Hintergrundwissen.
+*Note*: As you learned in the interview with Jakob Runge using the example of climate systems, setting up these equations in practice requires a lot of theoretical background knowledge.
 
+## Abduction
 
-## Abduktion
-
-Wir nehmen an:
+We assume the following:
 
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$
 
-*"Sie lernen für eine Klausur 10 Stunden. Sie erreichen in der Klausur eine gute Note, sagen wir mit 50 Punkten."*
+*"You spend 10 hours studying for an exam. You achieve a good grade in the exam, let's say 50 points. "*.
 
-Wir wissen jetzt also, was wir für Sie beobachtet haben: $\color{green}{x'}=10$ und $\color{blue}{y'}=50$.
+So now we know what we have observed for you: $\color{green}{x'}=10$ und $\color{blue}{y'}=50$.
 
-Damit wissen wir hier:
+Thus, we also know:
 
 - $U_{\color{green}{x'}}=10$
 - $U_{\color{blue}{y'}}=\color{blue}{y'}-2\cdot \color{green}{x'}= 50 - 2 \cdot 10 = 30$
 
-*Mit anderen Worten:* Wir haben die beobachteten Daten $\color{green}{x'}, \color{blue}{y'}$ genutzt, um unser Wissen über $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ zu aktualisieren.
+*In other words:* We used the observed data $\color{green}{x'}, \color{blue}{y'}$ to update our knowledge of $U_{\color{green}{X}$ and $U_{\color{blue}{Y}$.
 
-## Aktion
 
-*"Hätte ich mehr gelernt, zum Beispiel 20 Stunden..."*
+## Action
 
-Wir wollen also wissen, was wäre der Effekt einer Handlung im Sinne von $do(\color{green}{x}=20)$, also anstelle von 
+*"If I had studied more, for example 20 hours... "*.
+
+Now we want to know what would be the effect of an action in terms of $do(\color{green}{x}=20)$, that is, instead of 
 
 $$\color{green}{X} = U_{\color{green}{X}}$$ 
 
-lautet das aktualisierte, modifizierte kausale Modell
+the updated, modified causal model is
 
 $$do(\color{green}{x})=20.$$
 
-Der Rest bleibt aber unverändert &ndash; inbesondere gehen wir weiterhin davon aus, dass für *Sie* $U_{\color{blue}{Y}}=30$ ist.
+But the rest remains unchanged &ndash; in particular, we continue to assume that for *you*, $U_{\color{blue}{Y}}=30$.
 
 
-## Vorhersage
+## Prediction
 
-Im modifizierten Modell gilt dann mit 
+In the modified model
 
 $$do(\color{green}{x})=20$$
 
-und gegeben die Beobachtung $\color{green}{x'}=10, \color{blue}{y'}=50$
+and given the observation $\color{green}{x'}=10, \color{blue}{y'}=50$
 
 - ($U_{\color{green}{x'}}=10$)
 - $U_{\color{blue}{y'}}=\color{blue}{y'}-2\cdot \color{green}{x'}= 50 - 2 \cdot 10 = 30$
 
-für das Counterfactual: 
+we get the counterfactual
 
 $$\color{blue}{y}=2\cdot\color{green}{x}+\underbrace{U_{\color{blue}{y}}}_{=U_{\color{blue}{y'}}}=2\cdot 20 + 30 = 70.$$
 
-Dass die Bestimmung des Counterfactuals in diesem karikierten Beispiel so einfach war, liegt daran, dass wir nur zwei Variablen und für diese auch noch ein lineares datengenerierendes Modell angenommen haben.
+The reason it was so easy to determine the counterfactual is that we assumed a simple model involving only two variables, and a linear data generating process.
+
 
 ```{r vorhersage, echo=FALSE}
-question("Wie lautet das Counterfactual $y$, wenn $x=10$ ist, sowie $x'=20$ und $y'=30$ beobachtet wurden? Zur Erinnerung, Sie müssen zunächst aus den beobachteten Werten $U_{y'}$ bestimmen und diesen Wert dann im Counterfactual für $U_{y}$ einsetzen.",
+question("What is the counterfactual $y$ if $x=10$, and $x'=20$ and $y'=30$ were observed? Remember, you must first determine $U_{y'}$ from the observed values, and then use this value in the calculation of the counterfactual for $U_{y}$.",
          answer("$0$"),
-         answer("$10$",  correct = TRUE, message = "Aus $x'=20$ und $y'=30$ folgt über Abduktion, dass $U_{y'}=30-2\\cdot 20 = -10$ ist. Damit gilt: $y=2\\cdot 10 -10 = 10$."),
+         answer("$10$", correct = TRUE, message = "From $x'=20$ and $y'=30$ it follows via abduction that $U_{y'}=30-2\\cdot 20 = -10$. Thus, $y=2\\cdot 10 -10 = 10$."),
          answer("$20$"),
          answer("$40$"),
          answer("$50$"),
@@ -235,25 +242,21 @@ question("Wie lautet das Counterfactual $y$, wenn $x=10$ ist, sowie $x'=20$ und 
          )
 ```
 
-## Zusammenfassung
+## Summary
 
 :::{.box}
-Die Berechnung eines Counterfactuals erfolgt in 3 Schritten:
+We need 3 steps to calculate a counterfactual.
 
-1. **Abduktion:** Nutzen der beobachteten Werte $x', y'$ um die Verteilung der externen, unbekannten Ursachen $U$ zu bestimmen.
+First, **Abduction:** Using the observed values $x', y'$ to determine the distribution of external unknown causes $U$.
 
-2. **Aktion:** Modifikation des Modells, so dass Pfeile in $X$ gelöscht werden und $X=x$ gilt.
+Second, **Action:** Modification of the model so that arrows in $X$ are deleted and $X=x$ holds.
 
-3. **Vorhersage:** Verwenden des modifizierten Modells aus 2. und der Verteilung von $U$ aus 1., um den erwarteten Wert des Counterfactuals für $Y$ zu bestimmen.
+Third **Prediction:** Using the modified model from the second step and the distribution of $U$ from the first step to determine the expected value of the counterfactual for $Y$.
 ::: 
 
-## Hinweis
+## Note
 
-<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
-
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
-
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
 
 
 ![](images/csm_Logo-BMBF.jpg)
