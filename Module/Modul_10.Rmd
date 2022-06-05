@@ -1,5 +1,5 @@
 ---
-title: "Modul 10: Graphen zeichnen und lesen"
+title: "Module 10: Drawing and Reading Graphs"
 output: 
   learnr::tutorial:
     language: 
@@ -27,70 +27,75 @@ library(DT)
 
 set.seed(1896)
 
-# Stichprobenumfang
+# Sample size
 n <- 1000
-# Faehigkeit N(100,15) verteilt
-faehigkeit <- rnorm(n, mean = 100, sd = 15)
-# Geschlecht B(0.5) verteilt
-geschlecht <- sample(c("w","m"), size = n, replace = TRUE)
+# ability, distribution N(100,15) 
+ability <- rnorm(n, mean = 100, sd = 15)
+# gender, distribution B(0.5) 
+gender <- sample(c("f","m"), size = n, replace = TRUE)
 
-# "Aufstieg" ins Management ab einer faehigkeit von 115 für Männer, ab 130 für Frauen
-vorstand <- ifelse(((geschlecht == "m" & faehigkeit > 115) | 
-                      (geschlecht == "w" & faehigkeit > 130)),
-                   "j","n")
+# men rise onto the board at ability 115, women rise at 130
+board <- ifelse(((gender == "m" & ability > 115) | 
+                      (gender == "f" & ability > 130)),
+                   "y","n")
 
-# Gehalt: Faehigkeit * 10 * 2 (wenn Vorstand) * 1.05 (wenn Mann)
-gehalt <- faehigkeit * 10 * 
-  ifelse(vorstand == "j", 2, 1) * 
-  ifelse(geschlecht == "m", 1.05, 1)
+# salary: ability * 10 * 2 (if board) * 1.05 (if man)
+salary <- ability * 10 * 
+  ifelse(board == "y", 2, 1) * 
+  ifelse(gender == "m", 1.05, 1)
 
-# Datentabelle zusammensetzen
+# Data table
 GPG <- data.frame(
-  geschlecht = geschlecht,
-  faehigkeit = round(faehigkeit),
-  vorstand = vorstand,
-  gehalt = round(gehalt,-2))
+  gender = gender,
+  ability = round(ability),
+  board = board,
+  salary = round(salary,-2))
 ```
 
-## Lernziele
+## Learning objectives
 
-In diesem Modul lernen Sie:
+In this module you will learn to:
 
-- einen Graphen anhand einer angenommenen Kausalstruktur zu zeichnen;
-- daraus die Konsequenz für die kausale Schlussfolgerung zu ziehen;
-- eine Simulation für die Gender-Pay-Gap in R.
+- draw a graph based on assumptions about the causal structure;
+- use the graph to draw the right consequences for causal inference;
+- run a simulation for the gender pay gap in R.
 
-## Eine Schlagzeile
+## A headline
 
-Eine Schlagzeile vom 16.11.2020 lautet ([Link](https://www.zeit.de/news/2020-11/16/frauen-im-vorstand-von-dax-firmen-verdienen-mehr-als-maenner)): 
+A headline from 11/16/2020 reads ([Link](https://www.zeit.de/news/2020-11/16/frauen-im-board-von-dax-firmen-verdienen-mehr-als-maenner)): 
 
-> Frauen in Firmen-Vorständen sind besser bezahlt als Männer
+> Women on company boards are better paid than men
 
-Kann das sein? Mensch denkt doch immer eher, dass Frauen im Job (und beim Gehalt) *benachteiligt* werden.
+Is that possible? 
+People always tend to think that women are *disadvantaged* in the job (and in salary).
 
-Aber beides kann gleichzeitig stimmen: Frauen können im Job benachteiligt werden *und* Frauen können als Vorstand ein höheres Gehalt erzielen als Männer. 
+But both can be true at the same time: Women can be disadvantaged *and* women can achieve a higher salary as board members than men. 
 
-Korrelation bedeutet nicht Kausalität. Mediatoren, Confounder und Collider lauern überall und können Verzerrungen (Bias) erzeugen.  
-Um Kausalität zu untersuchen müssen wir über den datengenerierenden Prozess nachdenken: Wie sind die Daten entstanden? Hier: Wie kommen die Gehälter von Frauen und Männern in Vorstandspositionen zustande?
+Correlation does not mean causality. 
+Mediators, confounders, and colliders lurk everywhere and can create bias.  
 
-Und dies haben Sie in diesem Kurs gelernt &#127942;
+To study causality we need to think about the data generating process: how did the data come about? 
+Here: How do the salaries of women and men in board positions come about?
 
-## Die Annahmen
+And this is what you have learned in this course &#127942;
 
-Hier unsere qualitativen Annahmen des datengenerierenden Prozesses:
+## Our assumptions
 
-1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*.
+Here are our qualitative assumptions of the data generating process:
 
-2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*. 
-(Für letzteres kann es unterschiedlichste Erklärungen geben: Beispielsweise kann es sein, dass Frauen weniger in solche Positionen befördert werden; es kann aber auch sein, dass sie sich weniger für solche Positionen interessieren.)
+1. *ability* for the job is independent of *gender*.
 
-3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und zumindest potentiell auch vom *Geschlecht*.
+2. whether someone gets on the *board* depends on *ability* and *gender*. 
+There can be a wide variety of explanations for the latter: For example, it may be that women are less likely to be promoted to such positions; it may also be that they are less interested in such positions.
+
+3. someone's *salary* depends on their *ability*, on whether they are on the *board*, and at least potentially also on *gender*.
+
 
 ```{r pfeil1, echo=FALSE}
-question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Geschlecht*?",
-  answer("Ja, in der Form *Fähigkeit* $\\rightarrow$ *Geschlecht*."),
-  answer("Ja, in der Form *Geschlecht* $\\rightarrow$ *Fähigkeit*."),
-  answer("Nein.", correct = TRUE, message = "Wir nehmen hier an, dass es keinen Zusammenhang zwischen *Fähigkeit* und *Geschlecht* gibt, daher gibt es auch keinen Pfeil."),
+question("Is there an arrow between *ability* and *gender*?",
+  answer("Yes, in the form *ability* $\\rightarrow$ *gender*."),
+  answer("Yes, in the form *gender* $\\rightarrow$ *ability*."),
+  answer("No.", correct = TRUE, message = "Here we assume that there is no relationship between *ability* and *gender*, so there is no arrow."),
   allow_retry = TRUE,
   correct = random_praise(),
   incorrect = random_encouragement()
@@ -100,10 +105,10 @@ question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Geschlecht*?",
 <br>
 
 ```{r pfeil2, echo=FALSE}
-question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Vorstand*?",
-  answer("Ja, in der Form *Fähigkeit* $\\rightarrow$ *Vorstand*." , correct = TRUE, message = "Wir nehmen an, dass die Vorstandstätigkeit von der Fähigkeit abhängt &ndash; und nicht umgekehrt."),
-    answer("Ja, in der Form *Vorstand* $\\rightarrow$ *Fähigkeit*."),
-  answer("Nein."),
+question("Is there an arrow between *ability* and *board*?",
+  answer("Yes, in the form *ability* $\\rightarrow$ *board*." , correct = TRUE, message = "We assume that board membership depends on ability &ndash; and not vice versa."),
+    answer("Yes, in the form *board* $\\rightarrow$ *ability*."),
+  answer("No."),
   allow_retry = TRUE,
   correct = random_praise(),
   incorrect = random_encouragement()
@@ -112,17 +117,18 @@ question("Gibt es einen Pfeil zwischen *Fähigkeit* und *Vorstand*?",
 
 ## DAGitty
 
-[DAGitty](http://dagitty.net/) ist ein einfach, auch im Browser, zu bedienendes Tool, mit dem Sie kausale Diagramme zeichnen (und analysieren) können.
+[DAGitty](http://dagitty.net/) is an easy to use tool that allows one to draw (and analyze) causal diagrams in the web browser.
 
-*Hinweis*: Für die Diagramme innerhalb dieses Kurses wurde das Paket `ggdag` ([https://ggdag.malco.io/](https://ggdag.malco.io/)) verwendet.
+*Note*: The diagrams within this course were generated with the package `ggdag` ([https://ggdag.malco.io/](https://ggdag.malco.io/)).
 
-Zeichnen Sie dort &ndash; oder auf einem Blatt Papier &ndash; das Diagramm, dass folgende Annahmen darstellt:
+Use either DAGitty or pen and paper to draw a causal graph that encodes the following assumptions:
 
-1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*.
-2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*.
-3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*.
 
-*Klicken Sie erst danach zur Kontrolle auf `Weiter`*
+1.  *ability* for the job is independent of *gender*
+2. whether someone gets on the *board* depends on *ability* and *gender*
+3. the *salary* a person gets depends on *ability*, *board* membership and *gender*
+
+*Press `Next` once you are done with the graph*
 
 ##
 
@@ -130,41 +136,43 @@ Zeichnen Sie dort &ndash; oder auf einem Blatt Papier &ndash; das Diagramm, dass
 
 ![](images/GPG-1.png){width="65%"}
 
-1. Die *Fähigkeit* für den (Vorstands-)Job ist unabhängig vom *Geschlecht*. Daher kein Pfeil zwischen diesen Variablen.
-2. Ob jemand in den *Vorstand* kommt, hängt ab von der *Fähigkeit* und dem *Geschlecht*. Daher sowohl ein Pfeil von *Geschlecht* zu *Vorstand* als auch von *Fähigkeit* zu *Vorstand*.
-3. Das *Gehalt*, das eine Person bekommt, hängt ab von der *Fähigkeit*, von der Tätigkeit als *Vorstand* und vom *Geschlecht*. Daher jeweils ein Pfeil von *Fähigkeit*, *Vorstand* und *Geschlecht* zu *Gehalt*.
+1. *ability* is independent of *gender*. Therefore no arrow between these variables.
+2. whether someone gets on the *board* depends on *ability* and *gender*. Therefore, we add arrows from *gender* to *board* and from *ability* to *board*.
+3. the *salary* a person gets depends on the *ability*, on *board* membership and on  *gender*. Therefore, one arrow each from *ability*, *board* and *gender* to *salary*.
 
 
 ```{r collider, echo=FALSE}
-question("Welche Rolle spielt *Vorstand* im Teilgraphen mit *Geschlecht* und *Fähigkeit*?",
+question("What role does *board* play in the subgraph from *gender* to *ability*?",
   answer("Mediator"),
   answer("Confounder"),
-  answer("Collider", correct = TRUE, message = "Korrekt &ndash; die beiden Pfeile zeigen beide auf *Vorstand*."),
+  answer("Collider", correct = TRUE, message = "Correct &ndash; the two arrows both point into *board*."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement())
 ```
 
-## Eine Simulation
+## A simulation
 
-Treffen wir zusätzlich noch quantitative Modellannahmen für das Beispiel:
+Let's make additional quantitative model assumptions to be able to simulate data:
 
-1. `faehigkeit` ist normalverteilt mit $\mu=100$ und $\sigma=15$.
+1. `ability` follows a normal distribution with $\mu=100$ and $\sigma=15$.
 
-2. `geschlecht` ist bernoulliverteilt mit einer Wahrscheinlichkeit von $\pi=0.5$ für eine Frau.
+2. `gender` follows a Bernoulli distribution with $\pi=0.5$ for the outcome female
 
-3. Ob jemand im Vorstand ist, hängt ab von `faehigkeit` und `geschlecht`. Dies modellieren wir indem ein Mann ab einer `faehigkeit` größer als 115 in den Vorstand kommt, eine Frau erst ab 130. Frauen müssen also fähiger sein als Männer um in den Vorstand zu kommmen &ndash; so hier die Annahme.
+3. We said that whether somebody joins the board depends on `ability` and `gender`. 
+We model this by assuming that a man enters the board with an `ability` greater than 115, and a woman enters the board with an `ability` greater than 130. 
+So women have to be more able than men to enter the board &ndash; that is the underlying assumption here.
 
 
 ```{r plot, echo=FALSE, fig.align='center', out.width="60%", message=FALSE}
-xpnorm(115, mean = 100, sd = 15, return = "plot") %>% gf_labs(title = "Vorstand  für Männer", x = "Fähigkeit", y = "Dichte")
-xpnorm(130, mean = 100, sd = 15, return = "plot") %>% gf_labs(title = "Vorstand  für Frauen", x = "Fähigkeit", y= "Dichte")
+xpnorm(115, mean = 100, sd = 15, return = "plot") %>% gf_labs(title = "Board membership, men", x = "ability", y = "density")
+xpnorm(130, mean = 100, sd = 15, return = "plot") %>% gf_labs(title = "Board membership, women", x = "ability", y= "density")
 ```
 
 
-4. Das `gehalt` setzt sich zusammen aus `faehigkeit` ($\cdot 10$). Es ist im `vorstand` doppelt so hoch und für Männer noch einmal $5\%$ höher. Fähigere Leute verdienen mehr, Mitglieder des Vorstands verdienen mehr und Männer verdienen mehr.
-$$\text{gehalt} = \text{faehigkeit} \cdot 10 \cdot \begin{cases}2, \,\text{ist Vorstand} \\ 1, \,\text{sonst} \end{cases} \cdot \begin{cases}1.05, \,\text{ist Mann} \\ 1, \,\text{sonst} \end{cases}.$$
-```{r plot2, echo=FALSE, fig.align='center', out.width="60%", message=FALSE}
+4. `salary` depends on `ability` ($\cdot 10$). It is twice as high in the `board` and an additional $5\%$ higher for men. More able people earn more, board members earn more, and men earn more.
+$$\text{salary} = \text{ability} \cdot 10 \cdot \begin{cases}2, \,\text{if board} \\ 1, \,\text{otherwise} \end{cases} \cdot \begin{cases}1.05, \,\text{ist male} \\ 1, \,\text{otherwise} \end{cases}.$$
+```{r plotme2, echo=FALSE, fig.align='center', out.width="60%", message=FALSE}
 mov <- data.frame(x1 = 50, x2 = 115, y1 = 50*10*1.05, y2=115*10*1.05)
 miv <-  data.frame(x1 = 115, x2 = 150, y1 = 115*10*2*1.05, y2=150*10*2*1.05)
 fov <- data.frame(x1 = 50, x2 = 130, y1 = 50*10*1, y2=115*10*1)
@@ -173,146 +181,140 @@ gf_segment(y1 + y2 ~ x1 + x2, data = mov, color = "purple") %>%
   gf_segment(y1 + y2 ~ x1 + x2, data = miv, color = "purple") %>%
   gf_segment(y1 + y2 ~ x1 + x2, data = fov, color = "orange") %>%
   gf_segment(y1 + y2 ~ x1 + x2, data = fiv, color = "orange") %>%
-  gf_labs(x="Fähigkeit", y="Gehalt") +
-  annotate("text", label="Männer", x = 60, y= 3000, color = "purple")+
-  annotate("text", label="Frauen", x = 60, y= 2500, color = "orange")
+  gf_labs(x="Ability", y="Salary") +
+  annotate("text", label="Men", x = 60, y= 3000, color = "purple")+
+  annotate("text", label="Women", x = 60, y= 2500, color = "orange")
 ```
 
 
-Um dies in `R` für z. B. $n=1000$ Mitarbeiter:innen zu simulieren kann folgender Code verwendet werden:
+To simulate this in `R` for e.g. $n=1000$ employees, the following code can be used:
 
 ```{r simData}
-# Paket aktivieren
+# load package
 library(mosaic)
-# Zufallszahlengenerator initiieren
+# set random seed for reproducibility
 set.seed(1896)
 
-# Stichprobenumfang
+# sample size
 n <- 1000
-# Faehigkeit: N(100,15) verteilt
-faehigkeit <- rnorm(n, mean = 100, sd = 15)
-# Geschlecht: B(0.5) verteilt
-geschlecht <- sample(c("w","m"), size = n, replace = TRUE)
+# ability distribution N(100,15) 
+ability <- rnorm(n, mean = 100, sd = 15)
+# gender distribution B(0.5)
+gender <- sample(c("f","m"), size = n, replace = TRUE)
 
-# "Aufstieg" ins Management: ab einer faehigkeit von 115 für Männer, ab 130 für Frauen
-vorstand <- ifelse(((geschlecht == "m" & faehigkeit > 115) | 
-                      (geschlecht == "w" & faehigkeit > 130)),
-                   "j","n")
+# rising onto the board: ability 115 for men, ability 130 for women
+board <- ifelse(((gender == "m" & ability > 115) | 
+                      (gender == "f" & ability > 130)),
+                   "y","n")
 
-# Gehalt: Faehigkeit * 10 * 2 (wenn Vorstand) * 1.05 (wenn Mann)
-gehalt <- faehigkeit * 10 * 
-  ifelse(vorstand == "j", 2, 1) * 
-  ifelse(geschlecht == "m", 1.05, 1)
+# salary: ability * 10 * 2 (if board) * 1.05 (if male)
+salary <- ability * 10 * 
+  ifelse(board == "y", 2, 1) * 
+  ifelse(gender == "m", 1.05, 1)
 
-# Datentabelle zusammensetzen, Werte runden
+# data table with rounding
 GPG <- data.frame(
-  geschlecht = geschlecht,
-  faehigkeit = round(faehigkeit),
-  vorstand = vorstand,
-  gehalt = round(gehalt,-2))
+  gender = gender,
+  ability = round(ability),
+  board = board,
+  salary = round(salary,-2))
 ```
 
 <br>
-<span style="color:#301a87;">&#10146;</span> Ein Einblick in die simulierten Daten:
+<span style="color:#301a87;">&#10146;</span> Here are the simulated data:
 
 ```{r, echo=FALSE}
 datatable(GPG)
 ```
 
-
 ## Analyse 1
 
-Wie konstruiert gemäß unserer Annahmen: 
+As constructed according to our assumptions: 
 
-Es gibt keine nennenswerten Unterschiede (hier: im arithmetischen Mittelwert, engl. mean; Funktion `mean()`) in der Fähigkeit zwischen den Geschlechtern:
+There are no significant differences (here: in arithmetic mean; function `mean()`) in ability between the genders:
 
 ```{r meanf}
-mean(faehigkeit ~ geschlecht, data = GPG)
+mean(ability ~ gender, data = GPG)
 ```
 
-Und im Gehalt? 
+How about the salary?
 
-Ändern Sie den Code so, dass Sie den arithmetischen Mittelwert der Variable `gehalt` je Geschlecht ausgeben:
+Change the code to get the arithmetic mean of `salary` by gender:
 
 ```{r meang, exercise = TRUE}
-mean(faehigkeit ~ geschlecht, data = GPG)
+mean(ability ~ gender, data = GPG)
 ```
 
 ```{r meang-solution}
-mean(gehalt ~ geschlecht, data = GPG)
+mean(salary ~ gender, data = GPG)
 ```
 
 ##
 
-Wie konstruiert: 
+As constructed: 
 
-Männer verdienen im Durchschnitt mit `r round(mean(gehalt ~ geschlecht, data = GPG))[1]` mehr als Frauen, deren Durchschnittsgehalt hier bei `r round(mean(gehalt ~ geschlecht, data = GPG))[2]` liegt.
+Men earn on average `r round(mean(salary ~ gender, data = GPG))[1]` more than women, whose average salary here is `r round(mean(salary ~ gender, data = GPG))[2]`.
 
-## Analyse 2
+## Analysis
 
-Was passiert, wenn wir uns auf die Vorstandsmitglieder beschränken, d. h., wir wählen (`filter`) nur die Beobachtungen aus, die die Bedingung erfüllen, dass sie im Vorstand sind (`vorstand == "j"`):
+What happens if we restrict ourselves to board members, i.e., we select (`filter`) only the observations that satisfy the condition that they are in the board (`board == "y"`):
 
-```{r meangvorstande, exercise = TRUE}
+```{r meangboarde, exercise = TRUE}
 GPG %>%
-  filter(vorstand == "j") %>%
-  mean(gehalt ~ geschlecht, data = .)
+  filter(board == "y") %>%
+  mean(salary ~ gender, data = .)
 ```
 
 ## 
 
-```{r meangvorstand}
+```{r meangboard}
 GPG %>%
-  filter(vorstand == "j") %>%
-  mean(gehalt ~ geschlecht, data = .)
+  filter(board == "y") %>%
+  mean(salary ~ gender, data = .)
 ```
 
-Obwohl Männer nach Konstruktion insgesamt mehr verdienen, verdienen Frauen im Vorstand mehr.
+Although men earn more overall by construction, women earn more on the board.
 
-Warum?
+Why?
 
-Weil sie fähiger sein mussten, um in den Vorstand zu kommen.
+Because they had to be more able to get on the board.
 
-Kontrollieren Sie dies, indem Sie den Code so abändern, dass Sie den arithmetischen Mittelwert der Variable `faehigkeit` je Geschlecht für die Vorstandsmitglieder ausgeben.
+Check this by modifying the code to output the arithmetic mean of the variable `ability` per gender for the board members.
 
-```{r meanfvorstand, exercise = TRUE}
+```{r meanfboard, exercise = TRUE}
 GPG %>%
-  filter(vorstand == "j") %>%
-  mean(gehalt ~ geschlecht, data = .)
+  filter(board == "y") %>%
+  mean(salary ~ gender, data = .)
 ```
 
-```{r meanfvorstand-solution}
+```{r meanfboard-solution}
 GPG %>%
-  filter(vorstand == "j") %>%
-  mean(faehigkeit ~ geschlecht, data = .)
+  filter(board == "y") %>%
+  mean(ability ~ gender, data = .)
 ```
 
 <br>
 
-Und das Gehalt hängt ja, neben dem Geschlecht und der Tätigkeit im Vorstand auch von der Fähigkeit ab &ndash; so hier die Annahme.
+And salary depends not only on gender and board membership, but also on ability.
 
-## Verzerrung
 
-Wie in Modul 6 besprochen: 
+## Bias
 
-Adjustierung eines Colliders (Tätigkeit im Vorstand) erzeugt eine Verzerrung, es wird ein Scheinzusammenhang erzeugt, der den Effekt des Geschlechts auf das Gehalt verzerrt. Mit [DAGitty](http://dagitty.net/) kann dies schön gezeigt werden:
+As discussed in Module 6: 
+
+Adjusting a collider (board membership) creates a bias, an illusory context is created that distorts the effect of genders on salary. This can be nicely shown with [DAGitty](http://dagitty.net/):
 
 ![](images/GPG-2.png){width="75%"}
 
-Das folgende Vidoeo zeigt eine kurze Einführung in die Bedienung von DAGitty anhand dieses Beispiels:
+The following vidoeo shows a short introduction to the operation of DAGitty using this example:
 
 ![](https://vimeo.com/666725243){width="75%"}
 
 
-## Hinweis
+## Note
 
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
 
-***
-
-<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
-
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
-
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
 
 
 ![](images/csm_Logo-BMBF.jpg)
