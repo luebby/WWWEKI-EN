@@ -46,7 +46,7 @@ course <- tibble(finteresse = rnorm(n)) %>%
   select(i, participation, salary0, salary1, effect, salary)
 ```
 
-## Learning Objective
+## Learning Objectives
 
 In this module, you will learn:
 
@@ -58,7 +58,7 @@ In this module, you will learn:
 
 - and why causal inference is so challenging.
 
-## Individual level causal effect
+## Individual level causal effects
 
 Imagine the following situation: you get an offer to participate in a voluntary salary negotiation course.
 
@@ -68,13 +68,14 @@ To make your decision, you will likely consider whether participation will actua
 
 How would you define the **individual level causal effect** of the course on your salary, that is, how would you quantify what you actually gain from the course?
 
-*Think about it for a second before continuing *
+*Think about it for a second before continuing.*
 
 ##
 
-One simple idea would be to simply look at the difference of your salary prior to the course and your salary after participation: *salary after course minus salary prior to the course*.
-But here is a problem with that, because it is very well possible that, as time passes, your salary would have increased regardless of the course.
+One straightforward idea would be to simply look at the difference of your salary prior to the course and your salary after the course: *salary after course minus salary before course*.
 
+
+But here is a problem with that, because it is very well possible that, as time passes, your salary would have increased regardless of the course.
 
 (The situation is very similar if we want to find out whether some medication helps against a certain disease. 
 Some symptoms automatically improve over time and it would be mistaken to attribute such change to a particular intervention.
@@ -92,7 +93,7 @@ Faced with the decision "Should I participate in the course?", there are two dif
 
 - <blue> salary </blue> with <green> course </green>: $\color{blue}{Y}^{\color{green}{X=1}}$
 
-$\color{blue}{Y}$ is the *effect*, the result of interest, here your <blue> salary </blue>. 
+$\color{blue}{Y}$ is the *effect*, the result of interest, here your <blue> salary</blue>. 
 The superscript $\color{green}{X}$ indicates for which *cause* your are considering the effect.
 Without <green> course</green>, $\color{green}{X}$ takes on the value 0, with <green> course</green> it takes on the value 1. 
 
@@ -101,7 +102,7 @@ If you turn right, you do participate in the course and end up at $\color{blue}{
 
 ##
 
-The **individual level causal effect** $\color{orange}{\Delta}_i$ (Greek: Delta) of the salary negotation course is the difference between those two potential outcomes:
+The **individual level causal effect** $\color{orange}{\Delta}_i$ (Greek: delta) of the salary negotation course is the difference between those two potential outcomes:
 
 $$\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$$
 
@@ -176,9 +177,9 @@ gf_point(salary ~ course, data = course_Long,
 
 
 ```{r ike, echo=FALSE}
-question("Is it possible to observe this individual level causal effect in reality?",
+question("Is it possible to observe these individual level causal effects in reality?",
          answer("Yes"),
-         answer("No", correct = TRUE, message = "For each individual $i$, we will only observe the salary in one of the two scenarios: with or without course. But we will never observse both, because each person either participates &ndash; or doesn't."),
+         answer("No", correct = TRUE, message = "For each individual $i$, we will only observe the salary in one of the two scenarios: with or without course. But we will never observe both, because each individual person either participates &ndash; or doesn't participate."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -190,14 +191,14 @@ In our fictious data, many of the individual level causal effects are positive &
 
 ## The fundamental problem of causal inference
 
-The fundamental problem of causal inference is, that we **cannot** observe the individual level causal effect $\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$. 
+The fundamental problem of causal inference is that we **cannot** observe the individual level causal effect $\color{orange}{\Delta}_i = \color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i$. 
 For each observation $i$, we only get to see one of the potential outcomes: Either $\color{blue}{Y}^{\color{green}{X=1}}$ (<blue>salary</blue> with <green>course</green>) **or** $\color{blue}{Y}^{\color{green}{X=0}}$ (<blue>salary</blue> without <green>course</green>).
 
 - If individual $i$ participates, we observe the salary with course, $\color{blue}{Y}^{\color{green}{X=1}}_i$, but never $\color{blue}{Y}^{\color{green}{X=0}}_i$
 
 - If individual $i$ does not participate, we observe the salary without course, $\color{blue}{Y}^{\color{green}{X=0}}_i$, but never $\color{blue}{Y}^{\color{green}{X=1}}_i$
 
-The value that we cannot observe is called the **counterfactual**; it is counterfactual in the sense that in reality, it has not happened.  
+The value that we cannot observe is called the **counterfactual**; it is counterfactual in the sense that it never becomes realized.  
 
 
 For an individual who did not participate in the course, the counterfactual is the answer to the question: *What would be my salary if I had participated?*
@@ -225,10 +226,10 @@ question("Individual $i$ does participate in the course. What is their counterfa
 ```
 
 
-## Average causal effect
+## The average causal effect
 
 Let's assume for a second that we do know the individual level causal effects $\color{orange}{\Delta}_i$ (variable `effect` in our fictitious `R` example).
-We can use these effects to calculate additional metrics, such as the *average* causal effect $\bar{\color{orange}{\Delta}}$, by adding up all $i$ individual level causal effect and then dividing the sum ($\sum$) by the number of people ($n$): 
+We can use these effects to calculate additional metrics, such as the *average* causal effect $\bar{\color{orange}{\Delta}}$, by adding up all $i$ individual level causal effects and then dividing the sum ($\sum$) by the number of observations ($n$): 
 
 $$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=\frac{\sum_{i=1}^n(\color{blue}{Y}^{\color{green}{X=1}}_i - \color{blue}{Y}^{\color{green}{X=0}}_i)}{n} =\frac{\sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=1}}_i - \sum_{i=1}^n\color{blue}{Y}^{\color{green}{X=0}}_i}{n}=\overline{\color{blue}{Y}}^{\color{green}{X=1}}-\overline{\color{blue}{Y}}^{\color{green}{X=0}}.$$
 
@@ -253,7 +254,7 @@ analyse(y ~ x, data = dat)
 This means: analyse variable `y` depending on variable `x` in the data table named `dat`. 
 Which function `analyse()` uses depends on the analysis goal.
 
-In the present case, there is only one variable, which allows us to use the following abbreviation:
+In the present case, there is only one variable to be considered, which allows us to use the following abbreviation:
 
 
 ```{r mosaic2, eval=FALSE}
@@ -267,15 +268,15 @@ $\bar{\color{orange}{\Delta}}$ is an aggregated summary of the data that may not
 
 ##
 
-Because of the fundamental problem of causal inference, we never actually have both potential outcomes and thus can neither directly calculate individual level causal effects not the average causal effect, which in our example turns out to be: 
+Because of the fundamental problem of causal inference, we never actually have both potential outcomes and thus can neither directly calculate individual level causal effects nor the average causal effect, which in our example turns out to be: 
 
 
 $$\bar{\color{orange}{\Delta}}=\frac{\sum_{i=1}^n \color{orange}{\Delta}_i}{n}=`r mean(~ effect, data = course)`.$$
 
 ## Missing data
 
-In reality, for each observation in our data, we will at least know their group membership (i.e., whether they participated in the course).
-Thus, we also know which of the two potential outcomes we actually observe and which one we don't (the counterfactual).
+But in reality, for each observation in our data, we will at least know their group membership (i.e., whether they participated in the course or not).
+Thus, we also know which of the two potential outcomes we actually observe and which one we don't observe (the counterfactual).
 
 We can thus make our salary table more realistic and change the unobservable values to be missing -- missing values are coded as `NA`, not available.
 
@@ -334,7 +335,7 @@ Calculate the arithmetic mean (`mean()`) of the variable `salary` ($y$) dependin
 
 Now we could try to estimate the average causal effect using these observed values:
 
-$$\bar{\color{blue}{y}}^{\color{green}{x=1}} - \bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(salary ~ participation, data = course)[1],2)` - `r round(mean(salary ~ participation, data = course)[2],2)` = `r round(-diffmean(salary ~ participation, data = course),2)`$$
+$$\bar{\color{blue}{y}}^{\color{green}{x=1}} - \bar{\color{blue}{y}}^{\color{green}{x=0}} = `r round(mean(salary ~ participation, data = course)[2],2)` - `r round(mean(salary ~ participation, data = course)[1],2)` = `r round(diffmean(salary ~ participation, data = course),2)`$$
 
 But the result differs substantially from the true average causal effect, which we calculated earlier with help of the potential outcomes: $\bar{\color{orange}{\Delta}} =`r round(mean(~ effect, data = course),2)`$.
 The difference between those two values is systematic (i.e., not just a result of random chance fluctuations) and such distortions are called **bias**.
@@ -346,7 +347,7 @@ There could be a whole number of substantive explanations for such a pattern.
 For example, people who care a lot about their salary may be more likely to take the course, but also more likely to independently take additional steps to increase their income.
 
 
-To check out explanation, change the code so that you calculate the arithmetic mean of the potential outcomes depending on participation. The potential outcomes are in the same data table and are called `salary0` and `salary1`.
+To check our explanation, change the code so that you calculate the arithmetic mean of the potential outcomes depending on participation. The potential outcomes are in the same data table and are called `salary0` and `salary1`.
 
 *Hint*: To get a hint, press the `Hints` button just above the `R` code.
 If you move on and press `Next Hint`, you get to see the solution and can copy it.
@@ -366,7 +367,7 @@ mean(salary1 ~ participation, data = course)
 ```
 
 ```{r po-hint}
-"salary0 and salary1 are the two variables if interest. Substitute the variable salary accordingly."
+"salary0 and salary1 are the two variables if interest. Substitute the variable salary accordingly. You will have to run two lines of code because there are two variables that you want to average."
 ```
 
 
