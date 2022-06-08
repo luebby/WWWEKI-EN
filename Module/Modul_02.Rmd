@@ -42,12 +42,12 @@ DAG1 <- dagify(Y~ X,
             x = 1, y = 0, size = 7, color = "darkgrey") 
 
 # Beispiel rutschige Straße
-co <- data.frame(x = c(0,1,1,2,4), y = c(0.5,0,1,0.5,0.5), name = c("JZ", "RE", "WS","NA","RU")) 
+co <- data.frame(x = c(0,1,1,2,4), y = c(0.5,0,1,0.5,0.5), name = c("SE", "RA", "SP","WE","SL")) 
 DAG_Str <- dagify(SP ~ SE,
                   RA ~ SE,
-                  NA ~ RA,
-                  NA ~ SP,
-                  SL ~ NA,
+                  WE ~ RA,
+                  WE ~ SP,
+                  SL ~ WE,
                   coords = co) %>%
     ggdag() + 
    geom_dag_point(colour = "#301a87") +
@@ -121,13 +121,13 @@ In this module, you will learn:
 
 ## Cause and effect
 
-Humans have always been thinking about cause and effect -- not just within philosophy, but also in everyday life:
+Humans have always been thinking about cause and effect -- not just in philosophy, but also in everyday life:
 
 - If I take a pill, will the pain go away?
 
 - Does advertising increase sales?
 
-- Does it pay off to participate in a course?
+- Is participation in a certain course worth it?
 
 We can either decide to take a pill, or decide against it -- the pain will go away, or it won't.
 Companies can invest more money into advertising, or less -- sales will increase, or they will go down.
@@ -136,7 +136,7 @@ You participate in the course or you don't -- your salary will increase, or it (
 
 Thus, can observe all sorts of different values, such as "Yes" and "No" (taking the pill, pain reduction); $0$ &dollar; or $1000$ &dollar; (change in sales, in salary). 
 
-These values will occur with different *probabilities*, which we abbreviate to $Pr$. $Pr(\text{Pill})$ thus is the probability, that somebody takes a pill;  $Pr(\text{pain reduction})$ is the probability, that the pain disappears.
+These values will occur with different *probabilities*, which we abbreviate as $Pr$. $Pr(\text{Pill})$ thus is the probability that somebody takes a pill;  $Pr(\text{pain reduction})$ is the probability that the pain disappears.
 
 
 ```{r ursache, echo=FALSE}
@@ -178,7 +178,7 @@ actionButton("nPill", "Don't take pill", class="btn action-button", style="color
 
 
 ```{r, context="render", echo=FALSE}
-htmlOutput("result")
+htmlOutput("ergebnis")
 ```
 
 ```{r, context="server"}
@@ -199,7 +199,7 @@ output$ergebnis <- renderText({
 p.ktablette <- observeEvent(input$nPill, {
   values$versuch <- values$versuch + 1
   heilung <- sample(c("Yes", "No"), 1, prob = c(0.4,0.6))
-  ergebnis <- ifelse(heilung == "Yes", paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> You did not take the pill, yet the pain went away."), paste0("<span style='color: green'>", values$versuch, ". Versuch: </span> You did not take the pill and the pain did not go away."))
+  ergebnis <- ifelse(heilung == "Yes", paste0("<span style='color: green'>", values$versuch, ". attempt: </span> You did not take the pill, yet the pain went away."), paste0("<span style='color: green'>", values$versuch, ". attempt: </span> You did not take the pill and the pain did not go away."))
   
 output$ergebnis <- renderText({
           ergebnis
@@ -219,11 +219,11 @@ The properties we considered are, on an abstract level, variables. For example:
 
 - $Y$: Pain reduction, Yes or No.
 
-The so-called distribution of a variables describes the probabilities, with which different values occur.
+The so-called distribution of a variables describes the probabilities with which different values occur.
 
 A variable $X$ is called a **cause** of $Y$, when the value of the **effect** $Y$ is changed by $X$, in other words $Y$ depends on $X$.
 
-If you have tried both taking the pill and not taking it multiple times, you could observe that the pill often leads to a pain reduction, but not always.
+If you have tried both taking the pill and not taking it multiple times, you could observe that the pill often (but not always) leads to a pain reduction.
 Furthermore, sometimes the pain went away even without pill.
 
 Here are the underlying probabilities:
@@ -339,7 +339,7 @@ The **causal model** underlying the simple graph $\color{green}{X} \rightarrow \
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$
 
-Where $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ are unknown causes (in statistics often called error) of $\color{green}{X}$ and $\color{blue}{Y}$, and $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ are the functions, the mechanism, through which $\color{blue}{Y}$ is assigned a value based on $\color{green}{X},U_{\color{blue}{Y}}$. 
+Where $U_{\color{green}{X}}$ und $U_{\color{blue}{Y}}$ are unknown causes (in statistics often called error terms) of $\color{green}{X}$ and $\color{blue}{Y}$, and $f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}})$ is the function, the mechanism, through which $\color{blue}{Y}$ is assigned a value based on $\color{green}{X},U_{\color{blue}{Y}}$. 
 
 In the example
 $$\color{green}{\text{Pill}} \rightarrow \color{blue}{\text{Pain reduction}}$$ 
@@ -395,14 +395,14 @@ Of the $50$ who do not take the pill (grey), $50 \times 0.4 = 20$ will experienc
 plot(pd)
 ```
 
-All in all, we expect that on average $40 + 20 = 60$ of $100$ people experience a pain reduction, as long as $U_{\color{green}{\text{Pill}}}$ is randomly Yes or No with $Pr(\color{green}{\text{Pill}})=0.5$ ist. 
+All in all, we expect that on average $40 + 20 = 60$ of $100$ people experience a pain reduction, as long as $U_{\color{green}{\text{Pill}}}$ is randomly Yes or No with $Pr(\color{green}{\text{Pill}})=0.5$. 
 
 We only **observe** which value the cause $\color{green}{X}$ takes on. 
 
 ```{r handeln, echo=FALSE}
 question("What happens if we intervene so that taking the pill is no longer random -- but instead we determine that everybody has to take the pill?",
          answer("The same number of people will experience a pain reduction."),
-         answer("More people will experience a pain reduction.", correct = TRUE, message = "Thanks to the intervention, it is no longer $Pr(\\color{green}{\\text{Tabletteneinnahme}})=0.5$ but $Pr(\\color{green}{\\text{Tabletteneinnahme}})=1$. Since the pill helps in $80\\%$ of the cases, we can expect on average a pain reduction for $100 \\times 0.8 = 80$ out of $100$ people."),
+         answer("More people will experience a pain reduction.", correct = TRUE, message = "Thanks to the intervention, it is no longer $Pr(\\color{green}{\\text{Pill}})=0.5$ but $Pr(\\color{green}{\\text{Pill}})=1$. Since the pill helps in $80\\%$ of the cases, we can expect on average a pain reduction for $100 \\times 0.8 = 80$ out of $100$ people."),
          answer("Fewer people will experience a pain reduction."),
          allow_retry = TRUE,
          correct = random_praise(),
@@ -423,7 +423,7 @@ $$\color{green}{X} = 1$$
 
 with $\color{green}{X} = \cases{1: \quad \text{Pill} \\ 0: \quad \text{No pill}}$.
 
-To formalize the difference between observation and intervention, there is a distinct operator to indicate on operation: $do(\cdot)$ (englisch: to do sth., etwas machen).
+To formalize the difference between observation and intervention, there is a distinct operator to indicate an operation: $do(\cdot)$ (as in "to do something").
 For example, to say that we *force* everybody to take the pill, we can write  $do(\color{green}{X} = 1)$.
 
 ```{r do0, echo=FALSE}
@@ -448,11 +448,11 @@ Both are part of the [Bradford-Hill-criteria](https://journals.sagepub.com/doi/p
 - Consistency: causality is more plausible when the association is found repeatedly.
 - Specificity: causality is more plausible if there are no alternative explanations.
 - Temporality: causality is more plausible if the effect comes after the cause. 
-- Gradient: causality is more plausible, when a larger value of the cause is associated with a larger value of the effect.
-- Plausibility: causality is more plausible, when there is a substantively plausible mechanism connecting cause and effect.
-- Coherence: causality is more plausible, if it is aligned with known facts and theories.
+- Gradient: causality is more plausible when a larger value of the cause is associated with a larger value of the effect.
+- Plausibility: causality is more plausible when there is a substantively plausible mechanism connecting cause and effect.
+- Coherence: causality is more plausible if it is aligned with known facts and theories.
 - Experiment: causality is more plausible if there is experimental evidence.
-- Analogy: causality is more plausible, if there are known similar pairs of cause and effect.
+- Analogy: causality is more plausible if there are known similar pairs of cause and effect.
 
 
 ## Outlook
