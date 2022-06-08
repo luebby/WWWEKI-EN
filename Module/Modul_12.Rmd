@@ -281,81 +281,93 @@ However, to do so, we can't just compare different life expectancies -- we need 
 
 We hope that we were able to provide you with some tools to critically question causal inferences in practice.
 
-Von Judea Pearl, Madelyn Glymour und Nicholas P. Jewell gibt es das Buch [Causal Inference in Statistics: A Primer](http://bayes.cs.ucla.edu/PRIMER/), welches die hier vorgestellten Grundlagen ausführlicher behandelt. 
-Jonas Peters (den Sie bereits aus dem Interview kennen) hat zusammen mit Dominik Janzing und Bernhard Schölkopf auch ein Buch geschrieben: [Elements of Causal Inference: Foundations and Learning Algorithms*](https://mitpress.mit.edu/books/elements-causal-inference).
-Das Thema kausale Inferenz wird im Buch [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/) im 6. Kapitel der zweiten Auflage von Richard McElreath behandelt &ndash; auch ihn kennen Sie schon aus dem Interview.
-Ethan Bueno de Mesquita und Anthony Fowler behandeln in ihrem Buch [Thinking Clearly with Data: A Guide to Quantitative Reasoning and Analysis](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data) auch das Thema Kausale Inferenz sehr gut &ndash; allerdings aus einem etwas anderen Blickwinkel.
+Judea Pearl, Madelyn Glymour and Nicholas P. Jewell. [Causal Inference in Statistics: A Primer](http://bayes.cs.ucla.edu/PRIMER/). This book provides a more thorough introduction to the basics that we covered throughout this course.
 
-Weitere Bücher aus unterschiedlichen Perspektiven sind z. B. [Causal Inference: The Mixtape*](https://mixtape.scunning.com/) von Scott Cunningham, [The Effect: An Introduction to Research Design and Causality*](https://theeffectbook.net/) von Nick Huntington-Klein oder [Causal Inference: What If*](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/) von Hernán und Robins.
+Jonas Peters, Dominik Janzing and Bernhard Schölkopf. [Elements of Causal Inference: Foundations and Learning Algorithms*](https://mitpress.mit.edu/books/elements-causal-inference). You already met one of the authors, Jonas Peters, in one of the interviews. This book also covers how causal ideas can be exploited for classical machine learning problems.
 
-Die mit einem Sternchen markierten Titel sind online frei verfügbar.
+
+
+Richard McElreath. [Statistical Rethinking](https://xcelab.net/rm/statistical-rethinking/). You also already met Richard McElreath in one of the interviews. His book provides a more general introduction to Bayesian statistics, but the second edition also covers causal inference in some depth.
+
+
+Ethan Bueno de Mesquita and Anthony Fowler. [Thinking Clearly with Data: A Guide to Quantitative Reasoning and Analysis](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data). This book also provides a great introduction to causal inference, albeit from a slightly different perspective. 
+
+Various other books that each tackle the topic from a slightly different perspective:
+
+Scott Cunningham. [Causal Inference: The Mixtape*](https://mixtape.scunning.com/).
+
+Nick Huntington-Klein. [The Effect: An Introduction to Research Design and Causality*](https://theeffectbook.net/) 
+
+Miguel A. Hernán and James M. Robins. [Causal Inference: What If*](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/).
+
+All books marked with an asterix are available online, for free.
 
 <br>
 
-Natürlich gibt es über die konzeptuellen Grundlagen hinaus noch viel zu lernen, beispielsweise in den auf den nächsten Seiten beschriebenen Themenbereichen.
+Of course, there is much to learn beyond the conceptual basics.
+On the following page, we provide some overview over different aspects and branches that you might decide to dive into, depending on the applications you are interested in.
 
 ##
 
-### Methoden für die Adjustierung von Drittvariablen
-In diesem Kurs haben Sie gelernt, dass Drittvariablen manchmal in Analysen berücksichtigt werden sollten -- und manchmal nicht, je nach der Rolle, die sie im kausalen Graphen spielen.
-Eine solche Adjustierung kann auf unterschiedliche Arten vorgenommen werden.
-Im Kurs haben Sie beispielsweise gesehen, dass Variablen als Prädiktoren in einem linearen Regressionsmodel aufgenommen werden können.
-Aber auch andere statistische Vorgehensweisen sind möglich, zum Beispiel das Aufteilen der Stichprobe (Stratifizierung) oder die Berechnung von Propensity Scores (siehe Interview mit Dean Eckles zu sozialer Ansteckung).
-Auch Methoden des maschinellen Lernens finden hier Anwendung.
+### Methods for third variable adjustment
+In this course, you have learned that third variables should sometimes be included in analyses -- and sometimes not, depending on the role they play in the causal graph.
+Such adjustment can be made in a variety of ways.
+For example, in the course you saw that variables can be included as predictors in a linear regression model.
+But other statistical approaches are also possible, such as splitting the sample (stratification) or calculating propensity scores (see interview with Dean Eckles on social contagion).
+Machine learning methods are also applied for this purpose.
 
-*Lesetipp*: 
+*Learn more*: 
 
-- Stephen L. Morgan und Christopher Winship, [Counterfactuals and Causal Inference: Methods and Principles for Social Research](https://www.cambridge.org/core/books/counterfactuals-and-causal-inference/5CC81E6DF63C5E5A8B88F79D45E1D1B7)
+- Stephen L. Morgan and Christopher Winship. [Counterfactuals and Causal Inference: Methods and Principles for Social Research](https://www.cambridge.org/core/books/counterfactuals-and-causal-inference/5CC81E6DF63C5E5A8B88F79D45E1D1B7).
 
-### Natürliche Experimente
-In diesem Kurs haben Sie etwas über die Magie des Zufalls gelernt, die randomisierte Experimente zu so einem nützlichen Werkzeug in der Kausalinferenz macht.
-Zwischen randomisierte Experimenten und "reinen" Beobachtungsdaten liegen die sogenannten natürlichen Experimente.
-Hier macht man es sich zu Nutzen, dass im Alltag manchmal Dinge praktisch durch Zufall entschieden werden.
+### Natural Experiments
+In this course, you learned about the magic of chance that makes randomized experiments such a useful tool for causal inference.
+Between randomized experiments and "pure" observational data, there are also so-called natural experiments.
+In these, you take advantage of the fact that in everyday life sometimes things are practically decided by chance.
 
-Ein erstes Beispiel für ein natürliches Experiment haben Sie schon im Interview mit Anne Brenøe zum Thema *Effekte des Stillens* kennengelernt: Ob eine Schwangere unter der Woche oder am Wochenende entbindet, ist im Prinzip zufällig, kann aber einen Einfluss darauf haben, ob und wie lange sie nach der Geburt stillen wird.
+You have already heard about a first example of a natural experiment in the interview with Anne Brenøe on the subject of the *effects of breastfeeding*: whether a pregnant woman gives birth during the week or on the weekend is in principle random, but can have an influence on whether and how long she will breastfeed after the birth.
 
-Zur Analyse können dabei häufig sogenannte **Instrumentvariablen** oder eine **Regressions-Diskontinuitäts-Analyse** angewendet werden. Oder es wird die **Differenz-von-Differenzen** betrachtet. 
+In this domain, analysis are often conducted with the help of **instrumental variables**, using a **regression discontinuity** design, or with a **difference-in-difference** approach
 
-Für Arbeiten in diesem Bereich wurde übrigens im Jahre 2021 der Alfred-Nobel-Gedächtnispreis für Wirtschaftswissenschaften an David Card, Joshua Angrist und Guido Imbens verliehen! Herzlichen Glückwunsch! <br>
+Works in this area where honored with the 2021 Nobel Memorial Prize in Economic Sciences, awarded to David Card, Joshua Angrist and Guido Imbens.
 
-Wie diese Methoden helfen wichtige Fragen zu beantworten hat die Schwedische Akademie der Wissenschaften [hier](https://www.nobelprize.org/uploads/2021/10/popular-economicsciencesprize2021-3.pdf) beschrieben.
+How these methods can be used to address important questions has been summarized by the Swedish Academy of Sciences [here](https://www.nobelprize.org/uploads/2021/10/popular-economicsciencesprize2021-3.pdf).
 
 
-*Lesetipps*:
+*Learn more*:
 
-- Thad Dunning, [Natural Experiments in the Social Sciences](https://www.cambridge.org/gb/academic/subjects/social-science-research-methods/qualitative-methods/natural-experiments-social-sciences-design-based-approach?format=PB&isbn=9781107698000)
-- Joshua D. Angrist und Jörn-Steffen Pischke, [Mastering 'Metrics: The Path from Cause to Effect](http://www.masteringmetrics.com/)
+- Thad Dunning. [Natural Experiments in the Social Sciences](https://www.cambridge.org/gb/academic/subjects/social-science-research-methods/qualitative-methods/natural-experiments-social-sciences-design-based-approach?format=PB&isbn=9781107698000).
+- Joshua D. Angrist and Jörn-Steffen Pischke. [Mastering 'Metrics: The Path from Cause to Effect](http://www.masteringmetrics.com/).
 
 
 ### Causal Discovery
-In diesem Kurs sind wir oft davon ausgegangen, dass der zugrundeliegende kausale Graph im Prinzip bekannt ist.
-Was aber, wenn das nicht der Fall ist?
-Dann bewegen wir uns in den Bereich Causal Discovery, in dem es das Ziel ist, unterstützt durch Daten einen plausiblen kausalen Graphen herzuleiten.
-In den letzten drei Interviews mit Jakob Runge, Jonas Peters und Sebastian Weichwald haben Sie schon einen ersten Einblick in den Themenkomplex bekommen.
+In this course, we have often assumed that the underlying causal graph is known a priori.
+But what if this is not the case?
+Then we have to move into the area of causal discovery, where the goal is to infer a plausible causal graph supported by the data.
+In the last three interviews with Jakob Runge, Jonas Peters and Sebastian Weichwald, you have already gained a glimpse into this complex of topics.
 
-*Lesetipp*: 
+*Learn more*: 
 
-- Peter Spirtes, Clark Glymour und Richard Scheines, [Causation, Prediction, and Search](http://cognet.mit.edu/book/causation-prediction-and-search)
+- Peter Spirtes, Clark Glymour and Richard Scheines. [Causation, Prediction, and Search](http://cognet.mit.edu/book/causation-prediction-and-search).
 
 ### Data Fusion
-Aus der Vogelperspektive betrachtet gibt es viele Datenquellen, die herangezogen werden können, um mehr über Ursachen und Effekte zu lernen.
-In der Regel ist keine davon perfekt.
-Beobachtungsstudien leiden oft unter unbeobachteten Confoundern; in Experimenten machen nicht immer alle Personen das, was wir uns wünschen, und manchmal müssen wir auf andere Populationen zurückgreifen -- zum Beispiel in den initialen Stadien der Medikamentenzulassung auf Zellkulturen und Tierversuche.
-Fehlende Daten und selektive Stichproben verkomplizieren die Situation weiter.
-Die Idee der Causal Fusion ist, dass wir trotzdem all diese Datenquellen *in Kombination* nutzen können, um zu den bestmöglichen kausalen Schlußfolgerungen zu gelangen.
+From a bird's eye view, there are many data sources that can be consulted to learn more about causes and effects.
+In general, none of them is perfect.
+Observational studies often suffer from unobserved confounders.
+But in experiments, not all subjects always do what we want them to do, and sometimes we have to rely on other populations -- for example, in the initial stages of drug approval, on cell cultures and animal studies.
+Lack of data and selective sampling further complicate the situation.
+The idea of causal fusion is that we can still use all these data sources *in combination* to arrive at the best possible causal conclusions.
 
-*Lesetipp*: 
+*Learn more*: 
 
-- Paul Hünermund und Elias Bareinboim, [Causal Inference and Data-Fusion in Econometrics](https://arxiv.org/abs/1912.09104v2)
+- Paul Hünermund and Elias Bareinboim. [Causal Inference and Data-Fusion in Econometrics](https://arxiv.org/abs/1912.09104v2).
 
 
-## Hinweis
+## Note
 
-<red> **Dieser Kurs ist aktuell noch in der Entwicklung!** </red>
 
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
 
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
 
 
 ![](images/csm_Logo-BMBF.jpg)
