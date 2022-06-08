@@ -95,7 +95,7 @@ Methods like cluster analysis or principal component analysis can also be used t
 ```{r beschreibung, echo=FALSE}
 question("Do such data analyses automatically lead to correct descriptions of the phenomenon under study?",
          answer("Yes"),
-         answer("No", correct = TRUE, message = "Data are usually only part of a complex and dynamic reality. For example, data could be subject to measurement error; for example, past smoking behavior may be not correctly remembered or reported. Non-representative samples can also be a problem; for example, it may be precisely more health-conscious women who are more likely to participate in surveys in the first place. Furthermore, missing values can lead to biased results; for example, certain women may refuse to answer some of the questions. So even in pure description, data can be misleading. To evaluate this possibility, we need to critically consider how the data were actually generated and collected. The interview in module 06 with Richard McElreath will address causal thinking for descriptive research in more depth."),
+         answer("No", correct = TRUE, message = "Data are usually only part of a complex and dynamic reality. Data could be subject to measurement error; for example, past smoking behavior may be not correctly remembered or reported. Non-representative samples can also be a problem; for example, it may be precisely more health-conscious women who are more likely to participate in surveys in the first place. Furthermore, missing values can lead to biased results; for example, certain women may refuse to answer some of the questions. So even in pure description, data can be misleading. To evaluate this possibility, we need to critically consider how the data were actually generated and collected. The interview in module 06 with Richard McElreath will address causal thinking for descriptive research in more depth."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -143,9 +143,9 @@ For description and prediction, the data are only *observed.*
 
 So no intervention took place, even if in the next step, the prediction may be used to guide concrete actions.
 
-For causal inference, in constrast, we are interested in the consequences of (hypothetical) interventions.
+In causal inference, in contrast, we are interested in the consequences of (hypothetical) interventions.
 
-One question of causal inference is:
+One question involving causal inference is:
 
 :::{.box}
 Will starting a statin reduce, on average, the risk of stroke in women with certain characteristics?
@@ -160,7 +160,7 @@ Here's yet another example from a different context:
 
 ```{r anwendung, echo=FALSE}
 question("In the context of customer relationship management, customer churn is an important issue. What is the underlying goal of using data to answer the question: *Which customers have had a high churn rate in the past?*",
-         answer("Description", correct = TRUE, message = "Existing data is used to characterize customers who left. For an example, see e.g. [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),
+         answer("Description", correct = TRUE, message = "Existing data is used to characterize customers who left. For an example, and how churn could also be considered from a predictive or causal perspective, see e.g. [Bojinov et al. (2020)](https://hdsr.mitpress.mit.edu/pub/wjhth9tr/release/1)"),
          answer("Prediction"),
          answer("Causal inference"),
          allow_retry = TRUE,
@@ -181,8 +181,8 @@ You already learned about them in the interview with Stephan Poppe, and we will 
 3.  **Counterfactuals**: $Pr(y_x|x',y')$ &ndash; Imagine: *What would have been*? We observed $X=x'$ and, in consequence, $Y=y'$. How likely would have been $Y=y$, if I had intervened and set $X=x$? (See Module 09)
 
 
-The first level, association, is relevante for the two goals description and prediction.
-In Module 08, you will learn more about how description and prediction vary in their data requirements.
+The first level, association, is relevant for the two goals description and prediction.
+In Module 08, you will learn more about how description and prediction vary in the demands they put on the data.
 On level two and three, intervention and counterfactuals, we are already pursuing the goal of causal inference.
 
 
