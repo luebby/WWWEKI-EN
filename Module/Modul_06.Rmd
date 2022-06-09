@@ -1,5 +1,5 @@
 ---
-title: "Module 06: Kind or handsome? &ndash; Why not both?"
+title: "Module 06: Kind or handsome? Why not both?"
 output: 
   learnr::tutorial:
     progressive: true
@@ -58,9 +58,9 @@ SimData <- tibble(x = rnorm(n), y = rnorm(n), u_z = rbinom(n, size = 1, prob = 0
 
 In this module you will learn:
 
-- what an inverted fork is;
+- about inverted forks,
 
-- what a collider is;
+- colliders, and
 
 - that we sometimes unintentionally create associations where there are none.
 
@@ -74,7 +74,7 @@ Remember: $$A \rightarrow B$$ says that $B$ *listens* to $A$, but not vice versa
 
 Again, highly simplified: Let's assume that kidness and looks play a role in whether we go on a date with someone.
 
-Would you date someone who was neither kind nor good-looking? Maybe, but maybe not.
+Would you date someone who was neither kind nor good-looking? Maybe, but more likely not.
 
 
 Suppose <green>kindness</green> ($\color{green}{X}$) leads to <violet>date</violet> ($\color{violet}{Z}$). Also, (good) <blue>looks</blue> ($\color{blue}{Y}$) lead to <violet>date</violet> ($\color{violet}{Z}$). 
@@ -93,7 +93,7 @@ The structural causal model consists of the following assignments:
 
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}\\
-\color{blau}{Y} &=& U_{\color{blue}{Y}}\\
+\color{blue}{Y} &=& U_{\color{blue}{Y}}\\
 \color{violet}{Z} &=& f_{\color{violet}{Z}}(\color{green}{X}, \color{blue}{Y}, U_{\color{violet}{Z}})
 \end{eqnarray*}
 
@@ -109,9 +109,11 @@ question("Do looks ($Y$) depend on kindness ($X$) in this example?",
          )
 ```
 
-## Collider
+## Colliders
 
-In cases like these: $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$, the variable in the middle &ndash; here  $\color{violet}{Z}$ &ndash; is called a **collider**. $\color{violet}{Z}$ is an effect of $\color{green}{X}$ and $\color{blue}{Y}$.
+In cases like these: 
+$$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$
+the variable in the middle &ndash; here  $\color{violet}{Z}$ &ndash; is called a **collider**. $\color{violet}{Z}$ is an effect of $\color{green}{X}$ and $\color{blue}{Y}$.
 
 ```{r collider, echo=FALSE}
 message <- "If it wasn't luck or bad luck ($U_Z$), then the unkind person has to look rather good. After all, there is a reason you dated them in the first place. If it wasn't kindness, it was probably looks."
@@ -142,7 +144,7 @@ To summarize: In a fork, there is an unconditional association between $\color{g
 In an **inverted fork** there is no association between $\color{green}{X}$ and $\color{blue}{Y}$:
 $$\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$$
 Both on the <green>weekend</green> and on <blue>vacation</blue>, people can <violet>sleep in</violet>.
-Let's assume that weekends and vacation are uncorrelated..
+Let's assume that weekends and vacation are uncorrelated.
 <green>Weekend</green> and <blue>vacation</blue> will be (*unconditionally*, *marginally*) independent: 
 I learn nothing about <blue>vacation</blue> from the information <green>weekend</green>.
 But if I know that I can <violet>sleep in</violet>, I know that it is either the <green>weekend</green> or <blue>vacation</blue> (or both).
@@ -161,11 +163,11 @@ Consider the following structural causal model:
 \begin{eqnarray*}
 \color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{N}(0,\,1), \\
 \color{blue}{Y} &=& U_{\color{blue}{Y}}, \quad U_{\color{blue}{Y}} \sim \mathcal{N}(0,\,1), \\
-\tilde{\color{violet}{Z}} &=&\begin{cases} 1 &  \text{wenn } \{ \color{green}{X} > 1 \,\vee\, \color{blue}{Y} > 1\} \\ 0 &  \text{sonst} \end{cases}, \\
+\tilde{\color{violet}{Z}} &=&\begin{cases} 1 &  \text{if } \{ \color{green}{X} > 1 \,\vee\, \color{blue}{Y} > 1\} \\ 0 &  \text{otherwise} \end{cases}, \\
 \color{violet}{Z} &=& (1-U_{\color{violet}{Z}}) \cdot \tilde{\color{violet}{Z}} + U_{\color{violet}{Z}} \cdot (1- \tilde{\color{violet}{Z}}), \quad U_{\color{violet}{Z}} \sim \mathcal{B}(0.05),
 \end{eqnarray*}
 
-$\mathcal{N}(0,\,1)$ is a standard normal distribution, $\mathcal{B}(0.05)$ is a Bernoulli distribution with $\pi=0.05$. $\tilde{\color{violet}{Z}}$ is an auxiliary variable that takes the value $1$ if $\color{green}{X}$ or $\color{blue}{Y}$ are greater than $1$. Otherwise, $\tilde{\color{violet}{Z}}=0$. Whether $\color{violet}{Z}$ is really $0$ (no date) or $1$ (date) depends on random luck.
+$\mathcal{N}(0,\,1)$ is a standard normal distribution, $\mathcal{B}(0.05)$ is a Bernoulli distribution with $\pi=0.05$. $\tilde{\color{violet}{Z}}$ is an auxiliary variable that takes the value $1$ if $\color{green}{X}$ or $\color{blue}{Y}$ are greater than $1$. Otherwise, $\tilde{\color{violet}{Z}}=0$. Whether $\color{violet}{Z}$ is really $0$ (no date) or $1$ (date) partially depends on random luck.
 
 $\vee$ is the logical *or* operator (`|` in `R`). 
 
@@ -255,9 +257,11 @@ This delivers a distorted result with correlations in places where there are act
 ## Summary
 
 :::{.box}
-To determine the causal effect of $X$ on $Y$ in an inverted fork $$X \rightarrow Z \leftarrow Y$$, the collider $Z$ must not be considered. (This is also true for all descendants of $Z$).
+To determine the causal effect of $X$ on $Y$ in an inverted fork 
+$$X \rightarrow Z \leftarrow Y$$
+the collider $Z$ must not be considered. (This is also true for all descendants of $Z$).
 If $Z$ is conditioned upon, a spurious association between $X$ and $Y$ is generated and biases the analysis. 
-For example, one should not include $Z$ as an explanatory variable in a linear model.
+For example, one should not include $Z$ as a predictor variable in a linear model.
 Nor should one divide the data into groups based on $Z$ and analyze them in separation -- this also distorts associations.
 ::: 
 
