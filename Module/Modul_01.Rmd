@@ -50,11 +50,11 @@ course <- tibble(finteresse = rnorm(n)) %>%
 
 In this module, you will learn:
 
-- what a **potential outcome** is;
+- about **potential outcomes**,
 
-- what a **counterfactual** is;
+- **counterfactuals**,
 
-- how **causal effects** can be defined;
+- how to define **causal effects**,
 
 - and why causal inference is so challenging.
 

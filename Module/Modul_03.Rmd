@@ -55,11 +55,11 @@ SimData <- tibble(x = rnorm(n)) %>%
 
 In this module you will learn:
 
-- to distinguish between description, prediction, and causal inference;
+- how to distinguish between description, prediction, and causal inference,
 
 - why this distinction is important and
 
-- what the causal ladder is.
+- more about the causal ladder.
 
 ## Data Literacy
 

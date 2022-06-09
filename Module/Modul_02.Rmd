@@ -108,13 +108,13 @@ pd <- ggplot(d, aes(x = x, y = y, color = tablette)) +
 
 In this module, you will learn:
 
-- what cause and effect are;
+- about cause and effect,
 
-- the basic of causal graphs: the meaning of an arrow;
+- the basic of causal graphs: the meaning of an arrow, and of
 
-- parents and children;
+- parents and children,
 
-- what a causal model is;
+- about causal models, and
 
 - the difference between observing and doing in the context of causal inference. 
 

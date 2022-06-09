@@ -62,20 +62,20 @@ ModelA <- lm(y ~ x, data = SimData)
 
 In this module you will learn:
 
-- what a causal chain is;
+- about causal chains,
 
-- what a mediator is;
+- mediators,
 
-- that sometimes it is better not to consider certain variables in the analysis.
+- and that sometimes it is better not to consider certain variables in the analysis.
 
 ## One thing leads to another
 
 Even complex causal graphs consist of simple basic elements. One of them is the so-called **chain**. 
 
-As a reminder, causality flows along with the arrows. $$A \rightarrow B$$ states that $B$ *listens* to $A$. For example, if it rains, ($A$), the road gets wet ($B$). 
+As a reminder, causality flows along the arrows. $$A \rightarrow B$$ states that $B$ *listens* to $A$. For example, if it rains, ($A$), the road gets wet ($B$). 
 
 In a chain, we simply add a third variable: $$A \rightarrow B \rightarrow C.$$ 
-For example: if it rains, ($A$) the road gets wet ($B$) and thus it gets slippery ($C$).
+For example: if it rains, ($A$) the road gets wet ($B$) and thus it may turn slippery ($C$).
 
 
 ## Learning and understanding
@@ -106,8 +106,8 @@ The structural causal model consists of the following assignments:
 \color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
 \end{eqnarray*}
 
-The value of <green>learning</green> ($\color{green}{X}$) is determined outside of the model ($U_{\color{green}{X}$). 
-The value of <violet>knowledge</violet> ($\color{violet}{Z}$) depends on the value of <green>learning</green> ($\color{green}{X}$) &ndash; and other factors ($U_{\color{violet}{Z}$).
+The value of <green>learning</green> ($\color{green}{X}$) is determined outside of the model ($U_{\color{green}{X}}$). 
+The value of <violet>knowledge</violet> ($\color{violet}{Z}$) depends on the value of <green>learning</green> ($\color{green}{X}$) &ndash; and other factors ($U_{\color{violet}{Z}}$).
 Ultimately, <blue>understanding</blue> ($\color{blue}{Y}$) depends on <violet>knowledge</violet> ($\color{violet}{Z}$) &ndash; and $U_{\color{blue}{Y}}$. 
 We again make the (admittedly unrealistic) assumption that the random influences $U_{\color{green}{X}}, U_{\color{violet}{Z}}, U_{\color{blue}{Y}}$ are independent of each other.
 
@@ -115,28 +115,30 @@ We again make the (admittedly unrealistic) assumption that the random influences
 ```{r kind, echo=FALSE}
 question("In the language of causal graphs: Is understanding ($Y$) a child of learning ($X$)?",
          answer("Yes"),
-         answer("No", correct = TRUE, message = "Understanding is a child of knowledge ($Z$). Knowledge is in turn a child of learning. Thus, understanding is not a child of learning, but it is a descendant. Understanding *listens* directly only to knowledge, i.e., the value of understanding depends directly only on knowledge."),
+         answer("No", correct = TRUE, message = "Understanding is a child of knowledge ($Z$). Knowledge is in turn a child of learning. Thus, understanding is a descendant, but not directly a child of learning. Understanding *listens* directly only to knowledge, i.e., the value of understanding depends directly only on knowledge."),
          allow_retry = TRUE,
          correct = "Great, Correct!",
-         incorrect = "Unfortunately, this was wrong. Maybe take another look at Module 2.")
+         incorrect = "Unfortunately, this was wrong. Hint: Grandchildren are not the same as children!")
 ```
 
-## Mediator
+## Mediators
 
-In such scenarios, $$\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$, the variable in the middle &ndash; here $\color{violet}{Z}$ &ndash; is called a **mediator**.
+In such scenarios
+$$\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
+the variable in the middle &ndash; here $\color{violet}{Z}$ &ndash; is called a **mediator**.
 
 ```{r mediator, echo=FALSE}
-question("Suppose a whether a candidate is promoted depends on their gender due to discrimination, and the future salary of course depends on the promotion. Which variable is a mediator here?",
+question("Suppose whether a candidate is promoted depends on their gender due to discrimination, and the future salary of course depends on the promotion. Which variable is a mediator here?",
          answer("Gender"),
-         answer("Promotion", correct = TRUE, message = "The causal model described is $\text{gender} \rightarrow \text{promotion} \\rightarrow \\text{salary}$."),
-         answer("salary", message = "The causal model described is $\text{gender} \rightarrow \text{support} \\rightarrow \\text{salary}$."),
+         answer("Promotion", correct = TRUE, message = "The causal model described is $\\text{Gender} \\rightarrow \\text{Promotion} \\rightarrow \\text{Salary}$."),
+         answer("Salary"),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
 
-To study the causal effect of the cause ($\color{green}{X}$) on the effect ($\color{blue}{Y}$), we do not need to know the value of the mediator ($\color{violet}{Z}$). So, for example, if we want to know how <green>gender</green> affects <blue>content</blue> overall, we do not need information about <violet>promotions</violet>.
+To study the causal effect of the cause ($\color{green}{X}$) on the effect ($\color{blue}{Y}$), we do not need to know the value of the mediator ($\color{violet}{Z}$). So, for example, if we want to know how <green>gender</green> affects <blue>salary</blue> overall, we do not need information about <violet>promotions</violet>.
 
 In fact, accounting for the mediator can even cause the causal effect to be biased. 
 We will look at this in more detail below with the help of a small simulation. 
@@ -147,7 +149,7 @@ We will look at this in more detail below with the help of a small simulation.
 In the example, we are interested in the so-called total effect of gender: How does gender affect salary, regardless of the specific mechanisms involved?
 
 If instead we were interested in the extent to which gender has an effect on salary independent of promotion, the target of analysis would be the so-called direct effect. 
-And if we were interested in the extent to which the effects of gender are mediated by promotion, the analysis target would be the indirect effect.
+And if we were interested in the extent to which the effects of gender are mediated by promotion (do women earn less because they are less likely to be promoted?), the analysis target would be the indirect effect.
 
 ***
 
@@ -163,7 +165,7 @@ We simulate the following in `R`:
 \color{blue}{Y} &=& f_{\color{blue}{Y}}(\color{violet}{Z},U_{\color{blue}{Y}}).
 \end{eqnarray*}
 
-Recall (see also Module 2) that $U$ denotes unknown causes and $f$ the functions by which values are assigned to the variables.
+Recall from Module 2 that $U$ denotes unknown causes and $f$ the functions by which values are assigned to the variables.
 
 Simulate observations by clicking 'Run' several times and try to see how the variables are related to each other:
 
@@ -189,7 +191,7 @@ question("What happens when you observe higher values of learning (`x`)?",
 
 ## Intervention
 
-Instead of just observing ($\color{green}{X} = U_{\color{green}{X}$), we can also simulate an intervention where we set values ($do(\color{green}{X}=x)$).
+Instead of just observing ($\color{green}{X} = U_{\color{green}{X}}$), we can also simulate an intervention where we set values ($do(\color{green}{X}=x)$).
 
 In the code example, $do(\color{green}{X}=1)$. 
 Press `Run Code` a few times to see what the values of understanding ($\color{blue}{Y}$) look like in the case of $do(\color{green}{X}=1)$. 
@@ -257,8 +259,8 @@ Now `x` and `y` still fluctuate randomly, but are independent of each other.
 The underlying equations of the causal model that we just simulated are:
 
 \begin{eqnarray*}
-\color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{G}(1,\,10), \\\
-\color{violet}{Z} &=& 5 \cdot \color{green}{X} + U_{\color{violet}{Z}}, \quad U_{\color{violet}{Z}} \sim \mathcal{N}(0,\,1), \\\
+\color{green}{X} &=& U_{\color{green}{X}}, \quad U_{\color{green}{X}} \sim \mathcal{G}(1,\,10), \\
+\color{violet}{Z} &=& 5 \cdot \color{green}{X} +  U_{\color{violet}{Z}}, \quad U_{\color{violet}{Z}} \sim \mathcal{N}(0,\,1), \\
 \color{blue}{Y} &=& 3 \cdot \color{violet}{Z} + U_{\color{blue}{Y}}, \quad U_{\color{blue}{Y}} \sim \mathcal{N}(0,\,1).
 \end{eqnarray*}
 
@@ -266,7 +268,7 @@ Here $\mathcal{G}(1,\,10)$ stands for the *uniform distribution* on the range $1
 The functions and parameters were arbitrarily chosen.
 
 Substituting $f_{\color{violet}{Z}}$ into $f_{\color{blue}{Y}}$ results in 
-$\color{blue}{Y} = 3 \cdot (5 \cdot \color{green}{X} + U_{\color{violet}{Z}}) + U_{\color{blue}{Y}=15 \cdot \color{green}{X} + 5 \cdot U_{\color{violet}{Z}} + U_{\color{blue}{Y}}.$
+$\color{blue}{Y} = 3 \cdot (5 \cdot \color{green}{X} + U_{\color{violet}{Z}}) + U_{\color{blue}{Y}}=15 \cdot \color{green}{X} + 5 \cdot U_{\color{violet}{Z}} + U_{\color{blue}{Y}}.$
 
 For $n=100$ simulated observations, the corresponding `R` code is:
 
@@ -359,7 +361,7 @@ ModelB
 Returning the following model:
 
 $$\widehat{\color{blue}{\text{Understanding}}} = `r round(coef(ModelB)[1],2)` + `r round(coef(ModelB)[2],2)` \times \color{green}{\text{Learning}} + `r round(coef(ModelB)[3],2)` \times \color{violet}{\text{Knowledge}}$$
-If <violet>knowledge</violet> is part of the model while we try to determine the causal effect of <green>learning</green> on <blue>understanding</blue>, our model now says: If <green>learning</green> is increased by one unit, the mean value of <blue>understanding </blue> increases by $`r round(coef(ModelB)[2],2)`$ units &ndash; a much smaller value than without considering ($`r round(coef(ModelA)[2],2)`$).
+If <violet>knowledge</violet> is part of the model while we try to determine the causal effect of <green>learning</green> on <blue>understanding</blue>, our model now says: If <green>learning</green> is increased by one unit, the mean value of <blue>understanding </blue> increases by $`r round(coef(ModelB)[2],2)`$ units &ndash; a much smaller value than before ($`r round(coef(ModelA)[2],2)`$).
 
 ```{r adjustierung, echo=FALSE}
 question("Which value correctly describes the (total) causal effect of learning (`x`) on understanding (`y`)? That is, by how many units will the value of understanding change on average if one unit more is learned?",
@@ -381,7 +383,9 @@ question("Which value correctly describes the (total) causal effect of learning 
 ## Summary
 
 :::{.box}
-To determine the (total) causal effect of $X$ on $Y$ in a chain $$X \rightarrow Z \rightarrow Y$$, any mediator $Z$ should **not** be considered. When $Z$ is conditioned upon (e.g., when the variable is included in a regression), the causal relationship between $X$ and $Y$ is broken.
+To determine the (total) causal effect of $X$ on $Y$ in a chain 
+$$X \rightarrow Z \rightarrow Y$$
+any mediator $Z$ should **not** be considered. When $Z$ is conditioned upon (e.g., when the variable is included in a regression), the causal relationship between $X$ and $Y$ is broken.
 ::: 
 
 ## Note
