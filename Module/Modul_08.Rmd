@@ -95,9 +95,9 @@ options(scipen = 999)
 
 In this module you will learn more about:
 
-- the different data requirements for description and prediction; 
+- the different data requirements for description and prediction, 
 
-- the advantages of randomly drawn samples;
+- the advantages of randomly drawn samples, and
 
 - the advantages of random assignment in the context of experiments.
 
@@ -141,7 +141,7 @@ gf_bar(~ Overweight | breastfeeding , data = d2,
   theme(legend.position = "bottom", plot.title = element_text(hjust = 0.5))
 ```
 
-As you can see: Children of women who <green>breastfed</green> exclusively for at least four months were less likely to be <blue>overweight</blue> at age six than children who weren't breastfed &ndash; in this fictional study.
+As you can see: Children of women who <green>breastfed</green> exclusively for at least four months were less likely to be <blue>overweight</blue> at age six than children who weren't breastfed &ndash; in this fictive study.
 
 
 This is level of **description** (see Module 3).<br>
@@ -183,7 +183,7 @@ But when working with real data, we have to take something else into account: We
 
 ## Population and sample
 
-Suppose that we are interested in a population where 30% of women are graduates.
+Suppose that we are interested in a population in which 30% of women are graduates.
 For example, a relevant population could be all mothers in a given country at a given time.
 
 At least 4 months of full <green>breastfeeding</green> is color-coded with <purple>Yes (purple)</purple> and <orange>No (orange)</orange>:
@@ -228,14 +228,15 @@ Usually we do not know the values in the *population*, we only have a *sample* a
 
 <br>
 
-Suppose that for our <u>data collection</u>, there is a relationship between the mother's level of education (<violet>graduate</violet>) and her participation in the study.
+Suppose that in our *data collection*, there is a relationship between the mother's level of education (<violet>graduate</violet>) and her participation in the study.
 For example, in our fictitious data, it looks like graduates are more likely to become part of the sample:
 
 ```{r, echo=FALSE, fig.align='center', out.width='90%', fig.asp = .7}
 plot(DAG_ModellG)
 ```
 
-Now let's draw a sample, women who end up in our data are highlighted in color:
+Now let's draw a sample!
+Women who end up in our data are highlighted in color:
 
 ```{r gsti, fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 set.seed(1954)
@@ -354,7 +355,7 @@ pzsti <- ggplot(d, aes(x = x, y = y, color = Sample)) +
 pzsti
 ```
 
-In this random sample, the probability of <purple>breastfeeding</purple> with $`r round(pdz,2)`$ no longer deviates systematically from the *true* probability in the target population. 
+In this random sample, the probability of <purple>breastfeeding</purple> is $`r round(pdz,2)`$ and no longer deviates systematically from the *true* probability in the target population. 
 
 All remaining deviations are just random -- sometimes we will overestimate the true value, sometimes we will underestimate it.
 And the larger the sample, the smaller the deviations we see when we sample repeatedly.
@@ -368,7 +369,7 @@ But what about the analysis goal of *causal inference*?
 
 ```{r ki, echo=FALSE}
 message <- "Graduate is a confounder here and lies on a non-causal path from breastfeeding to overweight. Thus, our estimate of the causal effect would be biased."
-question("Can the causal effect of breastfeeding on overweight be estimated by a direct comparison of children whose mothers breastfeed vs. do not breastfeed?",
+question("Can the causal effect of breastfeeding on overweight be estimated by a direct comparison of children whose mothers did breastfeed vs. did not breastfeed?",
          answer("Yes"),
          answer("No", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -458,7 +459,7 @@ $$\color{purple}{`r poverweightbreastfeeding`}-\color{orange}{`r poverweightkbre
 
 ```{r beob2, echo=FALSE}
 message <- "Graduate is a confounder and lies on a non-causal path from breastfeeding to overweight."
-question("Does the observational study data suggest that the average causal effect of breastfeeding on the probability of overweight is $0.36$?",
+question("Does the observational study tell us that the average causal effect of breastfeeding on the probability of overweight is $0.36$?",
          answer("Yes"),
          answer("No", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -490,17 +491,19 @@ pbeob
 
 Overweight occurs less often if <purple>breastfed</purple> than if <orange>not breastfed</orange>.
 
-But: Graduates <purple>breastfeed</purple> more often than non-graduates &ndash; and children of graduates are less likely to become overweight.
+But: Graduates <purple>breastfeed</purple> more often than non-graduates &ndash; and children of graduates are less likely to be overweight.
 
 
 
 ## Randomized experiment
 
 Assuming the causal model with only one confounder (here: graduate), we could simply adjust for this variable, as we have already learned.
-But what if we did not collect the variable in our data?
+But what if we did not collect the variable in our data? Then we wouldn't be able to adjust for it.
+
+
 And, more importantly, of course there could be numerous other confounders here!
 
-A classical approach to determine average causal effects are **randomized controlled trials** (RCT). Arrows pointing into the variable $\color{green}{X}$ are eliminated and the assignment $do(\color{green}{X}=\color{green}{x})$ is randomized.
+The traditional approach to determine average causal effects are **randomized controlled trials** (RCT). Arrows pointing into the variable $\color{green}{X}$ are eliminated and the assignment $do(\color{green}{X}=\color{green}{x})$ is randomized.
 
 *Note*: Would a randomized experiment even be ethical and feasible for this question? 
 Can we randomize which mothers breastfeed and which don't?
@@ -513,7 +516,7 @@ plot(DAG_ModellE)
 
 ##
 
-A possible outcome looks like this:
+A possible outcome of a hypothetical experiment looks like this:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 graduate <- c(rep(0, 70), rep(1, 30))
@@ -574,28 +577,29 @@ In the <red>fictious</red> observational study, our estimate was  biased because
 
 In our <red>fictious</red> experiment, we no longer have to worry about this and other third variables because they cannot influence whether mothers breastfeed or not.
 
-To move from pure prediction ("How likely is it that a randomly selected woman breastfeeds?") to **causal inference** ("What effect does breastfeeding have on the risk of overweight?") requires more than just the data.
-We need additional knowledge about how the data came to be &ndash; what additional variables influenced the variables of interest, or whether, for example, there was a random intervention.
+To move from pure prediction ("How likely is it that a randomly selected woman breastfeeds?") to **causal inference** ("What effect does breastfeeding have on the risk of the child becoming overweight?") requires more than just the data.
+We need additional knowledge about how the data came to be &ndash; what additional variables influenced the variables of interest, or whether, for example, there was a randomized intervention.
 
 
 ***
 
-*Note*: For reasons of statistical precision, it is appropriate to include the variable <violet>graduate</violet> in the analysis even in a randomized experiment.
+*Note*: For reasons of statistical precision, it would be appropriate to include the variable <violet>graduate</violet> in the analysis even in a randomized experiment.
 
 ## 
 
-In his talk, [Causal Thinking for Descriptive Research](https://speakerdeck.com/rmcelreath/causal-thinking-for-descriptive-research), Richard McElreath points out that we should *use honest methods for modest questions*:
+In his talk [Causal Thinking for Descriptive Research](https://speakerdeck.com/rmcelreath/causal-thinking-for-descriptive-research) Richard McElreath points out that we should *use honest methods for modest questions*:
 
 1. What are we trying to describe?
 
-2. What is the ideal data for doing so?
+2. What are the ideal data for doing so?
 
 3. What data do we actually have?
 
 4. What causes differences between (2) and (3)?
 
-In this module, you have learned statistical methods for optimally designing data collection, if possible, so that no differences are found in (4). 
-Ideally, we have a random sample; ideally, there is random assignment to experimental groups.
+In this module, you have learned statistical methods for optimal data collection so that, whenever possible, no differences are found in between (2) and (3). 
+Ideally, we have a random sample.
+And ideally, there is random assignment to experimental groups.
 
 Unfortunately, it doesn't always work like this in practice, and in some situations it is simply not possible.
 
