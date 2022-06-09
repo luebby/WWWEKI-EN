@@ -71,16 +71,16 @@ lm_mA <- lm(births ~ storks + area, data = StorksBirths)
 
 In this module you will learn:
 
-- what a causal fork is;
+- about causal forks,
 
-- what a confounder is;
+- confounders, and
 
 - that common causes often lead to confusion.
 
 
 ## Congratulations!
 
-A common design ofr new baby cards is a stork.
+A common design for new baby cards is a stork.
 
 <img src="images/Storch.png" alt="Stork with baby" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
@@ -94,7 +94,7 @@ Or do they?
 
 ## The data situation
 
-At the beginning of the millennium, Robert Matthews took the trouble to collect data to answer the question ([Quelle](https://doi.org/10.1111/1467-9639.00013)):
+At the beginning of the millennium, Robert Matthews actually collected data to answer the question ([Source](https://doi.org/10.1111/1467-9639.00013)):
 
 ```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
 gf_point(births ~ storks, data = StorksBirths, size = 2, alpha = 0.7) %>%
@@ -108,7 +108,7 @@ gf_point(births ~ storks, data = StorksBirths, size = 2, alpha = 0.7) %>%
 ```
 
 
-As you can see, there are countries with many storks &ndash; where many babies are born. And countries with comparatively few storks &ndash; and at the same time few births.
+As you can see, there are countries with many storks &ndash; where many babies are born. And countries with comparatively few storks &ndash; where fewer babies are born.
 
 
 ```{r zusammenhang, echo=FALSE}
@@ -128,7 +128,7 @@ The correlation between the <green>number of storks</green> ($\color{green}{x}$)
 
 $$r_{\color{green}{x},\color{blue}{y}} = `r round(cor(births ~ storks, data = StorksBirths),2)`.$$
 
-The correlation coefficient lies always between $-1$ and $+1$. For negative correlations (e.g., between price and sales volume), it becomes less than zero; for positive correlations (e.g., between income and spending), it becomes greater than zero.
+Correlation coefficients always fall between $-1$ and $+1$. For negative correlations (e.g., between price and sales volume), it becomes less than zero; for positive correlations (e.g., between income and spending), it becomes greater than zero.
 
 
 So $r_{\color{green}{x},\color{blue}{y}} = `r round(cor(births ~ storks, data = StorksBirths),2)`$ is a relatively large positive correlation. 
@@ -140,7 +140,7 @@ plot(DAG_SG)
 ```
 
 ```{r pfeil, echo=FALSE}
-message <- "The arrow indicates that the value of the variable at the head of the arrow depends on the value of the variable at the end of the arrow &ndash; and not vice versa. See module 2."
+message <- "The arrow indicates that the value of the variable at the head of the arrow depends on the value of the variable at the end of the arrow &ndash; and not vice versa. See Module 2."
 question("What causal assumption is shown in the graph?",
          answer("Storks are the cause, births are the effect.", correct = TRUE, message = message),
          answer("Storks are the effect, births the cause."),
@@ -152,10 +152,10 @@ question("What causal assumption is shown in the graph?",
 
 ```{r korrelation, echo=FALSE}
 message <- "The correlation coefficient is symmetric, i.e., $r_{x,y} = r_{y,x}$."
-question("The correlation coefficient between the number of storks and the number of births is $r_{\\color{green}{x},\\color{blue}{y}} = +0.62$. From this, can you conclude the correlation coefficient between the number of births and the number of storks?",
+question("The correlation coefficient between the number of storks and the number of births is $r_{\\color{green}{x},\\color{blue}{y}} = +0.62$. But what is the correlation coefficient between the number of births and the number of storks?",
          answer("$r_{\\color{blue}{y}, \\color{green}{x}} = -0.62$."),
          answer("$r_{\\color{blue}{y}, \\color{green}{x}} = 1/0.62 = 0.62^{-1}$."),
-         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = +0.62$.", correct = TRUE, message = paste(message, "So maybe the babies are delivering the storks?")),
+         answer("$r_{\\color{blue}{y}, \\color{green}{x}} = +0.62$.", correct = TRUE, message = paste(message, "So maybe the babies are delivering storks?")),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
@@ -206,7 +206,7 @@ gf_point(storks ~ area, data = StorksBirths, size = 2, alpha = 0.7) %>%
   gf_labs(x=parse(text = paste0("'Area in '",'~ km^2')), y="Number of storks (couples)", caption="Data: Robert Matthews")
 ```
 
-## Confounder
+## Confounders
 
 This suggests a potential alternative explanation.
 The size of a country, the <violet>area</violet> ($\color{violet}{Z}$), is a common cause of the <green>number of storks</green> ($\color{green}{X}$) and the <blue>number of births</blue> ($\color{blue}{Y}$).
@@ -219,24 +219,25 @@ plot(DAG_Fork)
 The <green>number of storks</green> ($\color{green}{X}$) and the <blue>number of births</blue> ($\color{blue}{Y}$) correlate because both have a common cause, the <violet>area</violet> ($\color{violet}{Z}$). 
 Such a common cause is called a **confounder**.
 
-(Of course, there are potentially numerous other common causes of the <green>number of storks</green> ($\color{green}{X}$) and the <blue>number of births</blue> ($\color{blue}{Y}$).)
+Of course, there are potentially numerous other common causes of the <green>number of storks</green> ($\color{green}{X}$) and the <blue>number of births</blue> ($\color{blue}{Y}$), but let us focus on this one for now.
 
 ```{r confounder, echo=FALSE}
 question("Does the value of area ($\\color{violet}{Z}$) causally depend on the number of storks ($\\color{green}{X}$)?",
          answer("Yes"),
-         answer("No", correct = TRUE, message = "The causal model described is $\\text{number of storks} \\leftarrow \\text{area}$. The number of storks *listens* to the area, but the area **does not** listen to the number of storks. More storks can't change the area, but the area can change the number of storks."),
+         answer("No", correct = TRUE, message = "The causal model described is $\\text{number of storks} \\leftarrow \\text{area}$. The number of storks *listens* to the area, but the area *does not* listen to the number of storks. More storks can't change the area, but more area means more storks."),
          allow_retry = TRUE,
          correct = random_praise(),
          incorrect = random_encouragement()
          )
 ```
 
-## Fork
+## Forks
 
-Even complex causal graphs consist of simple basic elements. After the chain from module 4, here comes the **fork**:
+Even complex causal graphs consist of simple basic elements. After the chain from Module 4, here comes the **fork**:
 
 $$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
-Both the value of $\color{green}{X}$ and the value of $\color{blue}{Y}$ depend causally on $\color{violet}{Z}$, the structural causal model looks as follows:
+Both the value of $\color{green}{X}$ and the value of $\color{blue}{Y}$ depend causally on $\color{violet}{Z}$. 
+The structural causal model looks as follows:
 \begin{eqnarray*}
 \color{violet}{Z} &=& U_{\color{violet}{Z}},\\
 \color{green}{X} &=& f_{\color{blue}{X}}(\color{violet}{Z},U_{\color{green}{X}}),\\
@@ -247,7 +248,7 @@ Both the value of $\color{green}{X}$ and the value of $\color{blue}{Y}$ depend c
 If the value of $\color{violet}{Z}$ is changed ($do(z)$), the values of $\color{green}{X}$ and  $\color{blue}{Y}$ will change as a consequences.
 
 ```{r fork, echo=FALSE}
-message <- "Changes are propagated in the direction of the arrow, an intervention on $\\color{green}{X}$ does *not* change the value of $\\color{violet}{Z}$ &ndash; and as a consequence, does not change the value of $\\color{blue}{Y}$."
+message <- "Changes are propagated in the direction of the arrow. An intervention on $\\color{green}{X}$ does *not* change the value of $\\color{violet}{Z}$ &ndash; and as a consequence, does not change the value of $\\color{blue}{Y}$."
 question("In the chain, does the value of $\\color{blue}{Y}$ change when there is an intervention on $\\color{green}{X}$ ($do(x)$)? ",
          answer("Yes"),
          answer("No", correct = TRUE, message = message),
@@ -296,13 +297,15 @@ Thus, the estimated effect is much smaller, and presumably closer to the real ca
 
 In fact, in this model the effect is no longer statistically significantly different from 0.
 So the observed mini-relationship may just reflect random fluctuations.
-And, of course, there could be additional confounders.
+And, of course, there could still be additional confounders biasing this estimate.
 
 
 ## Summary
 
 :::{.box}
-To determine the causal effect of $X$ on $Y$ in a fork $$X \leftarrow Z \rightarrow Y$$, the confounder $Z$ must be taken into account 
+To determine the causal effect of $X$ on $Y$ in a fork 
+$$X \leftarrow Z \rightarrow Y$$
+the confounder $Z$ must be taken into account. 
 If $Z$ is simply ignored, the fork remains open and a non-causal associations between $X$ and $Y$ distorts the analysis results.
 The confounder can be taken into account through various means -- for example, the variable can be included in a linear model, but we could also do stratified comparisons.
 If this adjustment is done properly, the fork is closed and no longer confounds the interpretation of the analysis.
@@ -320,12 +323,13 @@ When the development of two variables over time is considered, time in itself of
 Quelle: [Tyler Vigen: Spurious correlations](https://tylervigen.com/spurious-correlations)
 </span>
 
-The reason for the high correlation is simply that both the divorce rate and consumption of magarine declined over time. Fewer divorces did not reduce margarine consumption; the decline in margarine consumption did not cause fewer divorces.
+The reason for the apparently high correlation is simply that both the divorce rate and consumption of magarine declined over time. Fewer divorces did not reduce margarine consumption; the decline in margarine consumption did not cause fewer divorces.
 
 A simple simulation of a *random walk with drift* illustrates the phenomenon. Here both variables have a trend &ndash; but otherwise they have nothing to do with each other, so neither is `x1` the cause of `x2` nor the other way around. 
 
 
-*Note*: We did not set up the random number generator here, so there will be random variation in the outcome each time you press `Run Code`.
+We did not set up the random number generator here, so there will be random variation in the outcome each time you press `Run Code`.
+Try it repeatedly to see which spurious correlations you can get!
 
 
 ```{r rw, exercise=TRUE, exercise.lines=30}
