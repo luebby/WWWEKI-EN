@@ -59,7 +59,7 @@ In this module you will learn:
 
 - that an observation does not always allow us to derive a suitable action.
 
-## Real estate price
+## Real estate prices
 
 What determines the value of a property?
 
@@ -109,7 +109,7 @@ Resulting in:
 $$\hat{\color{blue}{y}}_i = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{x}_i $$
 
 ```{r Steigung, echo=FALSE}
-message <- "The slope estimated from the sample in the linear model is $\\hat{\beta}_1= 22573$.  $\\hat{\beta}_0=53016$ is the estimated y-intercept, that is, the mean of the price at $x=0$ rooms."
+message <- "The slope estimated from the sample in the linear model is $\\hat{\\beta}_1= 22573$.  $\\hat{\\beta}_0=53016$ is the estimated y-intercept, that is, the mean of the price at $x=0$ rooms."
 question("In the linear model describing the sample, by how much does the price increase per room?",
          answer("53016"),
          answer("22573", correct = TRUE, message = message),
@@ -142,7 +142,7 @@ Then, according to the model:
 $$\hat{\color{blue}{y}} = `r round(coef(erglm1))[1]` + `r round(coef(erglm1))[2]` \cdot \color{green}{5}= \color{blue}{`r round(coef(erglm1))[1]+  round(coef(erglm1))[2]*5`}.$$
 
 ```{r Wertsteigerung, echo=FALSE}
-message <- "The estimated linear model of the sample refers to the observed data ($X=x$), i.e., the slope describes the observed change in the mean, not the effect of an action $do(X=x)$ (cf. Module 2)."
+message <- "The estimated linear model of the sample refers to the observed data ($X=x$), i.e., the slope describes the observed change in the mean, not the effect of an action $do(X=x)$ (see also Module 2)."
 question("Does such a room divsion increase the price of the property by $22573$ on average?",
          answer("Yes"),
          answer("No", correct = TRUE, message = message),
@@ -160,7 +160,7 @@ In Modules 4, 5 and 6 you have learned the basic elements of causal diagrams:
 | Path                       | $\color{green}{X} \rightarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$ | $\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$  | $\color{green}{X} \rightarrow \color{violet}{Z} \leftarrow \color{blue}{Y}$ 
 | :--------------------------|:--------------------------------|:--------------------------------|:-----------------------------|
 | Name                       | Chain                           | Fork                           | Inverted fork         
-| Association between $\color{green}{X}$ and $\color{blue}{Y}$     | causal                          | non causal                    | no association                       
+| Association between $\color{green}{X}$ and $\color{blue}{Y}$     | causal                          | non-causal                    | no association                       
 | Role of $\color{violet}{Z}$              | Mediator                        | Confounder                      | Collider
 | Adjustment of $\color{violet}{Z}$           | Blocks causal path       | Blocks non-causal path | Opens non-causal path
 
@@ -190,7 +190,7 @@ plot(DAG_Fork)
 In this simple graph, we can now focus on specific aspects.
 
 ```{r graph2, echo=FALSE}
-message <- "Apart from the direct effect via $X \\rightarrow Y$, there is also the non-causal $X \\leftarrow Z \\rightarrow Y$. Here, the **area** is a **confounder**."
+message <- "Apart from the direct effect via $X \\rightarrow Y$, there is also the non-causal $X \\leftarrow Z \\rightarrow Y$. Here, **area** is a **confounder**."
 question("Suppose we are interested in the relationship between the number of rooms and the price, given the area.
 Which structure does the subgraph correspond to?",
          answer("Chain"),
@@ -243,7 +243,7 @@ lm(price ~ rooms + livingArea, data = SaratogaHouses)
 ```
 
 Given the <violet>living area</violet>, the effect of the <green>number of rooms</green> on the <blue>price</blue> is much smaller. 
-Instead of an estimated slope of $\hat{\beta}_1=`r round(coef(erglm1))[2]`$ in the model *without* accounting for <violet>living area</violet>, we find  $\hat{\beta}_1=`r round(coef(erglm2))[2]`$ *with* accounting it.
+Instead of an estimated slope of $\hat{\beta}_1=`r round(coef(erglm1))[2]`$ in the model *without* accounting for <violet>living area</violet>, we find  $\hat{\beta}_1=`r round(coef(erglm2))[2]`$ *with* accounting for it.
 
 Even though this is still a highly simplified model, the estimated causal effect of the number of rooms on price is at least more realistic in the model with living area (`price ~ rooms + livingArea`) than in the one without (`price ~ rooms`).
 Of course, there may be additional confounders that should be taken into account.
