@@ -62,7 +62,7 @@ In this module you will learn:
 
 ## The non-traveled path
 
-When (retrospectively) assessing actions, we often ask ourselves: *What would it have been like if I had made a different decision?*
+When (retrospectively) assessing actions, we often ask ourselves: *What would it have been like if I something had been different?*
 
 For example, assessing the human impact on climate change: what would global warming have been like if the industrialization had not occurred?
 
@@ -127,7 +127,7 @@ question("What is the counterfactual when it comes to climate change?",
 Many people are familiar with this consideration: You study for an exam, for example, a total of 10 hours. 
 You achieve a good grade in the exam, let's say 50 points.
 
-*"If I had studied more, maybe 20 hours, I would have achieved an even better, a very good grade."*.
+*"If I had studied more, maybe 20 hours, I would have achieved an even better, a very good grade."*
 
 Let us assume the following highly simplified causal diagram:
 
@@ -160,13 +160,13 @@ Let's make an additional simplifying assumption:
 
 $$f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$$
 
-This says that the mean of $\color{blue}{Y}$ (exam points) increases by $2$ units with each unit of $\color{green}{X}$ (hours learned). In this case, the mean value of $U_{\color{blue}{Y}$ is zero.
+This says that the mean of $\color{blue}{Y}$ (exam points) increases by $2$ units with each unit of $\color{green}{X}$ (hours learned). In this case, the mean value of $U_{\color{blue}{Y}}$ is zero.
 
 ```{r erwartung, echo=FALSE}
 question("What value for $Y$ do you expect for someone who studied for $x'=10$ hours?",
          answer("$0$"),
          answer("$10$"),
-         answer("$20$", correct = TRUE, message = "If we expect a value of $0$ for $U_Y$ (the average), then the expected value of $Y$ when $x'=10$ is $2\\cdot 10 = $20$."),
+         answer("$20$", correct = TRUE, message = "If we expect a value of $0$ for $U_Y$ (the average), then the expected value of $Y$ when $x'=10$ is $2 \\cdot 10$ = $20$."),
          answer("$30$"),
          allow_retry = TRUE,
          correct = random_praise(),
@@ -184,21 +184,21 @@ We assume the following:
 - $\color{green}{X} = U_{\color{green}{X}}$
 - $\color{blue}{Y} = f_{\color{blue}{Y}}(\color{green}{X},U_{\color{blue}{Y}}) = 2 \cdot \color{green}{X} + U_{\color{blue}{Y}}$
 
-*"You spend 10 hours studying for an exam. You achieve a good grade in the exam, let's say 50 points. "*.
+*"You spend 10 hours studying for an exam. You achieve a good grade in the exam, let's say 50 points."*
 
-So now we know what we have observed for you: $\color{green}{x'}=10$ und $\color{blue}{y'}=50$.
+So now we know what we have observed for you: $\color{green}{x'}=10$ and $\color{blue}{y'}=50$.
 
 Thus, we also know:
 
 - $U_{\color{green}{x'}}=10$
 - $U_{\color{blue}{y'}}=\color{blue}{y'}-2\cdot \color{green}{x'}= 50 - 2 \cdot 10 = 30$
 
-*In other words:* We used the observed data $\color{green}{x'}, \color{blue}{y'}$ to update our knowledge of $U_{\color{green}{X}$ and $U_{\color{blue}{Y}$.
+*In other words:* We used the observed data $\color{green}{x'}, \color{blue}{y'}$ to update our knowledge of $U_{\color{green}{X}}$ and $U_{\color{blue}{Y}}$.
 
 
 ## Action
 
-*"If I had studied more, for example 20 hours... "*.
+*"If I had studied more, for example 20 hours... "*
 
 Now we want to know what would be the effect of an action in terms of $do(\color{green}{x}=20)$, that is, instead of 
 
