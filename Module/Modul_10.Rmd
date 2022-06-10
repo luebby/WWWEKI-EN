@@ -1,5 +1,5 @@
 ---
-title: "Module 10: Drawing and Reading Graphs"
+title: "Module 10: Drawing and reading graphs"
 output: 
   learnr::tutorial:
     language: 
@@ -56,13 +56,13 @@ GPG <- data.frame(
 
 In this module you will learn to:
 
-- draw a graph based on assumptions about the causal structure;
-- use the graph to draw the right consequences for causal inference;
+- draw a graph based on assumptions about the causal structure,
+- use the graph to draw the right consequences for causal inference,
 - run a simulation for the gender pay gap in R.
 
 ## A headline
 
-A headline from 11/16/2020 reads ([Link](https://www.zeit.de/news/2020-11/16/frauen-im-board-von-dax-firmen-verdienen-mehr-als-maenner)): 
+A headline from 11.16.2020 reads ([Link](https://www.zeit.de/news/2020-11/16/frauen-im-board-von-dax-firmen-verdienen-mehr-als-maenner)): 
 
 > Women on company boards are better paid than men
 
@@ -83,12 +83,12 @@ And this is what you have learned in this course &#127942;
 
 Here are our qualitative assumptions of the data generating process:
 
-1. *ability* for the job is independent of *gender*.
+1. *Ability* for the job is independent of *gender*.
 
-2. whether someone gets on the *board* depends on *ability* and *gender*. 
+2. Whether someone gets on the *board* depends on *ability* and *gender*. 
 There can be a wide variety of explanations for the latter: For example, it may be that women are less likely to be promoted to such positions; it may also be that they are less interested in such positions.
 
-3. someone's *salary* depends on their *ability*, on whether they are on the *board*, and at least potentially also on *gender*.
+3. Someone's *salary* depends on their *ability*, on whether they are on the *board*, and at least potentially also on *gender*.
 
 
 ```{r pfeil1, echo=FALSE}
@@ -124,9 +124,9 @@ question("Is there an arrow between *ability* and *board*?",
 Use either DAGitty or pen and paper to draw a causal graph that encodes the following assumptions:
 
 
-1.  *ability* for the job is independent of *gender*
-2. whether someone gets on the *board* depends on *ability* and *gender*
-3. the *salary* a person gets depends on *ability*, *board* membership and *gender*
+1.  *Ability* for the job is independent of *gender*
+2. Whether someone gets on the *board* depends on *ability* and *gender*
+3. The *salary* a person gets depends on *ability*, *board* membership and *gender*
 
 *Press `Next` once you are done with the graph*
 
@@ -136,9 +136,9 @@ Use either DAGitty or pen and paper to draw a causal graph that encodes the foll
 
 ![](images/GPG-1.png){width="65%"}
 
-1. *ability* is independent of *gender*. Therefore no arrow between these variables.
-2. whether someone gets on the *board* depends on *ability* and *gender*. Therefore, we add arrows from *gender* to *board* and from *ability* to *board*.
-3. the *salary* a person gets depends on the *ability*, on *board* membership and on  *gender*. Therefore, one arrow each from *ability*, *board* and *gender* to *salary*.
+1. *Ability* is independent of *gender*. Therefore no arrow between these variables.
+2. Whether someone gets on the *board* depends on *ability* and *gender*. Therefore, we add arrows from *gender* to *board* and from *ability* to *board*.
+3. The *salary* a person receives depends on the *ability*, on *board* membership and on  *gender*. Therefore, one arrow each from *ability*, *board* and *gender* to *salary*.
 
 
 ```{r collider, echo=FALSE}
@@ -227,7 +227,7 @@ GPG <- data.frame(
 datatable(GPG)
 ```
 
-## Analyse 1
+## Analysis 1
 
 As constructed according to our assumptions: 
 
@@ -253,7 +253,7 @@ mean(salary ~ gender, data = GPG)
 
 As constructed: 
 
-Men earn on average `r round(mean(salary ~ gender, data = GPG))[1]` more than women, whose average salary here is `r round(mean(salary ~ gender, data = GPG))[2]`.
+Men earn on average `r round(mean(salary ~ gender, data = GPG))[2]` -- more than women, whose average salary here is `r round(mean(salary ~ gender, data = GPG))[1]`.
 
 ## Analysis
 
@@ -304,11 +304,9 @@ As discussed in Module 6:
 
 Adjusting a collider (board membership) creates a bias, an illusory context is created that distorts the effect of genders on salary. This can be nicely shown with [DAGitty](http://dagitty.net/):
 
+Press on the gender node and mark it as the *exposure* (in the variable panel on the left). Mark the salary node as the *outcome* and the *board* node as *adjusted.* DAGitty will then change the color of the arrows, highlighting those that bias the effect estimate in red.
+
 ![](images/GPG-2.png){width="75%"}
-
-The following vidoeo shows a short introduction to the operation of DAGitty using this example:
-
-![](https://vimeo.com/666725243){width="75%"}
 
 
 ## Note
