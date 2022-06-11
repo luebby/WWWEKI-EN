@@ -93,7 +93,7 @@ library(mosaic)
 
 In this module you will learn:
 
-- what data interrogation can look like in practice;
+- what critical data interrogation can look like in practice,
 
 - what else there is to learn about causal inference beyond the basics.
 
@@ -103,7 +103,7 @@ In this module you will learn:
 
 Correlation does not imply causality &ndash; and no correlation does not imply no causality.
 
-[Bueno de Mesquita und Fowler (2021)](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data) put it like this:
+[Bueno de Mesquita and Fowler (2021)](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data) put it like this:
 
 $$
 Observed \, correlation = Causal\,effect + Bias + Noise
@@ -111,7 +111,7 @@ $$
 
 We hope that this course with its examples has helped you think more clearly about systematic *bias* and how it can be addressed.
 
-*Noise* arises from additional (random, unsystematic) sampling variation and is a topic that is covered in more depth in courses on statistics.
+*Noise* arises from additional (random, unsystematic) sampling variation and is a topic that is covered in more depth in many statistic courses.
 
 ## The problem with simplified examples
 
@@ -184,10 +184,10 @@ p1
 ```
 </center>
 
-Studies that adjust for nausea as a variable on a potentially confounding pathway ($coffee \leftarrow nausea \leftarrow U \rightarrow miscarriage$) tend to find weaker associations between coffee consumption and miscarriage risk.
+Studies that adjust for nausea as a variable on a potentially confounding pathway ($Coffee \leftarrow Nausea \leftarrow U \rightarrow Miscarriage$) tend to find weaker associations between coffee consumption and miscarriage risk.
 
 The idea that nausea is on a confounding pathway is also supported by the fact that studies overall find less consistent associations between miscarriage and consumption of other caffeinated beverages (e.g., tea or cola).
-While these contain caffeine, they are often found to be less revolting for pregnant women suffering from nausea.
+While these contain caffeine, they are often found to be less revolting by pregnant women suffering from nausea.
 
 All things considered, the [American College of Obstetricians and Gynecologist (2020)](https://www.acog.org/clinical/clinical-guidance/committee-opinion/articles/2010/08/moderate-caffeine-consumption-during-pregnancy) concludes that moderate caffeine consumption (less than 200mg per day) does not appear to be a risk factor.
 At this point in time, no firm conclusion can be drawn regarding larger doses of caffeine in pregnancy.
@@ -240,7 +240,7 @@ p2
 People differ from birth in certain factors that are influenced by genes.
 For example, some people are particularly susceptible to infections, others are more fortunate and have fitter immune systems.
 
-We have summarized all such differences here under the label *Intrinsic robustness*.
+We have summarized all such differences here under the label *intrinsic robustness*.
 
 Now we are interested in how much the society we live in (traditional hunter-gatherer vs. modern) influences whether we live to see our 70th birthday &ndash; independent of the effects on survival to the 5th birthday.
 
@@ -261,13 +261,13 @@ If we calculate life expectancy for a person who has reached age 5, separately f
 But this is a collider on the path between "Intrinsic Robustness" and "Type of Society."
 Thus, our analyses lead to a non-causal correlation between intrinsic robustness and type of society.
 
-The comparison of the two life expectancies conditional on survival to age 5 is thus a biased estimator for the direct effect of "type of society" on "to 70 survival."
+The comparison of the two life expectancies conditional on survival to age 5 is thus a biased estimator for the direct effect of "type of society" on "survival into old age."
 
 On a substantive level, this is actually quite intuitive. 
 Anyone who survives a few years in a society with numerous risks to survival must be relatively robust by disposition.
 Those who grow up in a society with few risks and good health care have good chances of survival, even if they are affected by certain potential health vulnerabilities.
 
-The population of people over 5 in hunter-gatherer societies is thus "by design" quite different from the population of people over 5 in modern societies.
+The population of people over 5 in hunter-gatherer societies is thus quite different from the population of people over 5 in modern societies.
 A naive comparison of these two populations mixes effects of the type of society on survival with spurious correlations that are induced by the "selection filter" of survival into childhood.
 
 So from these data alone, we cannot yet draw any firm conclusions about the advantages or disadvantages of certain lifestyles for longevity.
@@ -280,6 +280,7 @@ However, to do so, we can't just compare different life expectancies -- we need 
 ## Outlook
 
 We hope that we were able to provide you with some tools to critically question causal inferences in practice.
+Here are a couple of helpful resources if you want to go into more depth:
 
 Judea Pearl, Madelyn Glymour and Nicholas P. Jewell. [Causal Inference in Statistics: A Primer](http://bayes.cs.ucla.edu/PRIMER/). This book provides a more thorough introduction to the basics that we covered throughout this course.
 
@@ -292,7 +293,7 @@ Richard McElreath. [Statistical Rethinking](https://xcelab.net/rm/statistical-re
 
 Ethan Bueno de Mesquita and Anthony Fowler. [Thinking Clearly with Data: A Guide to Quantitative Reasoning and Analysis](https://press.princeton.edu/books/paperback/9780691214351/thinking-clearly-with-data). This book also provides a great introduction to causal inference, albeit from a slightly different perspective. 
 
-Various other books that each tackle the topic from a slightly different perspective:
+Various other books that each tackle the topic, each with their own disciplinary perspective:
 
 Scott Cunningham. [Causal Inference: The Mixtape*](https://mixtape.scunning.com/).
 
@@ -300,7 +301,7 @@ Nick Huntington-Klein. [The Effect: An Introduction to Research Design and Causa
 
 Miguel A. Hernán and James M. Robins. [Causal Inference: What If*](https://www.hsph.harvard.edu/miguel-hernan/causal-inference-book/).
 
-All books marked with an asterix are available online, for free.
+*All books marked with a star are available online, for free.*
 
 <br>
 
