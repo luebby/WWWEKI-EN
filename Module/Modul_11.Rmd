@@ -76,7 +76,7 @@ rankdir = LR;
 
 In this module you will learn:
 
-- how to determine a causal effect using linear regression in `R` based on a real-world example;
+- how to determine a causal effect using linear regression in `R` based on a real-world example,
 - how to determine which variables need to be adjusted in practice.
 
 
@@ -163,7 +163,7 @@ gf_boxplot(expiratory_volume ~ smoking, data = LV) %>%
 ```{r median, echo=FALSE}
 question("Which of the two groups has the higher median expiratory volume?",
   answer("Those who do not smoke."),
-  answer("Those who do smoke.", correct = TRUE, message = "The median volume for non-smokers is at ca. 2.5 l, for smokers it is at ca. 3.2 l."),
+  answer("Those who do smoke.", correct = TRUE, message = "The median volume for non-smokers is at ca. 2.5 liters, for smokers it is at ca. 3.2 liters."),
   allow_retry = TRUE,
   correct = random_praise(),
   incorrect = random_encouragement())
@@ -187,7 +187,7 @@ Why could that be the case?
 
 ## The role of age
 
-Of course there is also an association between body height and expiratory volume:
+Of course, there is also an association between body height and expiratory volume -- taller bodies have bigger lungs:
 
 
 ```{r, message=FALSE}
@@ -249,7 +249,7 @@ So these paths should be *blocked* through third-variable adjustment.
 
 
 ```{r chain, echo=FALSE}
-question("Shoudl we additionally adjust for `height`?",
+question("Should we additionally adjust for `height`?",
   answer("Yes."),
   answer("No.", correct = TRUE, message = "The variable `height` is on the causal path (*chain*) between `smoking` and `expiratory_volume` (*mediator*). Such mediators should not be adjusted. What would happen here if we included it in the model anyway? We would adjust away real differences caused by smoking and thereby underestimate the total effects of smoking on expiratory volume."),
          allow_retry = TRUE,
@@ -281,7 +281,7 @@ lm(expiratory_volume ~ smoking + gender + age, data = LV) %>%
 
 ```{r effekt, echo=FALSE}
 question("In this model, does smoking have the expected negative effect on expiratory volume?",
-  answer("Yes.", correct = TRUE, message = "The estimated coefficient (`estimate`) for the variable of interest (`smokingyes `) is negative $-0.153974$ ."),
+  answer("Yes.", correct = TRUE, message = "The estimated coefficient (`estimate`) for the variable of interest (`smokingyes `) is negative, $-0.153974$ ."),
   answer("No."),
   allow_retry = TRUE,
   correct = random_praise(),
@@ -305,25 +305,25 @@ Of course, for the relationship between smoking and expiratory volume, you could
 If we assume such a larger graph, would we always have to adjust for all confounders?
 
 
-In fact, there are some situations where unbiased effects can be estimated even with fewer control variables.
-This is because sometimes single variables lie on multiple confounding paths.
+In fact, there are some situations in which unbiased effects can be estimated even with fewer control variables.
+This is because sometimes individual variables lie on *multiple* confounding paths.
 Thus, accounting for a single variable can sometimes solve several "problems" at once.
 
 
 Whether the adjustment for a set of variables (for an *adjustment set*) is sufficient to identify a causal effect of interest can be determined using, among other things, the so-called *back-door criterion*.
-If you are interested in the precise formulation of this criterion, you can learn about it in Judea Pearl's article ["Causal Diagrams for Empirical Research"](http://bayes.cs.ucla.edu/R218-B.pdf). 
-Exemplary examples for the effects of control variables are provided in ["A Crash Course in Good and Bad Controls"](https://ftp.cs.ucla.edu/pub/stat_ser/r493.pdf) by Cinelli et al.
+If you are interested in the precise formulation of this criterion, you can learn about it in Judea Pearl's article ["Causal Diagrams for Empirical Research"](http://bayes.cs.ucla.edu/R218-B.pdf).  Illustrative examples for the effects of control variables are provided in ["A Crash Course in Good and Bad Controls"](https://ftp.cs.ucla.edu/pub/stat_ser/r493.pdf) by Cinelli et al.
 
 
 Sufficient adjustment sets can be determined algorithmically, which is quite convenient once graphs get more complex.
-For example, if you draw the assumed causal graph in [DAGitty](http://dagitty.net/) (see Module 10), the software automatically determines all existing *minimally sufficient adjustment sets*, i.e. the smallest possible adjustment sets that are sufficient to identify the causal effect. 
+For example, if you draw the assumed causal graph in [DAGitty](http://dagitty.net/) (see Module 10), the software automatically determines all existing *minimally sufficient adjustment sets.* 
+Those are the smallest possible adjustment sets that are still sufficient to identify the causal effect. 
 
 
 
 
 ## Note
 
-This module is partially based on the project [Causal Inference in Introductory Statistics Courses](https://github.com/kfcaby/causalLab) by [LTC Kevin Cummiskey](https://westpoint.edu/mathematical-sciences/profile/kevin_cummiskey). 
+This module is partially based on the project [Causal Inference in Introductory Statistics Courses](https://github.com/kfcaby/causalLab) by [Kevin Cummiskey](https://westpoint.edu/mathematical-sciences/profile/kevin_cummiskey). 
 See also Cummiskey, K., Adams, B,. Pleuss, J., Turner, D., Clark, N. \& Watts, K. (2020). *Causal Inference in Introductory Statistics Courses*, Journal of Statistics Education, [https://doi.org/10.1080/10691898.2020.1713936](https://doi.org/10.1080/10691898.2020.1713936).
 
 Data source is Kahn, M. (2005). *An exhalent problem for teaching statistics*. Journal of Statistics Education, 13(2), [https://doi.org/10.1080/10691898.2005.11910559](https://doi.org/10.1080/10691898.2005.11910559).
