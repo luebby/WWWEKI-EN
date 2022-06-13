@@ -38,12 +38,13 @@ about potential outcomes, counterfactuals, how to define causal effects, and why
 12. [Interrogating Data in Practice](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12_Em/) (In this module you will learn: what critical data interrogation can look like in practice, what else there is to learn about causal inference beyond the basics.)
 
 
-## Lizenz
+## Licence
 
-<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />Dieses Werk ist lizenziert unter einer <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Namensnennung - Weitergabe unter gleichen Bedingungen 4.0 International Lizenz</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/"><img alt="Creative Commons Lizenzvertrag" style="border-width:0" src="https://i.creativecommons.org/l/by-sa/4.0/88x31.png" /></a><br />
 
-## Förderung
 
-Das Vorhaben *Was, wie, warum? Einstiegskurs Kausale Inferenz (WWWEKI)* wird mit Mitteln des Bundesministeriums für Bildung und Forschung unter dem Förderkennzeichen 16DHBQP040 gefördert.
+## Note
+
+This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
 
 ![Logo BMBF](/images/csm_Logo-BMBF.jpg)
