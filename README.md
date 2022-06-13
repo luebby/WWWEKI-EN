@@ -35,7 +35,7 @@ about potential outcomes, counterfactuals, how to define causal effects, and why
 
 11. [ Does smoking harm adolescents?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_11_En/) (In this module you will learn: how to determine a causal effect using linear regression in `R` based on a real-world example, how to determine which variables need to be adjusted in practice.)
 
-12. [Interrogating Data in Practice](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12_Em/) (In this module you will learn: what critical data interrogation can look like in practice, what else there is to learn about causal inference beyond the basics.)
+12. [Interrogating Data in Practice](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12_En/) (In this module you will learn: what critical data interrogation can look like in practice, what else there is to learn about causal inference beyond the basics.)
 
 
 ## Licence
