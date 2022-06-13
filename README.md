@@ -1,50 +1,41 @@
 **This is a repo for an English version of [https://github.com/luebby/WWWEKI](https://github.com/luebby/WWWEKI)**
 
 
-## Projekt
+Please report any issues [here](https://github.com/luebby/WWWEKI/issues).
 
-Entwicklung eines MOOC für den [KI-Campus](https://ki-campus.org/) zum Einstieg in die Kausale Inferenz in Kooperation mit [Julia Rohrer](https://juliarohrer.com/) (Projektleitung), Universität Leipzig.
-
-Details siehe z.B. [FOM forscht Wissenschaftsblog](https://www.fom-blog.de/2021/07/einstiegskurs-kausale-inferenz-wird-gemeinsam-von-der-universitaet-leipzig-und-der-fom-hochschule-mit-einer-foerderung-durch-das-bmbf-entwickelt/).
-
-**Dieser Kurs ist aktuell noch in der Entwicklung!** 
-
-Hier fehlen auch die begleitenden Interviews mit angesehen Expert:innen aus unterschiedlichen Fachgebieten, die ihre kausalen Fragestellungen und Lösungsansätze vorstellen.
-
-Bitte melden Sie Fehler, Unklarheiten und Verbesserungsvorschläge [hier](https://github.com/luebby/WWWEKI/issues).
-
-**Literatur**:
+**References**:
 
 - Rohrer, J. M. (2018). Thinking clearly about correlations and causation: Graphical causal models for observational data. *Advances in Methods and Practices in Psychological Science*, 1(1), 27-42. [https://doi.org/10.1177%2F2515245917745629](https://doi.org/10.1177%2F2515245917745629)
 
 - Lübke, K., Gehrke, M., Horst, J., & Szepannek, G. (2020). Why we should teach causal inference: Examples in linear regression with simulated data. *Journal of Statistics Education*, 28(2), 133-139. [https://doi.org/10.1080/10691898.2020.1752859](https://doi.org/10.1080/10691898.2020.1752859)
 
 
-## Modulübersicht
+## Tutorials
 
-1. [An der Weggabelung: Einen Weg gehen - und einen nicht](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_01/) (Potential Outcome und Counterfactual)
+1. [A fork in the road: Walking one way – and not the other](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_01_En/) (In this module, you will learn:
+about potential outcomes, counterfactuals, how to define causal effects, and why causal inference is so challenging.)
 
-2. [Ein Pfeil zeigt die Richtung](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_02/) (Strukturelle kausale Modelle und Kausale Diagramme)
+2. [An arrow shows the way](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_02_En/) (In this module, you will learn: about cause and effect, the basic of causal graphs: the meaning of an arrow, and of parents and children, about causal models, and the difference between observing and doing in the context of causal inference.)
 
-3. [Daten analysieren - mit welchem Ziel?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03/) (Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz), Kausale Leiter (Assoziation, Intervention, Counterfactual))
+3. [Analysing data - with which goal?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_03_En/) (In this module you will learn: how to distinguish between description, prediction, and causal inference, why thisd istinction is important and more about the causal ladder.))
 
-4. [Es steht was zwischen uns](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04/) (Kette)
+4. [There is something between us](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_04_En/) (In this module you will learn: about causal chains, mediators, and that sometimes it is better not to consider certain variables in the analysis.)
 
-5. [Von Störchen und Geburten](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_05/) (Gabel)
+5. [Storks and babies](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_05_En/) (In this module you will learn: about causal forks, confounders, and that common causes often lead to confusion.)
 
-6. [Nett oder schön? &ndash; Warum nicht beides?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_06/) (Umgedrehte Gabel)
+6. [Kind or handsome? Why not both?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_06_En/) (In this module you will learn: about inverted forks, colliders, and that we sometimes unintentionally create associations where there are none.)
 
-7. [Warum Raumteilung keine gute Investition ist](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_07/) (Wiederholung Grundelemente Kausaler Diagramme, Unterschied (do(x) vs. X=x am Beispiel)
+7. [Why splitting rooms is not a good investment](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_07_En/) (In this module you will learn: that an observation does not always allow us to derive a suitable action.)
 
-8. [Magie durch Zufall](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_08/) (Zufällige Stichprobe und zufällige Zuordnung im Rahmen eines Experiments und die Auswirkungen auf die Datenanwendungen (Beschreibung, Vorhersage, Kausale Inferenz) )
+8. [Randomness is Magic](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_08_En/) (In this module you will learn more about: the different data requirements for description and prediction, the advantages of randomly drawn samples, and the advantages of random assignment in the context of experiments.)
 
-9. [Was wäre gewesen, wenn?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_09/) (Counterfactual)
+9. [What would have been, if...?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_09_En/) (In this module you will learn: how to determine counterfactuals.)
 
-10. [Graphen zeichnen und lesen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_10/) (Beispiel Gender-Pay-Gap)
+10. [Drawing and reading graphs](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_10_En/) (In this module you will learn to: draw a graph based on assumptions about the causal structure, use the graph to draw the right consequences for causal inference, run a simulation for the gender pay gap in R.)
 
-11. [Schadet Rauchen bei Heranwachsenden?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_11/) (Anwendungsbeispiel Kausale Inferenz in der Medizin.)
+11. [ Does smoking harm adolescents?](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_11_En/) (In this module you will learn: how to determine a causal effect using linear regression in `R` based on a real-world example, how to determine which variables need to be adjusted in practice.)
 
-12. [Praktisches Daten hinterfragen](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12/) (DAGs in der Anwendung, Ausblick)
+12. [Interrogating Data in Practice](https://fomshinyapps.shinyapps.io/WWWEKI_Modul_12_Em/) (In this module you will learn: what critical data interrogation can look like in practice, what else there is to learn about causal inference beyond the basics.)
 
 
 ## Lizenz
