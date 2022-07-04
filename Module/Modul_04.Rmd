@@ -88,7 +88,7 @@ The following example is fictitious &ndash; and a very strong simplification. Mo
 
 ***
 
-Suppose <green>learning</green> ($\color{green}{X}$) leads to <violet>knowledge</violet> ($\color{violet}{Z}$), that is, by learning you acquire knowledge. Furthermore, <violet>knowledge</violet> ($\color{violet}{Z}$) leads to <blue>understanding</blue> ($\color{blue}{Y}$), i.e., through your knowledge you come to an understanding.
+Suppose <green>learning</green> <nobr>($\color{green}{X}$)</nobr> leads to <violet>knowledge</violet> <nobr>($\color{violet}{Z}$)</nobr>, that is, by learning you acquire knowledge. Furthermore, <violet>knowledge</violet> <nobr>($\color{violet}{Z}$)</nobr> leads to <blue>understanding</blue> <nobr>($\color{blue}{Y}$)</nobr>, i.e., through your knowledge you come to an understanding.
 
 If this highly simplified model is correct, then the assumption can be represented in a causal graph:
 
@@ -193,7 +193,7 @@ question("What happens when you observe higher values of learning (`x`)?",
 
 Instead of just observing ($\color{green}{X} = U_{\color{green}{X}}$), we can also simulate an intervention where we set values ($do(\color{green}{X}=x)$).
 
-In the code example, $do(\color{green}{X}=1)$. 
+In the code example: $do(\color{green}{X}=1)$. 
 Press `Run Code` a few times to see what the values of understanding ($\color{blue}{Y}$) look like in the case of $do(\color{green}{X}=1)$. 
 Then change the code to simulate $do(\color{green}{X}=10)$. 
 What happens? 
@@ -275,7 +275,7 @@ For $n=100$ simulated observations, the corresponding `R` code is:
 ```{r RSim, eval = FALSE}
 ## Preparation 
 library(mosaic) # load package
-set.seed(1896) # fix random number generator to ensure reproducibility
+set.seed(1896)  # fix random number generator to ensure reproducibility
 
 ## functions
 U_X <- function(n = 1) runif(n, min = 1, max = 10)
@@ -348,7 +348,7 @@ summary(ModelA)
 
 ## Linear regression, attempt 2
 
-But what happens if the mediator <violet> knowledge</violet>, $\color{violet}{Z}$, is included in the model?
+But what happens if the mediator <violet> knowledge</violet> ($\color{violet}{Z}$) is included in the model?
 Now the results change:
 
 ```{r lmmz}
