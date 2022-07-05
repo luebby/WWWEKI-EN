@@ -133,7 +133,7 @@ $$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
 
 Suppose: In summer, <violet>sunshine</violet> leads to an increase in both <green>ice cream</green> and <blue>sunscreen</blue> sales.
 <green>Ice cream</green> and <blue>sunscreen</blue> are not independent: If I know that a lot of <green>ice cream</green> was sold, I can assume that a lot of <blue>sunscreen</blue> was sold as well. 
-Presumably, <violet>sunshine</violet> led to high <green>ice cream </green> sales and also to high <blue>sun cream</blue> sales. The relationship is observed when no other variables are taken into account -- it is also called *unconditional,* *marginal*.
+Presumably, <violet>sunshine</violet> led to high <green>ice cream </green> sales and also to high <blue>sunscreen</blue> sales. The relationship is observed when no other variables are taken into account -- it is also called *unconditional,* *marginal*.
 
 <green>Ice cream</green> tells us something about <violet>sunshine</violet> which tells us something about <blue>sunscreen</blue>.
 But if I know that there is <violet>sunshine</violet>, the information that a lot of <green>ice cream</green> has been sold contains no additional information about <blue>sunscreen</blue> sales. 
@@ -147,8 +147,8 @@ Both on the <green>weekend</green> and on <blue>vacation</blue>, people can <vio
 Let's assume that weekends and vacation are uncorrelated.
 <green>Weekend</green> and <blue>vacation</blue> will be (*unconditionally*, *marginally*) independent: 
 I learn nothing about <blue>vacation</blue> from the information <green>weekend</green>.
-But if I know that I can <violet>sleep in</violet>, I know that it is either the <green>weekend</green> or <blue>vacation</blue> (or both).
-Conditional on <violet>sleeping in</violet>, I learn from the information that there was no <blue>vacation</blue> that it is probably the <green>weekend</green>.
+But if I know that I can <violet>sleep in</violet>, I know that it is either <green>weekend</green> or <blue>vacation</blue> (or both).
+Conditional on <violet>sleeping in</violet>, I learn from the information that there was no <blue>vacation</blue>, that it is probably <green>weekend</green>.
 There must be a reason for my sleeping in.
 *Conditionally*, given <violet>sleeping in</violet>, <green>weekend</green> and <blue>vacation</blue> are thus no longer independent.
 
@@ -177,8 +177,8 @@ The following `R` code simulates this data generating mechanism:
 
 ```{r sim, eval=FALSE}
 library(mosaic) # load package
-set.seed(1896) # set random seed for reproducibility
-n <- 100 # number of observations
+set.seed(1896)  # set random seed for reproducibility
+n <- 100        # number of observations
 
 SimData <- tibble(x = rnorm(n),                               # X 
                   y = rnorm(n),                               # Y
@@ -210,13 +210,13 @@ If, separately for the two levels of <violet>date</violet> ($\color{violet}{Z}$)
 gf_point(y ~ x, data = SimData, color = ~z) %>%
   gf_lm() +
   scale_color_colorblind() +
-  xlab("x (kindness)") +
-  ylab("y (looks)")
+  xlab("X (kindness)") +
+  ylab("Y (looks)")
 ```
 
 ```{r corb, echo=FALSE}
 message <- "The regression line goes from top left to bottom right. This indicates a negative correlation. Those dates who are particularly good looking are not particularly kind &ndash; and vice versa."
-question("For those you have dated (`z = Yes`): Do you see a correlation between kindness `x` and looks `y`?", 
+question("For those you have dated (`Z = Yes`): Do you see a correlation between kindness `X` and looks `Y`?", 
          answer("Yes", correct = TRUE, message = message),
          answer("No"),
          allow_retry = TRUE,
@@ -239,7 +239,7 @@ gf_point(y ~ x, data = SimData) %>%
 
 ***
 
-*Note:* The fact that the straight line here is not completely parallel to the x-axis is due to random variation. Even if there is no correlation between the variables in the data generating process ($\rho=0$), there may be one in a (simulated) sample ($r\neq0$).
+***Note:*** The fact that the straight line here is not completely parallel to the x-axis is due to random variation. Even if there is no correlation between the variables in the data generating process ($\rho=0$), there may be one in a (simulated) sample ($r\neq0$).
 
 ***
 

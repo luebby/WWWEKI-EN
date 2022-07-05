@@ -93,7 +93,7 @@ library(mosaic)
 
 In this module you will learn:
 
-- what critical data interrogation can look like in practice,
+- what critical data interrogation can look like in practice, and
 
 - what else there is to learn about causal inference beyond the basics.
 
@@ -184,7 +184,7 @@ p1
 ```
 </center>
 
-Studies that adjust for nausea as a variable on a potentially confounding pathway ($Coffee \leftarrow Nausea \leftarrow U \rightarrow Miscarriage$) tend to find weaker associations between coffee consumption and miscarriage risk.
+Studies that adjust for nausea as a variable on a potentially confounding pathway <nobr>($Coffee \leftarrow Nausea \leftarrow U \rightarrow Miscarriage$)</nobr> tend to find weaker associations between coffee consumption and miscarriage risk.
 
 The idea that nausea is on a confounding pathway is also supported by the fact that studies overall find less consistent associations between miscarriage and consumption of other caffeinated beverages (e.g., tea or cola).
 While these contain caffeine, they are often found to be less revolting by pregnant women suffering from nausea.
@@ -203,7 +203,7 @@ At this point in time, no firm conclusion can be drawn regarding larger doses of
 
 Here is an example that has already come up in the interview with Richard McElreath.
 
-Consistent evidence suggests that in prehistoric hunter-gatherer societies, life expectancy at birth was much lower than it is today, at about 25 years.
+Consistent evidence suggests that in prehistoric hunter-gatherer societies, life expectancy at birth was much lower &ndash; at about 25 years &ndash; than it is today.
 
 However, some people argue that this low figure is primarily due to high infant and child mortality.
 If prehistoric people made it to adolescence, they often survived to old age.
@@ -274,7 +274,7 @@ So from these data alone, we cannot yet draw any firm conclusions about the adva
 
 An experiment in which we randomly assign children who have reached a certain age to grow up in a different type of society is of course only feasible as a thought experiment.
 But we could try to approximate the outcome of such an experiment with available observational data.
-However, to do so, we can't just compare different life expectancies -- we need to start to take additional third variables into account, such as the existince of certain potential health vulnerabilities.
+However, to do so, we can't just compare different life expectancies -- we need to start to take additional third variables into account, such as the existence of certain potential health vulnerabilities.
 
 
 ## Outlook

@@ -57,7 +57,7 @@ GPG <- data.frame(
 In this module you will learn to:
 
 - draw a graph based on assumptions about the causal structure,
-- use the graph to draw the right consequences for causal inference,
+- use the graph to draw the right consequences for causal inference, and
 - run a simulation for the gender pay gap in R.
 
 ## A headline
@@ -128,7 +128,7 @@ Use either DAGitty or pen and paper to draw a causal graph that encodes the foll
 2. Whether someone gets on the *board* depends on *ability* and *gender*
 3. The *salary* a person gets depends on *ability*, *board* membership and *gender*
 
-*Press `Next` once you are done with the graph*
+*Press `Next Topic` once you are done with the graph*
 
 ##
 
@@ -171,7 +171,7 @@ xpnorm(130, mean = 100, sd = 15, return = "plot") %>% gf_labs(title = "Board mem
 
 
 4. `salary` depends on `ability` ($\cdot 10$). It is twice as high in the `board` and an additional $5\%$ higher for men. More able people earn more, board members earn more, and men earn more.
-$$\text{salary} = \text{ability} \cdot 10 \cdot \begin{cases}2, \,\text{if board} \\ 1, \,\text{otherwise} \end{cases} \cdot \begin{cases}1.05, \,\text{ist male} \\ 1, \,\text{otherwise} \end{cases}.$$
+$$\text{salary} = \text{ability} \cdot 10 \cdot \begin{cases}2, \,\text{if board} \\ 1, \,\text{otherwise} \end{cases} \cdot \begin{cases}1.05, \,\text{ist male} \\ 1, \,\text{otherwise} \end{cases}$$
 ```{r plotme2, echo=FALSE, fig.align='center', out.width="60%", message=FALSE}
 mov <- data.frame(x1 = 50, x2 = 115, y1 = 50*10*1.05, y2=115*10*1.05)
 miv <-  data.frame(x1 = 115, x2 = 150, y1 = 115*10*2*1.05, y2=150*10*2*1.05)
@@ -255,7 +255,7 @@ As constructed:
 
 Men earn on average `r round(mean(salary ~ gender, data = GPG))[2]` -- more than women, whose average salary here is `r round(mean(salary ~ gender, data = GPG))[1]`.
 
-## Analysis
+## Analysis 2
 
 What happens if we restrict ourselves to board members, i.e., we select (`filter`) only the observations that satisfy the condition that they are in the board (`board == "y"`):
 

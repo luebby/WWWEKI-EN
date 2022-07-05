@@ -76,7 +76,7 @@ rankdir = LR;
 
 In this module you will learn:
 
-- how to determine a causal effect using linear regression in `R` based on a real-world example,
+- how to determine a causal effect using linear regression in `R` based on a real-world example, and
 - how to determine which variables need to be adjusted in practice.
 
 
@@ -143,7 +143,7 @@ datatable(LV)
 
 ##
 
-Because of substantive considerations, we assume the following causal relationships between variables:
+Because of substantive considerations, we assume the following causal relationships between the variables:
 
 ```{r, echo=FALSE}
 p1

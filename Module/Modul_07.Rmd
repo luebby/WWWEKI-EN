@@ -121,7 +121,7 @@ question("In the linear model describing the sample, by how much does the price 
 
 ##
 
-If a house has 4 separated rooms according to the floor plan, <green>number of rooms</green> (`rooms`) is $\color{green}{x}=\color{green}{4}$.
+If a house has 4 separated rooms according to the floor plan, <green>number of rooms</green> (`rooms`), is $\color{green}{x}=\color{green}{4}$.
 
 Thus, the estimated price is
 

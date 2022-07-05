@@ -65,7 +65,7 @@ DAG_ModellS <- dagify(X ~ Z,
                      S ~ D,
                      coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c( "#808000", "#0F710B", "#DA70D6","Black","#0000FF")) + 
+  geom_dag_point(colour = c("#808000", "#0F710B", "#DA70D6","Black","#0000FF")) + 
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -144,7 +144,7 @@ gf_bar(~ Overweight | breastfeeding , data = d2,
 As you can see: Children of women who <green>breastfed</green> exclusively for at least four months were less likely to be <blue>overweight</blue> at age six than children who weren't breastfed &ndash; in this fictive study.
 
 
-This is level of **description** (see Module 3).<br>
+This is the level of **description** (see Module 3).<br>
 To reach the levels ***prediction*** and ***causal inference*** we need more. 
 A helpful trick for this has been known by statisticians and scientists for a long time.
 
@@ -157,7 +157,7 @@ Let us start with a highly simplified model in which we assume the following cau
 
 - But <blue>overweight</blue> also depends on the level of education of the mother, here assessed with whether or not the mother is a college <violet>graduate</violet>.
 
-- <green>Breastfeeding</green> (<purple>Yes</purple>, <orange>No</orange>) could also potentially depend on whether or not the mother is a college <violet>graduate</violet> ist.
+- <green>Breastfeeding</green> (<purple>Yes</purple>, <orange>No</orange>) could also potentially depend on whether or not the mother is a college <violet>graduate</violet>.
 
 This results in the following causal graph:
 
@@ -447,7 +447,7 @@ question("Do the headline data alone suggest that breastfeeding is correlated wi
 
 ##
 
-Knowing how many <purple>breastfed</purple> children did become overweight is nice, but we still lack at least a comparison to  children who were <orange>not breastfed</orange>.
+Knowing how many <purple>breastfed</purple> children did not become overweight is nice, but we still lack at least a comparison to  children who were <orange>not breastfed</orange>.
 
 In the fictitious study, as reported in the headline, the probability of overweight is $\color{purple}{`r poverweightbreastfeeding`}$ for <purple>breastfed</purple> children, and it is $\color{orange}{`r poverweightkbreastfeeding`}$ for children who were <orange>not breastfed</orange>.
 
@@ -497,7 +497,7 @@ But: Graduates <purple>breastfeed</purple> more often than non-graduates &ndash;
 
 ## Randomized experiment
 
-Assuming the causal model with only one confounder (here: graduate), we could simply adjust for this variable, as we have already learned.
+Assuming the causal model with only one confounder (here: <violet>graduate</violet>), we could simply adjust for this variable, as we have already learned.
 But what if we did not collect the variable in our data? Then we wouldn't be able to adjust for it.
 
 

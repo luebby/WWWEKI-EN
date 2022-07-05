@@ -136,7 +136,7 @@ We can calculate the individual level causal effect $\color{orange}{\Delta}_i$ i
 
 ***
 
-*Note:* `R` is a free statistical programming language. 
+***Note:*** `R` is a free statistical programming language. 
 You can download it via [https://cran.r-project.org/](https://cran.r-project.org/). 
 To make it a bit easier to use, we can recommend `RStudio Desktop` ([https://www.rstudio.com/products/rstudio/download/](https://www.rstudio.com/products/rstudio/download/)). 
 In this module, we also make use of the package `mosaic` ([https://cran.r-project.org/package=mosaic)](https://cran.r-project.org/package=mosaic)).
@@ -245,7 +245,7 @@ mean( ~ effect, data = course)
 
 ***
 
-*Note:* The `mosaic` syntax works the following way:
+***Note:*** The `mosaic` syntax works the following way:
 
 ```{r mosaic1, eval=FALSE}
 analyse(y ~ x, data = dat)

@@ -127,7 +127,7 @@ question("What is the counterfactual when it comes to climate change?",
 Many people are familiar with this consideration: You study for an exam, for example, a total of 10 hours. 
 You achieve a good grade in the exam, let's say 50 points.
 
-*"If I had studied more, maybe 20 hours, I would have achieved an even better, a very good grade."*
+*"If I had studied more, maybe 20 hours, I would have achieved an even better &ndash; a very good &ndash; grade."*
 
 Let us assume the following highly simplified causal diagram:
 
@@ -200,7 +200,7 @@ Thus, we also know:
 
 *"If I had studied more, for example 20 hours... "*
 
-Now we want to know what would be the effect of an action in terms of $do(\color{green}{x}=20)$, that is, instead of 
+Now we want to know what the effect of an action in terms of $do(\color{green}{x}=20)$ would be, that is, instead of 
 
 $$\color{green}{X} = U_{\color{green}{X}}$$ 
 

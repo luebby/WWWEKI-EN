@@ -249,7 +249,7 @@ If the value of $\color{violet}{Z}$ is changed ($do(z)$), the values of $\color{
 
 ```{r fork, echo=FALSE}
 message <- "Changes are propagated in the direction of the arrow. An intervention on $\\color{green}{X}$ does *not* change the value of $\\color{violet}{Z}$ &ndash; and as a consequence, does not change the value of $\\color{blue}{Y}$."
-question("In the chain, does the value of $\\color{blue}{Y}$ change when there is an intervention on $\\color{green}{X}$ ($do(x)$)? ",
+question("In the fork, does the value of $\\color{blue}{Y}$ change when there is an intervention on $\\color{green}{X}$ ($do(x)$)? ",
          answer("Yes"),
          answer("No", correct = TRUE, message = message),
          allow_retry = TRUE,
@@ -268,7 +268,7 @@ If $\color{green}{X}$ is changed ($do(\color{green}{X}=\color{green}{x})$), the 
 In a **fork**, on the other hand, there is **no** causal path from $\color{green}{X}$ to $\color{blue}{Y}$:
 $$\color{green}{X} \leftarrow \color{violet}{Z} \rightarrow \color{blue}{Y}$$
 Although $\color{blue}{Y}$ still *listens* to $\color{violet}{Z}$, $\color{violet}{Z}$ no longer listens to $\color{green}{X}$, but the opposite is the case: $\color{green}{X}$ listens to $\color{violet}{Z}$. 
-If $\color{green}{X}$ is changed ($do(\color{green}{X}=\color{green}{x})$), the distribution of $\color{violet}{Z}$ does not change, neither does the distribution of $\color{blue}{Y}$.
+If $\color{green}{X}$ is changed <nobr>($do(\color{green}{X}=\color{green}{x})$),</nobr> the distribution of $\color{violet}{Z}$ does not change, neither does the distribution of $\color{blue}{Y}$.
 
 
 ## Adjustment
@@ -306,7 +306,7 @@ And, of course, there could still be additional confounders biasing this estimat
 To determine the causal effect of $X$ on $Y$ in a fork 
 $$X \leftarrow Z \rightarrow Y$$
 the confounder $Z$ must be taken into account. 
-If $Z$ is simply ignored, the fork remains open and a non-causal associations between $X$ and $Y$ distorts the analysis results.
+If $Z$ is simply ignored, the fork remains open and a non-causal association between $X$ and $Y$ distorts the analysis results.
 The confounder can be taken into account through various means -- for example, the variable can be included in a linear model, but we could also do stratified comparisons.
 If this adjustment is done properly, the fork is closed and no longer confounds the interpretation of the analysis.
 ::: 
