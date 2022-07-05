@@ -57,7 +57,7 @@ In this module you will learn:
 
 - how to distinguish between description, prediction, and causal inference,
 
-- why this distinction is important and
+- why this distinction is important, and
 
 - more about the causal ladder.
 

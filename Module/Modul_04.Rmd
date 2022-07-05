@@ -64,9 +64,9 @@ In this module you will learn:
 
 - about causal chains,
 
-- mediators,
+- mediators, and
 
-- and that sometimes it is better not to consider certain variables in the analysis.
+- that sometimes it is better not to consider certain variables in the analysis.
 
 ## One thing leads to another
 

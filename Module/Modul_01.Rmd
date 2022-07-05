@@ -54,9 +54,9 @@ In this module, you will learn:
 
 - **counterfactuals**,
 
-- how to define **causal effects**,
+- how to define **causal effects**, and
 
-- and why causal inference is so challenging.
+- why causal inference is so challenging.
 
 ## Individual level causal effects
 
