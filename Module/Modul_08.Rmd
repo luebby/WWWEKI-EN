@@ -449,17 +449,17 @@ question("Do the headline data alone suggest that breastfeeding is correlated wi
 
 Knowing how many <purple>breastfed</purple> children did not become overweight is nice, but we still lack at least a comparison to  children who were <orange>not breastfed</orange>.
 
-In the fictitious study, as reported in the headline, the probability of overweight is $\color{purple}{`r poverweightbreastfeeding`}$ for <purple>breastfed</purple> children, and it is $\color{orange}{`r poverweightkbreastfeeding`}$ for children who were <orange>not breastfed</orange>.
+In the fictitious study, as reported in the headline, the probability of not overweight is $\color{purple}{`r poverweightbreastfeeding`}$ for <purple>breastfed</purple> children, and it is $\color{orange}{`r poverweightkbreastfeeding`}$ for children who were <orange>not breastfed</orange>.
 
 Data were collected as part of an **observational study**, that is, mothers were simply asked about <green>breastfeeding</green> (<purple>Yes</purple> or <orange>No</orange>), and information about <blue>overweight</blue> was collected.
 
-A comparison of the proportion <blue>overweight</blue> according to <green>breastfeeding</green> reveals:
+A comparison of the proportion not <blue>overweight</blue> according to <green>breastfeeding</green> reveals:
 
 $$\color{purple}{`r poverweightbreastfeeding`}-\color{orange}{`r poverweightkbreastfeeding`}=`r (poverweightbreastfeeding-poverweightkbreastfeeding)`.$$
 
 ```{r beob2, echo=FALSE}
 message <- "Graduate is a confounder and lies on a non-causal path from breastfeeding to overweight."
-question("Does the observational study tell us that the average causal effect of breastfeeding on the probability of overweight is $0.36$?",
+question("Does the observational study tell us that the average causal effect of breastfeeding on the probability of not overweight is $0.36$?",
          answer("Yes"),
          answer("No", correct = TRUE, message = message),
 		allow_retry = TRUE,
@@ -569,7 +569,7 @@ pexp
 
 ```
 
-A comparison of the probabilities for <blue>overweight</blue> according to <green>breastfeeding</green> now yields the following estimate of the average causal effect:
+A comparison of the probabilities for not <blue>overweight</blue> according to <green>breastfeeding</green> now yields the following estimate of the average causal effect:
 
 $$\color{purple}{`r poverweightbreastfeedinge`}-\color{orange}{`r poverweightkbreastfeedinge`}=`r (poverweightbreastfeedinge -poverweightkbreastfeedinge)`.$$
 
