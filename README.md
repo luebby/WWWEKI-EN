@@ -5,6 +5,8 @@ Please report any issues [here](https://github.com/luebby/WWWEKI/issues).
 
 **Videos**: The accompanying expert interviews are availabe from [https://wwweki.gitlab.io/interviews/](https://wwweki.gitlab.io/interviews/).
 
+Link to course on **AI Campus**: [https://ki-campus.org/courses/whwici](https://ki-campus.org/courses/whwici)
+
 **References**:
 
 - Rohrer, J. M. (2018). Thinking clearly about correlations and causation: Graphical causal models for observational data. *Advances in Methods and Practices in Psychological Science*, 1(1), 27-42. [https://doi.org/10.1177%2F2515245917745629](https://doi.org/10.1177%2F2515245917745629)
