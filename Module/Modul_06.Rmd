@@ -206,7 +206,7 @@ $\color{green}{X}$ is kindness and $\color{blue}{Y}$ is looks.
 
 If, separately for the two levels of <violet>date</violet> ($\color{violet}{Z}$), we run a linear regression of <blue>looks</blue> ($\color{blue}{Y}$) on <green>kindness</green> ($\color{green}{X}$), the results look like this:
 
-```{r scatterlm, echo=FALSE, fig.align='center', out.width='85%'}
+```{r scatterlm, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
 gf_point(y ~ x, data = SimData, color = ~z) %>%
   gf_lm() +
   scale_color_colorblind() +
@@ -232,7 +232,7 @@ But originally, we simulated our data so that the two variables are independent 
 
 If we look at the relationship between $\color{green}{X}$ and $\color{blue}{Y}$ without considering $\color{violet}{Z}$, we can see that the variables are indeed independent:
 
-```{r scatterlmub, echo=FALSE, fig.align='center', out.width='85%'}
+```{r scatterlmub, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
 gf_point(y ~ x, data = SimData) %>%
   gf_lm()
 ```
@@ -265,11 +265,8 @@ For example, one should not include $Z$ as a predictor variable in a linear mode
 Nor should one divide the data into groups based on $Z$ and analyze them in separation -- this also distorts associations.
 ::: 
 
-## Note
+## AI Campus
 
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-
-![](images/csm_Logo-BMBF.jpg)
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)
 
 

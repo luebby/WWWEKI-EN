@@ -32,7 +32,7 @@ DAG_Chain <- dagify(Z ~ X,
                     Y ~ Z,
                    coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c("#0F710B", "#DA70D6", "#0000FF")) + 
+  geom_dag_point(colour = c("#0F710B", "#0000FF","#DA70D6")) + 
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -304,7 +304,7 @@ One method for estimating relationships between variables $\color{green}{X}$ and
 Here, we assume that the relationship between the variable to be explained $\color{blue}{Y}$ and the other variables in the model is linear, i.e., it is sufficient to only estimate the respective slope to describe the relationship.
 This is what it looks like when we calculate the relationship between learning and understanding in our simulated data:
 
-```{r streu, out.width='80%', fig.align='center', echo = FALSE}
+```{r streu, out.width='80%', fig.align='center', echo = FALSE, warning=FALSE}
 gf_point(y ~ x, data = SimData) %>% # scatter plot
   gf_lm() %>% # regression line
   gf_labs(x = "x: learning", y = "y: understanding") # label axes 
@@ -388,10 +388,6 @@ $$X \rightarrow Z \rightarrow Y$$
 any mediator $Z$ should **not** be considered. When $Z$ is conditioned upon (e.g., when the variable is included in a regression), the causal relationship between $X$ and $Y$ is broken.
 ::: 
 
-## Note
+## AI Campus
 
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-![](images/csm_Logo-BMBF.jpg)
-
-
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)

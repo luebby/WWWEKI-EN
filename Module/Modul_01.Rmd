@@ -384,12 +384,7 @@ If we take that into consideration and start to think about who would like to pa
 
 Over the course of the next modules, you will learn more about different types of data-generating mechanisms and how those influence causal inferences.
 
-## Note
+## AI Campus
 
-
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-
-![](images/csm_Logo-BMBF.jpg)
-
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)
 

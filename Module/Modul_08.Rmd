@@ -35,7 +35,7 @@ DAG_Modell <- dagify(X ~ Z,
                      Y ~ X,
                      coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c("#0F710B", "#DA70D6", "#0000FF")) + 
+  geom_dag_point(colour = c("#0F710B", "#0000FF","#DA70D6")) + 
   geom_dag_text(size = 7) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -50,7 +50,7 @@ DAG_ModellG <- dagify(X ~ Z,
                      S ~ Z,
                      coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c("#0F710B", "#DA70D6", "#0000FF", "Black")) + 
+  geom_dag_point(colour = c("Black", "#0F710B","#0000FF", "#DA70D6")) + 
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -65,7 +65,7 @@ DAG_ModellS <- dagify(X ~ Z,
                      S ~ D,
                      coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c("#808000", "#0F710B", "#DA70D6","Black","#0000FF")) + 
+  geom_dag_point(colour = c("#808000","Black", "#0F710B" ,"#0000FF","#DA70D6")) + 
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -79,7 +79,7 @@ DAG_ModellE <- dagify(X ~ D,
                       Y ~ X,
                       coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c( "#808000","#0F710B", "#DA70D6", "#0000FF")) + 
+  geom_dag_point(colour = c( "#808000","#0F710B", "#0000FF","#DA70D6")) + 
   geom_dag_text(size = 4) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -211,7 +211,7 @@ d <- crossing(x = 1:10,
 pdp <- prop( ~ breastfeeding, data = d, success = "#7A378B")
 
 ppop <- ggplot(d, aes(x = x, y = y)) +
-  geom_tile(color = "white", size = .5, alpha = .2) +
+  geom_tile(color = "white", linewidth = .5, alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = graduate), colour = breastfeeding) +
   labs(title = "Population") +
@@ -263,7 +263,7 @@ dd <- d %>%
 pdgs <- prop( ~ breastfeeding, data = dd, success = "#7A378B")
 
 pgsti <- ggplot(d, aes(x = x, y = y, color = Sample)) +
-  geom_tile(color = "white", size = .5, aes(fill = Sample), alpha = .2) +
+  geom_tile(color = "white", linewidth = .5, aes(fill = Sample), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = graduate), colour = breastfeeding) +
   scale_fill_manual(values = c("#00998A","grey80")) +
@@ -346,7 +346,7 @@ dd <- d %>%
 pdz <- prop( ~ breastfeeding, data = dd, success = "#7A378B")
 
 pzsti <- ggplot(d, aes(x = x, y = y, color = Sample)) +
-  geom_tile(color = "white", size = .5, aes(fill = Sample), alpha = .2) +
+  geom_tile(color = "white", linewidth = .5, aes(fill = Sample), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = graduate), colour = breastfeeding) +
   scale_fill_manual(values = c("#00998A", "grey80")) +
@@ -480,7 +480,7 @@ This leads to the following distribution in the population:
 
 ```{r fig.showtext=TRUE, out.width="90%", echo = FALSE, fig.asp = .7, fig.align="center"}
 pbeob <- ggplot(d, aes(x = x, y = y, color = Overweight)) +
-  geom_tile(color = "white", size = .5, aes(fill = Overweight), alpha = .2) +
+  geom_tile(color = "white", linewidth = .5, aes(fill = Overweight), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = graduates), colour = breastfeedings) +
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
@@ -559,7 +559,7 @@ poverweightkbreastfeedinge <- d2 %>%
   round(., digits = 2)
 
 pexp <- ggplot(d, aes(x = x, y = y, color = Overweight)) +
-  geom_tile(color = "white", size = .5, aes(fill = Overweight), alpha = .2) +
+  geom_tile(color = "white", linewidth = .5, aes(fill = Overweight), alpha = .2) +
   theme_void() +
   geom_text(family='fontawesome-webfont', size = 8, aes(label = graduates), colour = breastfeedings) +
   scale_fill_manual(values = c("#A9BCF5", "#0B2161")) +
@@ -605,12 +605,8 @@ Unfortunately, it doesn't always work like this in practice, and in some situati
 
 
 
+## AI Campus
 
-## Note
-
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-
-![](images/csm_Logo-BMBF.jpg)
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)
 
 

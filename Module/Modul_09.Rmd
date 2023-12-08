@@ -80,7 +80,7 @@ Its value is counterfactual in the sense that it does not exist in reality becau
 
 ***
 
-*Note*: See also Module 1.
+*Note*: See also Module 1 and 3.
 
 ***
 
@@ -88,7 +88,7 @@ Its value is counterfactual in the sense that it does not exist in reality becau
 <img src="images/Zweiwege.jpg" alt="Fork in the road" width="50%" height="50%">
 <!-- style="padding-left:50px;" -->
 <span style="font-size: 10px;"><br>
-Quelle: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/](https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/)
+Source: [https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/](https://pixabay.com/de/photos/wald-pfad-weggabelung-weg-b%c3%a4ume-6607631/)
 </span>
 </center>
 
@@ -254,11 +254,6 @@ Second, **Action:** Modification of the model so that arrows in $X$ are deleted 
 Third **Prediction:** Using the modified model from the second step and the distribution of $U$ from the first step to determine the expected value of the counterfactual for $Y$.
 ::: 
 
-## Note
+## AI Campus
 
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-
-![](images/csm_Logo-BMBF.jpg)
-
-
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)

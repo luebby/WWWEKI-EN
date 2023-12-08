@@ -467,10 +467,6 @@ This *causal ladder* is part of the next module.
 Quelle: [https://pixabay.com/vectors/good-girls-cloud-star-ladder-2204244/](Quelle: https://pixabay.com/vectors/good-girls-cloud-star-ladder-2204244/)
 </span>
 
-## Note
+## AI Campus
 
-
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-
-![](images/csm_Logo-BMBF.jpg)
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)

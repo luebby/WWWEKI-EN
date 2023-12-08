@@ -45,7 +45,7 @@ DAG_Fork <- dagify(X ~ Z,
                     Y ~ Z,
                    coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c( "#DA70D6", "#0F710B", "#0000FF")) + 
+  geom_dag_point(colour = c("#0F710B","#0000FF", "#DA70D6")) + 
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -56,6 +56,8 @@ DAG_Fork <- dagify(X ~ Z,
 
 library(mosaic)
 
+# Source: https://doi.org/10.1111/1467-9639.00013
+# Also: https://figshare.com/articles/dataset/Storks_and_human_babies_data/839299/1
 StorksBirths <- tibble(
   country = c("Albania", "Austria", "Belgium", "Bulgaria", "Denmark", "France", "Germany", "Greece", "Holland", "Hungary", "Italy", "Poland", "Portugal", "Romania", "Spain", "Switzerland", "Turkey"),
   area = c(28750, 83860, 30520, 111000, 43100, 544000, 357000, 132000, 41900, 93000, 301280, 312680, 92390, 237500, 504750, 41290, 779450),
@@ -96,7 +98,7 @@ Or do they?
 
 At the beginning of the millennium, Robert Matthews actually collected data to answer the question ([Source](https://doi.org/10.1111/1467-9639.00013)):
 
-```{r scatter, echo=FALSE, fig.align='center', out.width='85%'}
+```{r scatter, echo=FALSE, fig.align='center', out.width='85%', warning=FALSE}
 gf_point(births ~ storks, data = StorksBirths, size = 2, alpha = 0.7) %>%
   gf_lm() %>%
   gf_lims(x=c(0,35000), y=c(0,2000000)) %>%
@@ -367,11 +369,8 @@ cor.test(x1 ~ x2, data = RandomWalk)
 ```
 
 
-## Note
+## AI Campus
 
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-
-![](images/csm_Logo-BMBF.jpg)
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)
 
 

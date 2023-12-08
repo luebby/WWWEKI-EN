@@ -2,8 +2,6 @@
 title: "Module 11: Does smoking harm adolescents?"
 output: 
   learnr::tutorial:
-    language: 
-      de: js/tutorial_de.json
     progressive: true
     css: "css/style.css"
 runtime: shiny_prerendered
@@ -328,10 +326,7 @@ See also Cummiskey, K., Adams, B,. Pleuss, J., Turner, D., Clark, N. \& Watts, K
 
 Data source is Kahn, M. (2005). *An exhalent problem for teaching statistics*. Journal of Statistics Education, 13(2), [https://doi.org/10.1080/10691898.2005.11910559](https://doi.org/10.1080/10691898.2005.11910559).
 
-***
 
+## AI Campus
 
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-
-![](images/csm_Logo-BMBF.jpg)
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)

@@ -35,7 +35,7 @@ DAG_Fork <- dagify(X ~ Z,
                    Y ~ X,
                    coords = co) %>% 
   ggdag() + 
-  geom_dag_point(colour = c("#0F710B", "#DA70D6","#0000FF")) + 
+  geom_dag_point(colour = c("#0F710B","#0000FF","#DA70D6")) + 
   geom_dag_text(size = 8) +
   theme_dag_blank() +
   geom_dag_edges(arrow_directed = grid::arrow(length = grid::unit(15, "pt"), type = "closed")) +
@@ -78,7 +78,7 @@ It contains data on houses in Saratoga County, New York, USA, in 2006.
 
 Let's have a look at the relation between number of rooms (`rooms`) and price (`price`):
 
-```{r desi}
+```{r desi, warning=FALSE}
 # Load data and packages
 library(mosaic)
 data(SaratogaHouses)
@@ -267,11 +267,9 @@ question("Suppose we want to analyze the expected change in price when living ar
 ```
 
 
-## Note
+## AI Campus
 
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)
 
-
-![](images/csm_Logo-BMBF.jpg)
 
 

@@ -364,11 +364,6 @@ The idea of causal fusion is that we can still use all these data sources *in co
 - Paul Hünermund and Elias Bareinboim. [Causal Inference and Data-Fusion in Econometrics](https://arxiv.org/abs/1912.09104v2).
 
 
-## Note
+## AI Campus
 
-
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
-
-
-
-![](images/csm_Logo-BMBF.jpg)
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)

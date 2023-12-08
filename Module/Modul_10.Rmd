@@ -309,10 +309,7 @@ Press on the gender node and mark it as the *exposure* (in the variable panel on
 ![](images/GPG-2.png){width="75%"}
 
 
-## Note
 
-This course was supported by a grant from the German Federal Ministry of Education and Research, grant number 16DHBQP040.
+## AI Campus
 
-
-
-![](images/csm_Logo-BMBF.jpg)
+[Back to course](https://learn.ki-campus.org/courses/b4f3bf71-74b1-48d8-a4c4-61aef5a808eb/launch)
